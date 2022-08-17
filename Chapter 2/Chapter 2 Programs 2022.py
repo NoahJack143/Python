@@ -1,3 +1,5 @@
+import turtle
+
 def comment_example():
     #comment_example receives no arguments
     #it explains how to create a function header
@@ -107,3 +109,162 @@ def program2_15():
     final_price = original_price - discount #finding the final price
     
     print("The final price is: ", final_price) #The output price the user will receive
+    
+def program2_16(): #getting the average from inputs
+    #collect data from the user
+    firsttestscore = float(input("Enter the first test score: "))
+    secondtestscore = float(input("Enter the second test score: "))
+    thirdtestscore = float(input("Enter the third test score: "))
+    
+    #adding the three inputs that the user put in
+    finalscore = firsttestscore + secondtestscore + thirdtestscore
+    
+    #diving the "finalscore" by the total amount of inputs
+    averagescore = finalscore / 3
+    #could also be "averagescore = (firsttestscore + secondtestscore+ thirdtestscore) / 3"
+    
+    #output message that the user will recieve (Their final score)
+    print("Your average score is: ", averagescore)
+    
+def program2_17():#Time converter
+    #Get input from the user
+    totalseconds = float(input("Enter the number of seconds: "))
+    
+    #Get the number of remaining seconds
+    seconds = totalseconds % 60
+    
+    #Get the number of remaining seconds
+    minutes = (totalseconds // 60) % 60
+    
+    #Get the number of hours
+    hours = totalseconds // 3600
+    
+    #Output the results
+    print("Here is the time in hours, minutes, and in seconds: ")
+    print("Hours: ", hours)
+    print("Minutes: ", minutes)
+    print("Seconds: ", seconds)
+    
+def program2_18(): #future value equation
+    
+    #F = what you want your money to be
+    #R = interest rate
+    #N = numbe of years that the money will accrue interest
+    #P = the amount that will need to be deposited
+    
+    #User will input values here
+    F = float(input("Enter the desired future value: "))
+    R = float(input("Enter the annual interest rate: "))
+    N = float(input("Enter the number of years the money will grow: "))
+    
+    #Solve for the bottom of the equation
+    denominator = (1+R) ** N
+    
+    #Devide the numerator by the denominator
+    P = F / denominator
+    
+    #The equation could also be "P = F / ((1 + R) ** N)"
+    
+    #The output information the user will get
+    print("You will need to deposit: ", P)
+    
+#integer + integer = integer
+#float + integer = float
+
+#split commands with \
+    
+def program2_18b(): #future value equation with decimals
+    
+    #F = what you want your money to be
+    #R = interest rate
+    #N = numbe of years that the money will accrue interest
+    #P = the amount that will need to be deposited
+
+    F = float(input("Enter the desired future value: "))
+    R = float(input("Enter the annual interest rate: "))
+    N = float(input("Enter the number of years the money will grow: "))
+    
+    denominator = (1+R) ** N
+    P = F / denominator
+    
+    #Making the output number have only 2 decimals
+    print("You will need to deposit: ", format(P, ".2f"))
+    
+#Inside ".2f", the "f" is the type
+    
+def program2_19():
+    amountdue = float(input("Enter the amount due: "))
+    
+    monthlypayment = amountdue / 12
+    
+    print("Your monthly payment is", monthlypayment)
+    
+def program2_20():
+    amountdue = float(input("Enter the amount due: "))
+    
+    monthlypayment = amountdue / 12
+    
+    print("Your monthly payment is ", end= "$")
+    print(format(monthlypayment, ".2f"))
+    
+def program2_21(): #future value equation
+    
+    #F = what you want your money to be
+    #R = interest rate
+    #N = numbe of years that the money will accrue interest
+    #P = the amount that will need to be deposited
+
+    F = float(input("Enter the desired future value: "))
+    R = float(input("Enter the annual interest rate: "))
+    N = float(input("Enter the number of years the money will grow: "))
+    
+    denominator = (1+R) ** N
+
+    P = F / denominator
+
+    print("You will need to deposit: ", end="$")
+    print(format(P, ".2f"))
+    
+def program2_21b(): #future value equation
+    
+    #F = what you want your money to be
+    #R = interest rate
+    #N = numbe of years that the money will accrue interest
+    #P = the amount that will need to be deposited
+
+    F = float(input("Enter the desired future value: "))
+    R = float(input("Enter the annual interest rate: "))
+    N = float(input("Enter the number of years the money will grow: "))
+    
+    denominator = (1+R) ** N
+
+    P = F / denominator
+
+    print("You will need to deposit: $" + str(format(P, ".2f")))
+    #Could be "print("You will need to depost $", format(P, ".2f", sep= " "))
+    
+def program2_22():
+    
+    #Values
+    no1 = 127.90
+    no2 = 3465.15
+    no3 = 3.78
+    no4 = 264.82
+    no5 = 88.08
+    no6 = 800.00
+    
+    #Output Values
+    print(format(no1, "7.2f"))
+    print(format(no2, "7.2f"))
+    print(format(no3, "7.2f"))
+    print(format(no4, "7.2f"))
+    print(format(no5, "7.2f"))
+    print(format(no6, "7.2f"))
+    
+#Stick to variables and not just random numbers
+#Random numbers will only be understood by the writer
+#Not the user
+#Instead, use a constant (Name that has a variable applied to it)
+    
+    
+    
