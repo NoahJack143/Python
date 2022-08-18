@@ -266,5 +266,63 @@ def program2_22():
 #Not the user
 #Instead, use a constant (Name that has a variable applied to it)
     
+def orion2_21():
+    #The Function orion uses Named Constants to stablish
+    #each star location, it's name, and to draw the
+    #constellation using the turtle to draw
     
+    #Setup turtle
+    turtle.setup(500, 500)
+    turtle.penup()
+    turtle.hideturtle()
     
+    #Use named constants for each star
+    left_shoulder_x = -70
+    left_shoulder_y = 200
+    
+    right_shoulder_x = 80
+    right_shoulder_y = 180
+    
+    left_beltstar_x = -40
+    left_beltstar_y = -20
+    
+    middle_beltstar_x = 0
+    middle_beltstar_y = 0
+    
+    right_beltstar_x = 40
+    right_beltstar_y = 20
+    
+    left_knee_x = -90
+    left_knee_y = -180
+    
+    right_knee_x = 120
+    right_knee_y = -140
+    
+    turtle.pendown()
+    turtle.dot()
+    turtle.write("Alrilam")
+    turtle.goto(right_beltstar_x, right_beltstar_y)
+    turtle.dot()
+    turtle.write("Mintaka")
+    turtle.goto(right_knee_x, right_knee_y)
+    turtle.dot()
+    turtle.write("Rigel")
+    turtle.goto(right_beltstar_x, right_beltstar_y)
+    turtle.goto(right_shoulder_x, right_shoulder_y)
+    turtle.dot()
+    turtle.write("Meissa")
+    turtle.penup()
+    turtle.goto(0, 0)
+    turtle.pendown()
+    turtle.goto(left_beltstar_x, left_beltstar_y)
+    turtle.dot()
+    turtle.write("Alritak")
+    turtle.goto(left_shoulder_x, left_shoulder_y)
+    turtle.dot()
+    turtle.write("Betelgeuse")
+    turtle.goto(left_beltstar_x, left_beltstar_y)
+    turtle.goto(left_knee_x, left_knee_y)
+    turtle.dot()
+    turtle.write("Saiph")
+    
+    turtle.done()
