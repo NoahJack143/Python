@@ -1,4 +1,4 @@
-
+import turtle
 
 def ex2_1():
     #The "Personal Information" accepts no arguments.
@@ -145,7 +145,7 @@ def cookie_monster():
     #to get the number of ounces
     
     #Input from the user
-    cookieamount = float(input("How many cookies do you want to make? "))
+    cookieamount = int(input("How many cookies do you want to make? "))
     
     #Calculations
     #Sugar
@@ -154,3 +154,112 @@ def cookie_monster():
     ozofsugar = totalsugar % 8
     #Butter
     totalbutter = cookieamount * .3333
+    cupsofbutter = totalbutter // 8
+    ozofbutter = totalbutter % 8
+    #Flour
+    totalflour = cookieamount * .9166
+    cupsofflour = totalflour // 8
+    ozofflour = totalflour % 8
+    
+    #Output
+    print("For ", cookieamount, "cookies you will need:")
+    print(format(cupsofsugar, ".0f"), """cup(s)""", format(ozofsugar, ".0f"), "ounces of sugar.")
+    print(format(cupsofbutter, ".0f"), """cup(s)""", format(ozofbutter, ".0f"), "ounces of butter.")
+    print(format(cupsofflour, ".0f"), """cup(s)""", format(ozofflour, ".0f"), "ounces of flour.")
+
+def class_demographics():
+    #The "Male and Female Percentages" exercise accepts no arguments
+    #This exercise will calculate the percentage of males and females in a class
+    #The output will be the percentage of males and females in a class
+    
+    #Input
+    femalestotal = int(input("Enter the number of females: "))
+    malestotal = int(input("Enter the number of males: "))
+    
+    #Calculations
+    totalstudents = femalestotal + malestotal 
+    femalepercent = femalestotal / totalstudents
+    malepercent = malestotal / totalstudents
+    
+    #Output
+    print("The class consists of", format(femalepercent, ".0%"), "females and"
+          , format(malepercent, ".0%"), "males.")
+    
+def turtleone():
+    #The "turtleone" exercise accepts no arguments)
+    #This exercise will use turtle to make 2 projects of our choice.
+    #The output will be a compass and the olympics logo.
+    
+    #Presettings for turtle
+    turtle.speed(8)
+    turtle.pensize(7)
+    
+    #Executions
+    turtle.penup()
+    turtle.left(180)
+    turtle.goto(-150, 0)
+    turtle.pendown()
+    turtle.pencolor("blue")
+    turtle.circle(60)
+    turtle.penup()
+    turtle.goto(0,0)
+    turtle.pencolor("black")
+    turtle.pendown()
+    turtle.circle(60)
+    turtle.penup()
+    turtle.goto(150,0)
+    turtle.pencolor("red")
+    turtle.pendown()
+    turtle.circle(60)
+    turtle.penup()
+    turtle.goto(75,-60)
+    turtle.pencolor("green")
+    turtle.pendown()
+    turtle.circle(60)
+    turtle.penup()
+    turtle.goto(-75,-60)
+    turtle.pencolor("yellow")
+    turtle.pendown()
+    turtle.circle(60)
+    turtle.done()
+    
+def turtletwo():
+    #The "turtletwo" exercise accepts no arguments
+    #This exercise will use turtle to create a compass
+    #This exercise will output a compass
+    
+    #Presettings for turtle
+    turtle.speed(8)
+    turtle.pensize(7)
+    
+    #Executions
+    turtle.penup()
+    turtle.goto(0,90)
+    turtle.pendown()
+    turtle.goto(0,-90)
+    turtle.penup()
+    turtle.goto(-90,0)
+    turtle.pendown()
+    turtle.goto(90,0)
+    turtle.penup()
+    turtle.goto(0,0)
+    turtle.pensize(4)
+    turtle.goto(-45,45)
+    turtle.pendown()
+    turtle.goto(45,-45)
+    turtle.penup()
+    turtle.goto(45,45)
+    turtle.pendown()
+    turtle.goto(-45,-45)
+    turtle.penup()
+    turtle.goto(-5,93)
+    turtle.write("N", font=("arial", 16))
+    turtle.goto(100,-10)
+    turtle.write("E", font=("arial", 16))
+    turtle.goto(-5,-120)
+    turtle.write("S", font=("arial", 16))
+    turtle.goto(-115,-10)
+    turtle.write("W", font=("arial", 16))
+    turtle.done()
+    
+    
