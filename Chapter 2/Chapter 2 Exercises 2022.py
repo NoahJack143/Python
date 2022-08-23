@@ -191,36 +191,49 @@ def turtleone():
     #The output will be a compass and the olympics logo.
     
     #Presettings for turtle
-    turtle.speed(8)
+    turtle.speed(10)
     turtle.pensize(7)
+    turtle.hideturtle()
     
-    #Executions
+    #Executions ---
+    
+    #Blue circle
     turtle.penup()
     turtle.left(180)
     turtle.goto(-150, 0)
     turtle.pendown()
     turtle.pencolor("blue")
     turtle.circle(60)
+    
+    #Black circle
     turtle.penup()
     turtle.goto(0,0)
     turtle.pencolor("black")
     turtle.pendown()
     turtle.circle(60)
+    
+    #Red circle
     turtle.penup()
     turtle.goto(150,0)
     turtle.pencolor("red")
     turtle.pendown()
     turtle.circle(60)
+    
+    #Green circle
     turtle.penup()
     turtle.goto(75,-60)
     turtle.pencolor("green")
     turtle.pendown()
     turtle.circle(60)
+    
+    #Yellow circle
     turtle.penup()
     turtle.goto(-75,-60)
     turtle.pencolor("yellow")
     turtle.pendown()
     turtle.circle(60)
+    
+    #End of executions ---
     turtle.done()
     
 def turtletwo():
@@ -232,7 +245,9 @@ def turtletwo():
     turtle.speed(8)
     turtle.pensize(7)
     
-    #Executions
+    #Executions ---
+    
+    #North, South, East, and West lines
     turtle.penup()
     turtle.goto(0,90)
     turtle.pendown()
@@ -242,6 +257,8 @@ def turtletwo():
     turtle.pendown()
     turtle.goto(90,0)
     turtle.penup()
+    
+    #Northeast, Southeast, Southwest, and Northwest lines
     turtle.goto(0,0)
     turtle.pensize(4)
     turtle.goto(-45,45)
@@ -253,6 +270,8 @@ def turtletwo():
     turtle.goto(-45,-45)
     turtle.penup()
     turtle.goto(-5,93)
+    
+    #Letters for North, East, South, and West
     turtle.write("N", font=("arial", 16))
     turtle.goto(100,-10)
     turtle.write("E", font=("arial", 16))
@@ -260,6 +279,103 @@ def turtletwo():
     turtle.write("S", font=("arial", 16))
     turtle.goto(-115,-10)
     turtle.write("W", font=("arial", 16))
+    
+    #End of executions ---
     turtle.done()
     
+def turtlethree():
+    #The "turtlethree" exercise accepts no arguments
+    #This exercise will use turtle to create a simple house with colors
+    #This exercise will output a colored house
+    
+    #Presettings for turtle
+    turtle.speed(8)
+    turtle.pensize(7)
+    
+    #Executions ---
+    
+    #Main body of the house
+    turtle.pendown()
+    turtle.fillcolor("brown")
+    turtle.begin_fill()
+    turtle.goto(0,-240)
+    turtle.goto(240,-240)
+    turtle.goto(240,0)
+    turtle.goto(0,0)
+    turtle.end_fill()
+    turtle.goto(240,0)
+    
+    #3D part of the house
+    turtle.begin_fill()
+    turtle.goto(420,-50)
+    turtle.goto(420,-190)
+    turtle.goto(240,-240)
+    turtle.end_fill()
+    turtle.goto(240,0)
+    
+    #Roof of the house
+    turtle.fillcolor("yellow")
+    turtle.begin_fill()
+    turtle.goto(120,120)
+    turtle.goto(0,0)
+    turtle.goto(240,0)
+    turtle.end_fill()
+    turtle.goto(120,120)
+    turtle.begin_fill()
+    turtle.goto(380,20)
+    turtle.goto(420,-50)
+    turtle.goto(240,0)
+    turtle.goto(120,120)
+    turtle.end_fill()
+    
+    #End of execution ---
+    turtle.done()
+    
+def turtlethree1():
+    #The "turtlethree" exercise accepts no arguments
+    #This exercise will use turtle to create a simple house with colors
+    #This exercise will output a colored house
+    
+    #Presettings for turtle
+    turtle.speed(8)
+    turtle.pensize(7)
+    
+    #Executions ---
+    
+    #Main body of the house
+    turtle.pendown()
+    turtle.color("black", "#7f00ff")
+    turtle.begin_fill()
+    turtle.goto(0,-240)
+    turtle.goto(240,-240)
+    turtle.goto(240,0)
+    turtle.goto(0,0)
+    turtle.end_fill()
+    turtle.goto(240,0)
+    
+    #3D part of the house
+    turtle.begin_fill()
+    turtle.goto(420,-50)
+    turtle.goto(420,-190)
+    turtle.goto(240,-240)
+    turtle.end_fill()
+    turtle.goto(240,0)
+    
+    #Roof of the house
+    turtle.fillcolor("#4e13a6")
+    turtle.begin_fill()
+    turtle.goto(120,120)
+    turtle.goto(0,0)
+    turtle.goto(240,0)
+    turtle.end_fill()
+    turtle.goto(120,120)
+    turtle.begin_fill()
+    turtle.goto(380,20)
+    turtle.goto(420,-50)
+    turtle.goto(240,0)
+    turtle.goto(120,120)
+    turtle.end_fill()
+    
+    #End of execution ---
+    turtle.done()
     
