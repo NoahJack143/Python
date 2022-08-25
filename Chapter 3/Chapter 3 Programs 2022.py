@@ -1,4 +1,4 @@
-
+import turtle
 
 def ta(): #test_average
     
@@ -143,7 +143,8 @@ def ron(): #range_of_numbers      #elif
 #else:
     #If the first condition failed
 
-def eq(): #loan_qualifier           #multiple "if" statements
+def eq(): #loan_qualifier              #multiple "if" statements
+    #loan qualifier accepts no arguments
     #loan qualifier is going to take input from the user
     #use multiple "if" statements, and then give a output
     #dependent on the "if" statements.
@@ -154,9 +155,11 @@ def eq(): #loan_qualifier           #multiple "if" statements
     
     #IF statement #1
     if salary >= 30000:
+        print("Your salary meets the requirements.")
         #IF statement #2
         if jobs >= 2:
-            print("You qualify for the loan")
+            print("Your years worked also meets the requirement.")
+            print("You qualify for the loan.")
         #false statement #2
         else:
             print("You must have been on your current job for at least two "
@@ -164,4 +167,147 @@ def eq(): #loan_qualifier           #multiple "if" statements
     #false statement #1
     else:
         print("You must earn at least $30,000 per year to qualify.")
+
+#elif is used to check mulitple conditions ------
+#else is used if all the conditions fail ------
         
+def g(): #grader
+    #grader accepts no arguments
+    #grader will take input from the user and tell them what letter grade they have
+    #this will output their letter grade correlation to their pecentage
+    
+    #Input from the user
+    grade = int(input("What is your current grade? "))
+    
+    #If statements
+    if grade >= 90:
+        print("Your grade is A.")
+    elif grade >=80:
+        print("Your grade is B.")
+    elif grade >=70:
+        print("Your grade is C.")
+    elif grade >=60:
+        print("Your grade is D.")
+    else:
+        print("Your grade is F.")
+        
+def g2(): #grader2.0
+    #grader2.0 accepts no arguments
+    #grader will take input from the user and tell them what letter grade they have
+    #this will output their letter grade correlation to their pecentage
+    
+    #Input from the user
+    grade = int(input("What is your current grade? "))
+    
+    #You can also group the "if" and "else" together
+    #if grade >= 90:
+    #   print("Your grade is A.")
+    #else:
+    #
+    #If statements
+    if grade >= 60:
+        if grade >= 70:
+            if grade >= 80:
+                if grade >= 90:
+                    print("Your grade is A.")
+                else:
+                    print("Your grade is B.")
+            else:
+                print("Your grade is C.")
+        else:
+            print("Your grade is D.")
+    else:
+        print("Your grade is F.")
+        
+#"or" needs one or the other to be True
+#True and False = True
+#"and" needs both to be True in order to be True
+#True and True = True
+#True and False = False
+        
+def eq2(): #loan_qualifier1.2              #"and" statement
+    #loan qualifier accepts no arguments
+    #loan qualifier is going to take input from the user
+    #loan qualifier is going to use "and" to check if both
+    #expressions are true. If not, then the output will be "else".
+    
+    #input from the user
+    salary = int(input("Enter your annual salary: "))
+    jobs = int(input("Enter the number of years at your current job: "))
+    
+    #If statement with "and"
+    if salary >= 30000 and jobs >= 2:
+        print("You qualify for the loan.")
+    else:
+        print("""You're are missing one of the qualifications""")
+        
+def eq3(): #loan_qualifier1.3              #"or" statement
+    #loan qualifier accepts no arguments
+    #loan qualifier is going to take input from the user
+    #loan qualifier is going to use and "if" statement with an "or"
+    #statement to see if only one of the expressions is true.
+    #If even one of the expressions is true, then the output will be true
+    #If both of the expressions are false, then the output will be "else"
+    
+    #input from the user
+    salary = int(input("Enter your annual salary: "))
+    jobs = int(input("Enter the number of years at your current job: "))
+    
+    #IF statement #1
+    if salary >= 30000 or jobs >= 2:
+        print("You qualify for the loan.")
+    else:
+        print("""You're missing both of the qualifications""")
+    
+#Boolean variable: references one of two values, True or False (bool)
+
+def htt(): #hit_the_target()
+    #hit the target accepts no arguments
+    screenwidth = 600  #screen width
+    screenheight = 600  #screen height
+    targetleftx = 100  #Target's lower left corner x
+    targetlefty = 250  #Target's lower left corner y
+    targetwidth = 25  #Target's width
+    targetfactor = 30  #Arbitrary force factor
+    projectilespeed = 1  #Projectile's animation speed
+    north = 90  #Angle of north direction
+    south = 270  #Angle of south direction
+    east = 0  #Angle of east direction
+    west = 180  #Angle of west direction
+    
+    #Presettings to create the target
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.goto(targetleftx, targetlefty)
+    turtle.pendown()
+    turtle.forward(25)
+    turtle.left(90)
+    turtle.forward(25)
+    turtle.left(90)
+    turtle.forward(25)
+    turtle.left(90)
+    turtle.forward(25)
+    turtle.penup()
+    turtle.goto(0,0)
+    turtle.showturtle()
+    
+    #Ask the user for input
+    projectile_angle = int(input("Enter the projectile's angle (1-359): "))
+    force = int(input("Enter the launch force (1-10): "))
+    
+    #Speed of animation
+    turtle.speed(1)
+    
+    #Angle of projection
+    turtle.setheading(projectile_angle)
+    
+    #Force of projection
+    turtle.forward(force * 28)
+    
+    #Check to see if they hit the target
+    if turtle.xcor() > 100 and turtle.xcor() < 125 and turtle.ycor() > 250 and turtle.ycor() < 275:
+        print("You hit!")
+    else:
+        print("You missed!")
+    
+    turtle.done()
