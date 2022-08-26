@@ -57,3 +57,63 @@ def rn(): #Roman Numerals
         print("The corresponding roman numeral is X")
     else:
         print("ERROR")
+        
+def cm(): #color_mixer
+    #color mixer accepts no arguments
+    #This program will ask the user for two primary colors and will
+    #give the user the mix of the two colors. If the user puts in
+    #a non primary color, then there will be an ERROR message.
+    
+    #Input from the user
+    color1 = input("Enter a primary color: ")
+    color2 = input("Enter a second primary color: ")
+    
+    #If statements
+    if (color1 == "red" and color2 == "blue") or (color1 =="blue" and color2 == "red"):
+        print(" ")
+        print("The secondary color is purple")
+    elif (color1 == "red" and color2 == "yellow") or (color1 =="yellow" and color2 == "red"):
+        print(" ")
+        print("The secondary color is orange")
+    elif (color1 == "yellow" and color2 == "blue") or (color1 =="blue" and color2 == "yellow"):
+        print(" ")
+        print("The secondary color is green")
+    else:
+        print(" ")
+        print("ERROR")
+        
+def hcc(): #hotdog cookout companion
+    #Hotdog Cookout Companion accepts no arguments
+    #This program will ask the user for the amount of people attending
+    #and the number of hotdogs each person will recieve. Using their input,
+    #the program will calculate the minimum numer of packages of hotdogs and buns required,
+    #the number of hotdogs left over, and hte number of hotdog buns left over.
+    
+    #Input from the user
+    people_attending = int(input("How many people are attending?: "))
+    hotdogs_per_person = int(input("How many hotdogs will each person get?: "))
+    
+    #PRE Calculations
+    total_amount_of_hotdogs = people_attending * hotdogs_per_person
+    minimum_hotdogs = total_amount_of_hotdogs // 10
+    minimum_hotdog_buns = total_amount_of_hotdogs // 8
+    
+    #If statements + more Calculations
+    if ((total_amount_of_hotdogs % 10) > 0) and ((total_amount_of_hotdogs % 10) <10):
+        new_minimum_hotdogs = minimum_hotdogs + 1
+    if new_minimum_hotdogs > minimum_hotdogs:
+        #move the hotdog left over equation up here and change the left over hotdog equation below
+    if ((total_amount_of_hotdogs % 8) > 0) and ((total_amount_of_hotdogs % 8) < 8):
+        minimum_hotdog_buns = minimum_hotdog_buns + 1
+        
+    #POST Calculations
+    hotdogs_left_over = (minimum_hotdogs*10) - total_amount_of_hotdogs
+    hotdog_buns_left_over = (minimum_hotdog_buns*10) - total_amount_of_hotdogs
+    
+    #Output for the user
+    print(" ")
+    print("The minimum number of packages of hotdogs required are ", minimum_hotdogs, " packages")
+    print("The minimum number of pakcages of hotdog buns required are ", minimum_hotdog_buns," packages")
+    print("The number of hotdogs left over would be ", hotdogs_left_over)
+    print("The number of hotdog buns left over would be ", hotdog_buns_left_over)
+    
