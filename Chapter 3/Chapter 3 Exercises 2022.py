@@ -82,38 +82,181 @@ def cm(): #color_mixer
         print(" ")
         print("ERROR")
         
-def hcc(): #hotdog cookout companion
-    #Hotdog Cookout Companion accepts no arguments
-    #This program will ask the user for the amount of people attending
-    #and the number of hotdogs each person will recieve. Using their input,
-    #the program will calculate the minimum numer of packages of hotdogs and buns required,
-    #the number of hotdogs left over, and hte number of hotdog buns left over.
-    
+def hcc(): #Hotdog Cookout Companion
+    #Copy every below this text!!
     #Input from the user
-    people_attending = int(input("How many people are attending?: "))
-    hotdogs_per_person = int(input("How many hotdogs will each person get?: "))
+    people = int(input("Enter the amount of people attending: "))
+    hotdogs_per_person = int(input("Enter the amount of hotdogs each person will get: "))
     
     #PRE Calculations
-    total_amount_of_hotdogs = people_attending * hotdogs_per_person
-    minimum_hotdogs = total_amount_of_hotdogs // 10
-    minimum_hotdog_buns = total_amount_of_hotdogs // 8
+    total_hotdogs = people * hotdogs_per_person
+    mim_hotdog_packs = total_hotdogs // 10
+    mim_bun_packs = total_hotdogs // 8
     
-    #If statements + more Calculations
-    if ((total_amount_of_hotdogs % 10) > 0) and ((total_amount_of_hotdogs % 10) <10):
-        new_minimum_hotdogs = minimum_hotdogs + 1
-    if new_minimum_hotdogs > minimum_hotdogs:
-        #move the hotdog left over equation up here and change the left over hotdog equation below
-    if ((total_amount_of_hotdogs % 8) > 0) and ((total_amount_of_hotdogs % 8) < 8):
-        minimum_hotdog_buns = minimum_hotdog_buns + 1
+    #POST 1 Calculations
+    if (total_hotdogs % 10) > 0 and (total_hotdogs % 10) < 10:
+        mim_hotdog_packs = mim_hotdog_packs + 1
+    if (total_hotdogs % 8) > 0 and (total_hotdogs % 8) < 8:
+        mim_bun_packs = mim_bun_packs + 1
         
-    #POST Calculations
-    hotdogs_left_over = (minimum_hotdogs*10) - total_amount_of_hotdogs
-    hotdog_buns_left_over = (minimum_hotdog_buns*10) - total_amount_of_hotdogs
+    #POST 2 Calculations
+    hotdogs_left_over = (mim_hotdog_packs * 10) - total_hotdogs
+    buns_left_over = (mim_bun_packs * 8) - total_hotdogs
     
     #Output for the user
     print(" ")
-    print("The minimum number of packages of hotdogs required are ", minimum_hotdogs, " packages")
-    print("The minimum number of pakcages of hotdog buns required are ", minimum_hotdog_buns," packages")
-    print("The number of hotdogs left over would be ", hotdogs_left_over)
-    print("The number of hotdog buns left over would be ", hotdog_buns_left_over)
+    print("You will need to buy", mim_hotdog_packs, "packages of hotdogs")
+    print("You will need to buy", mim_bun_packs, "packages of buns")
+    print("There will be", hotdogs_left_over, "hotdogs left over")
+    print("There will be", buns_left_over, "buns left over")
+    #End the copying above this text!!
+   
+#Copy everything below this text!!
+def tc(): #Time Calculator
+    #Time Calculator accepts no arguments
+    #Time Calculator will take input from the user and depending on the amount, the
+    #program will either give the output in seconds, minutes and seconds, hours and
+    #minutes and seconds, or days, hours, minutes, and seconds
     
+    #Input from the user
+    user_input = int(input("Enter a positive number of seconds: "))
+    
+    #Calculations 1
+    if user_input >= 86400:
+        days = user_input // 86400
+        hours = (user_input - (days * 86400)) // 3600
+        minutes = ((user_input - (days * 86400)) - (hours * 3600)) // 60
+        seconds = (((user_input - (days * 86400) - (hours * 3600) -(minutes * 60)))) // 1
+    elif user_input >= 3600:
+        days = user_input // 86400
+        hours = (user_input - (days * 86400)) // 3600
+        minutes = ((user_input - (days * 86400)) - (hours * 3600)) // 60
+        seconds = (((user_input - (days * 86400) - (hours * 3600) -(minutes * 60)))) // 1
+    elif user_input >= 60:
+        days = user_input // 86400
+        hours = (user_input - (days * 86400)) // 3600
+        minutes = ((user_input - (days * 86400)) - (hours * 3600)) // 60
+        seconds = (((user_input - (days * 86400) - (hours * 3600) -(minutes * 60)))) // 1
+    elif user_input >= 0:
+        days = user_input // 86400
+        hours = (user_input - (days * 86400)) // 3600
+        minutes = ((user_input - (days * 86400)) - (hours * 3600)) // 60
+        seconds = (((user_input - (days * 86400) - (hours * 3600) -(minutes * 60)))) // 1
+    else:
+        print(" ")
+        print("ERROR")
+        
+    #Extra space for prettiness
+    print(" ")
+        
+    #Output for the user
+    if user_input >= 86400:
+        print("After", user_input, "seconds have passed,", days, "days,", hours, "hours,",
+              minutes, "minutes,", "and", seconds, "seconds would've passed.")
+    elif user_input >= 3600:
+        print("After", user_input, "seconds have passed,", hours, "hours,",
+              minutes, "minutes,", "and", seconds, "seconds would've passed.")
+    elif user_input >= 60:
+        print("After", user_input, "seconds have passed,", minutes, "minutes", "and", seconds, "seconds would've passed.")
+    elif user_input >= 0:
+        print("After", user_input, "seconds have passed,", seconds, "seconds would've passed.")
+    else:
+        print(" ")
+#End the copying above this text!!
+     
+#Copy everything below this text!!
+def fd(): #February Days
+    #February Days accepts no arguments
+    #This program will take prompt the user for a year, and the output will tell
+    #the user whether or not that year is a leap year
+    
+    #Input from the user
+    year = int(input("Enter a year: "))
+    
+    #Calculations + Output
+    if (year % 4) == 0:
+        print(year, "is a leap year. There are 29 days in the month of February.")
+    elif (year % 4) != 0:
+        print(year, "is not a leap year. There are 28 days in the month of February.")
+    else:
+        print("ERROR")
+#End the copying above this text!!
+
+#Copy everything below this text!!
+def sfa(): #sir_fix_alot
+    #sir_fix_alot accepts no arguments
+    #This program will take multiple inputs from the user, and if the input is constantly False
+    #, then the output will be get a new router. However, if even one of the inputs from the user True,
+    #then the output will be Netflix and Chill.
+    
+    #PRE text just for fun
+    print("ROUTER PROBLEM MANUAL")
+    print("""ANSWER THE FOLLOWING QUESTIONS WITH EITHER "YES" OR "NO" """)
+    print(" ")
+    
+    #Question 1 + possible output
+    print("Reboot your computer and try to reconnect to the router...")
+    print(" ")
+    answer1 = input("Did that fix the problem?: ")
+    if answer1 == "YES":
+        print(" ")
+        print("Great! Go enjoy your Netflix show!")
+    #Question 2 + possible output
+    elif answer1 == "NO":
+        print(" ")
+        print("Reboot your computer again and try to reconnect to the router...")
+        print(" ")
+        answer2 = input("Did that fix the problem?: ")
+        if answer2 == "YES":
+            print(" ")
+            print("Great! Go enjoy your Netflix show!")
+        #Question 3 + possible output
+        elif answer2 == "NO":
+            print(" ")
+            print("Check your cables and make sure that they are firmly attached...")
+            print(" ")
+            answer3 = input("Did that fix the problem?: ")
+            if answer3 == "YES":
+                print(" ")
+                print("Great! Go enjoy your Netflix show!")
+            #Question 4 + possible outputs
+            elif answer3 == "NO":
+                print(" ")
+                print("Move your router to a location that is closer to your computer...")
+                print(" ")
+                answer4 = input("Did that fix the problem?: ")
+                if answer4 == "YES":
+                    print(" ")
+                    print("Great! Go enjoy your Netflix show!")
+                #Question 5 + remaining outputs
+                elif answer4 == "NO":
+                    print(" ")
+                    print("Your final solution would be to get a new router.")
+                    if answer4 == "YES":
+                        print(" ")
+                        print("Great! Go enjoy your Netflix show!")
+                else:
+                    print(" ")
+                    print("ERROR")
+                    print("ENTER THE REQUESTED RESPONSES NEXT TIME")
+            else:
+                print(" ")
+                print("ERROR")
+                print("ENTER THE REQUESTED RESPONSES NEXT TIME")
+        else:
+            print(" ")
+            print("ERROR")
+            print("ENTER THE REQUESTED RESPONSES NEXT TIME")
+    else:
+        print(" ")
+        print("ERROR")
+        print("ENTER THE REQUESTED RESPONSES NEXT TIME")
+#End the copying above this text!!
+        
+#Copy everything below this line!!
+def rs(): #Restaurant Selector
+    #Restaurant Selector accepts no arguments
+    #This script will prompt the user for questions about foods they can or can't eat.
+    #Then, the script will give the user their restaurant options.
+    
+    print("hi")
