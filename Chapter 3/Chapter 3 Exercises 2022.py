@@ -1,4 +1,4 @@
-
+import turtle
 
 def dotw(): #Day of the Week
     #Day of the Week accepts no arguments
@@ -83,7 +83,9 @@ def cm(): #color_mixer
         print("ERROR")
         
 def hcc(): #Hotdog Cookout Companion
-    #Copy every below this text!!
+    #Hotdog cookout companion accepts no arguments
+    #hcc will take input from the use and tell the user how many hotdogs and buns they need to buy,
+    #and the scripts will tell the user how many hotdogs and buns will be left over.
     #Input from the user
     people = int(input("Enter the amount of people attending: "))
     hotdogs_per_person = int(input("Enter the amount of hotdogs each person will get: "))
@@ -109,9 +111,7 @@ def hcc(): #Hotdog Cookout Companion
     print("You will need to buy", mim_bun_packs, "packages of buns")
     print("There will be", hotdogs_left_over, "hotdogs left over")
     print("There will be", buns_left_over, "buns left over")
-    #End the copying above this text!!
-   
-#Copy everything below this text!!
+
 def tc(): #Time Calculator
     #Time Calculator accepts no arguments
     #Time Calculator will take input from the user and depending on the amount, the
@@ -162,9 +162,7 @@ def tc(): #Time Calculator
         print("After", user_input, "seconds have passed,", seconds, "seconds would've passed.")
     else:
         print(" ")
-#End the copying above this text!!
-     
-#Copy everything below this text!!
+
 def fd(): #February Days
     #February Days accepts no arguments
     #This program will take prompt the user for a year, and the output will tell
@@ -180,9 +178,7 @@ def fd(): #February Days
         print(year, "is not a leap year. There are 28 days in the month of February.")
     else:
         print("ERROR")
-#End the copying above this text!!
 
-#Copy everything below this text!!
 def sfa(): #sir_fix_alot
     #sir_fix_alot accepts no arguments
     #This program will take multiple inputs from the user, and if the input is constantly False
@@ -251,12 +247,99 @@ def sfa(): #sir_fix_alot
         print(" ")
         print("ERROR")
         print("ENTER THE REQUESTED RESPONSES NEXT TIME")
-#End the copying above this text!!
         
-#Copy everything below this line!!
 def rs(): #Restaurant Selector
     #Restaurant Selector accepts no arguments
     #This script will prompt the user for questions about foods they can or can't eat.
     #Then, the script will give the user their restaurant options.
     
-    print("hi")
+    #Input from the user
+    vegetarian = input("Is anyone a vegetarian? ").lower()
+    vegan = input("Is anyone vegan? ").lower()
+    gluten_free = input("Is anyone gluten-free? ").lower()
+    
+    #PRE Text output
+    print(" ")
+    print("Here are your restaurant choices:")
+    
+    #If statements + output
+    if vegetarian == "yes" and vegan == "yes" and gluten_free == "yes":
+        print("Corner Cafe")
+        print("The Chef's Kitchen")
+    elif vegetarian == "yes" and vegan == "yes" and gluten_free == "no":
+        print("Search for another restaurant to satisfy the group.")
+    elif vegetarian == "yes" and vegan == "no" and gluten_free == "no":
+        print("Main Street Pizza Company")
+        print("Mama's Fine Italian")
+    elif vegetarian == "no" and vegan == "yes" and gluten_free == "yes":
+        print("Search for another restaurant to satisfy the group.")
+    elif vegetarian == "no" and vegan == "yes" and gluten_free == "no":
+        print("Search for another restaurant to satisfy the group.")
+    elif vegetarian == "no" and vegan == "no" and gluten_free == "yes":
+        print("Search for another restaurant to satisfy the group.")
+    elif vegetarian == "no" and vegan == "no" and gluten_free == "no":
+        print("Search for another restaurant to satisfy the group.")
+    
+def httm(): #hit_the_target()
+    #hit the target accepts no arguments
+    screenwidth = 600  #screen width
+    screenheight = 600  #screen height
+    targetleftx = 100  #Target's lower left corner x
+    targetlefty = 250  #Target's lower left corner y
+    targetwidth = 25  #Target's width
+    targetfactor = 30  #Arbitrary force factor
+    projectilespeed = 1  #Projectile's animation speed
+    north = 90  #Angle of north direction
+    south = 270  #Angle of south direction
+    east = 0  #Angle of east direction
+    west = 180  #Angle of west direction
+    
+    #Presettings to create the target
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.goto(targetleftx, targetlefty)
+    turtle.pendown()
+    turtle.forward(25)
+    turtle.left(90)
+    turtle.forward(25)
+    turtle.left(90)
+    turtle.forward(25)
+    turtle.left(90)
+    turtle.forward(25)
+    turtle.penup()
+    turtle.goto(0,0)
+    turtle.showturtle()
+    
+    #Ask the user for input
+    projectile_angle = int(input("Enter the projectile's angle (1-359): "))
+    force = int(input("Enter the launch force (1-10): "))
+    
+    #Speed of animation
+    turtle.speed(1)
+    
+    #Angle of projection
+    turtle.setheading(projectile_angle)
+    
+    #Force of projection
+    turtle.forward(force * 35)
+    
+    #Space between the input and the output
+    print(" ")
+    
+    #Check to see if they hit the target. If not, give hints
+    if turtle.xcor() > 100 and turtle.xcor() < 125 and turtle.ycor() > 250 and turtle.ycor() < 275:
+        print("You hit!")
+    elif turtle.xcor() < 100 and turtle.ycor() < 250:
+        print("You missed!")
+        print("Try using more power and a greater angle next time!")
+    elif turtle.xcor() > 125 and turtle.ycor() < 250:
+        print("You missed!")
+        print("Try using more power and a lesser angle next time!")
+    elif turtle.xcor() > 125 and turtle.ycor() > 275:
+        print("You missed!")
+        print("Try using lesser power and a lesser angle next time!")
+    elif turtle.xcor() < 100 and turtle.ycor() > 275:
+        print("You missed!")
+        print("Try using lesser power and a greater angle next time!")
+
+    turtle.done()
