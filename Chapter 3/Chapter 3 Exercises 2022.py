@@ -279,7 +279,53 @@ def rs(): #Restaurant Selector
         print("Search for another restaurant to satisfy the group.")
     elif vegetarian == "no" and vegan == "no" and gluten_free == "no":
         print("Search for another restaurant to satisfy the group.")
+
+def rs_boolian(): #Restaurant Selector
+    #Restaurant Selector accepts no arguments
+    #This script will prompt the user for questions about foods they can or can't eat.
+    #Then, the script will give the user their restaurant options.
+    #This script will use boolians instead of just inputs
     
+    #Set the boolians to false to begin with
+    vegetarian_bool = False
+    vegan_bool = False
+    gluten_bool = False
+    
+    #Input from the user
+    vegetarian = input("Is anyone a vegetarian? ").lower()
+    vegen = input("Is anyone vegan? ").lower()
+    gluten_free = input("Is anyone gluten-free? ").lower()
+    
+    #Check the boolians and change them depending on the input
+    if vegetarian == "yes":
+        vegetarian_bool = True
+    if vegen == "yes":
+        vegen_bool = True
+    if gluten_free == "yes":
+        gluten_bool = True
+    
+    #PRE Text output
+    print(" ")
+    print("Here are your restaurant choices:")
+    
+    #If statements + output
+    if vegetarian_bool and vegan_bool and gluten_bool:
+        print("Corner Cafe")
+        print("The Chef's Kitchen")
+    elif vegetarian_bool and vegan_bool:
+        print("Search for another restaurant to satisfy the group.")
+    elif vegetarian_bool:
+        print("Main Street Pizza Company")
+        print("Mama's Fine Italian")
+    elif vegan_bool and gluten_bool:
+        print("Search for another restaurant to satisfy the group.")
+    elif vegan_bool:
+        print("Search for another restaurant to satisfy the group.")
+    elif gluten_free == "yes":
+        print("Search for another restaurant to satisfy the group.")
+    else:
+        print("Search for another restaurant to satisfy the group.")
+
 def httm(): #hit_the_target()
     #hit the target accepts no arguments
     screenwidth = 600  #screen width
