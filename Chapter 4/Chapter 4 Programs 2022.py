@@ -1,4 +1,5 @@
 import turtle
+import random
 
 def commission(): #Program 4-1
     #commission accepts no arguments
@@ -443,6 +444,32 @@ def spiral_circles(): #Program 4-22
     turtle.speed(0) #turtle's speed
     #start the look
     for RANDOM_VARIABLE in range(circles):
+        turtle.circle(radius)
+        turtle.left(angle)
+        
+    
+    
+    turtle.done()
+    
+def spiral_circles_colors(): #Program 4-23
+    #spiral circles accepts no arguments
+    
+    circles = 72 #number of circles to draw
+    radius = 150 #radius of each circle
+    angle = 5 #angle to turn after each circle
+    
+    turtle.speed(0) #turtle's speed
+    #start the look
+    for RANDOM_VARIABLE in range(circles):
+        
+        #Random colors for turtle each time turtle makes a circle
+        turtle.colormode(255)
+        red = random.randint(0, 255)
+        yellow = random.randint(0, 255)
+        blue = random.randint(0, 255)
+        turtle.pencolor(red, yellow, blue)
+        
+        #Turtle making a circle
         turtle.circle(radius)
         turtle.left(angle)
         
