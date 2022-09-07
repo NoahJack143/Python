@@ -177,3 +177,95 @@ def reverse_triangle(): #Exercise 14
         for column in range(row):
             print("*", end='')
         print()
+        
+def stair_pattern2(): #Exercise 15
+    #stair pattern 2 accepts no arguments
+    #it creates stairs using any symbol and has that same symbol along the left margin
+    
+    #Prompt the user for the number of stairs
+    stairs = int(input("Enter the number of stairs: "))
+    
+    #Start the loops
+    for row in range(1, stairs + 1): #sets the loop with a range
+        print("@", end='') #prints the symbols along the left margin
+        for RANDOM_VARIABLE in range(row): #Next loop to make the stair case
+            print(" ", end='') #makes the spaces needed between the symbols on each row
+        print("@") #prints the symbol on the furthest right of each row
+        
+def turtle_graphics(): #Exercise 16
+    #turtle graphics accepts no arguments
+    #it will ask the user for the number of squares to draw and
+    #outputs the amount of squares the user requested for
+    
+    #Input from the user
+    squares = int(input("How many squares do you want to be drawn? "))
+    
+    #Constants
+    MOVE = 10 #This is how far turtle will move initially
+    TURN = 90 #This is the rotation degrees for turtle
+    
+    #PRE settings for turtle
+    turtle.hideturtle()
+    turtle.speed(0)
+    
+    #Validation
+    if squares <= 0:
+        print(" ")
+        print("Please enter a positive number next time.")
+    elif squares > 0:
+        #Begin the loop
+        for square in range(1, squares + 1):
+            #Start using turtle
+            turtle.left(TURN)
+            turtle.forward(MOVE)
+            turtle.left(TURN)
+            turtle.forward(MOVE)
+            turtle.left(TURN)
+            turtle.forward(MOVE)
+            turtle.left(TURN)
+            turtle.forward(MOVE)
+            
+            #Increase the amount of spaces turtle moves forward for each loop
+            MOVE += 10
+        #End when turtle is done
+        turtle.done()
+        
+def hypnotic_pattern(): #Exercise 18
+    #hypnotic pattern accepts no arguments
+    #it asks the user for the amount of patterns to draw and then
+    #outputs the pattern
+    
+    #Input from the user
+    patterns = int(input("How many patterns do you want? "))
+    
+    #Constants
+    MOVE = 2 #This is how far turtle's first line will be
+    TURN = 90 #This is the amount of degrees turtle will turn
+    
+    #PRE settings for turtle
+    turtle.hideturtle()
+    turtle.speed(0)
+    
+    #Validation
+    if patterns <= 0:
+        print(" ")
+        print("Sorry, but you entered an invalid amount of patterns")
+    elif patterns > 0:
+        #Begin the loop
+        for pattern in range(1, patterns + 1):
+            #Start making the pattern
+            turtle.left(TURN)
+            turtle.forward(MOVE)
+            MOVE += 3
+            turtle.left(TURN)
+            turtle.forward(MOVE)
+            MOVE += 3
+            turtle.left(TURN)
+            turtle.forward(MOVE)
+            MOVE += 3
+            turtle.left(TURN)
+            turtle.forward(MOVE)
+            MOVE += 3
+            #The pattern will repeat how ever many times the user wants turtle to
+        #This is when turtle is done
+        turtle.done()
