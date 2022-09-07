@@ -446,6 +446,25 @@ def spiral_circles(): #Program 4-22
         turtle.circle(radius)
         turtle.left(angle)
         
-    
-    
     turtle.done()
+
+def starburst(): #Program 4-23
+    #starburst accepts no arguments
+    
+    #Constants
+    start_x = -200 # Starting X coordinate
+    start_y = 0 # Starting Y coordinate
+    num_lines = 36 # Number of lines to draw
+    line_length = 400 # length of each line
+    angle = 170 # Angle to turn
+    
+    #PRE settings for turtle
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.goto(start_x, start_y)
+    turtle.pendown()
+    
+    #Start the loop and draw 36 lines, tilt 170 degrees after each line
+    for RANDOM_VARIABLE in range(num_lines):
+        turtle.forward(line_length)
+        turtle.left(angle)
