@@ -172,12 +172,18 @@ def reverse_triangle(): #Exercise 14
     #Ask the user for the bse size of the triangle:
     base = int(input("Enter the base size of the triangle: "))
     
-    #Begin the loop right after
-    for row in range(base, 0, -1):
-        for column in range(row):
-            print("*", end='')
-        print()
+    #Validation
+    if base <= 0:
+        print(' ')
+        print("Enter a positive number next time.")
+    elif base > 0:
         
+        #Begin the loop right after
+        for row in range(base, 0, -1):
+            for column in range(row):
+                print("*", end='')
+            print()
+            
 def stair_pattern2(): #Exercise 15
     #stair pattern 2 accepts no arguments
     #it creates stairs using any symbol and has that same symbol along the left margin
@@ -185,13 +191,19 @@ def stair_pattern2(): #Exercise 15
     #Prompt the user for the number of stairs
     stairs = int(input("Enter the number of stairs: "))
     
-    #Start the loops
-    for row in range(1, stairs + 1): #sets the loop with a range
-        print("@", end='') #prints the symbols along the left margin
-        for RANDOM_VARIABLE in range(row): #Next loop to make the stair case
-            print(" ", end='') #makes the spaces needed between the symbols on each row
-        print("@") #prints the symbol on the furthest right of each row
+    #Validation
+    if stairs <= 0:
+        print(' ')
+        print("Enter a positive number next time. ")
+    elif stairs > 0:
         
+        #Start the loops
+        for row in range(1, stairs + 1): #sets the loop with a range
+            print("@", end='') #prints the symbols along the left margin
+            for RANDOM_VARIABLE in range(row): #Next loop to make the stair case
+                print(" ", end='') #makes the spaces needed between the symbols on each row
+            print("@") #prints the symbol on the furthest right of each row
+            
 def turtle_graphics(): #Exercise 16
     #turtle graphics accepts no arguments
     #it will ask the user for the number of squares to draw and
