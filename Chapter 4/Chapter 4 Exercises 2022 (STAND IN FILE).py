@@ -45,3 +45,5 @@ def reverse_triangle(): #Exercise 14
         for column in range(row):
             print("*", end='')
         print()
+        
+#CHANGES WERE MADE
