@@ -1,4 +1,5 @@
 my_value = 10 #Global value
+import random #Import
 
 def message(): #Program 5-1
     #message accepts no arguments
@@ -322,6 +323,9 @@ def pay_me(): #Program 5-5
     #Prompt the user for information
     gross = int(input("Please enter the amount for gross pay: "))
     bonus = int(input("Please enter the amount of bonuses: "))
+    print(" ")
+    show_pay(gross)
+    show_bonus(bonus)
     
     
 def show_pay(gross):
@@ -330,7 +334,7 @@ def show_pay(gross):
     #it outputs the contribution for gros pay
     
     contribution_for_gross_pay = gross * CONTRIBUTION_RATE
-    print("Contribution for gross pay: $", format(contribution_for_gross_pay, ',.2f'))
+    print("Contribution for gross pay: $", format(contribution_for_gross_pay, ',.2f'), sep='')
     
 def show_bonus(bonus):
     #show_bonus acepts a float for bonus
@@ -338,4 +342,198 @@ def show_bonus(bonus):
     #it outputs the contribution for bonuses
     
     contribution_for_bonuses = bonus * CONTRIBUTION_RATE
-    print("Contribution for bonuses: $", format(contribution_for_bonuses, ',.2f'))
+    print("Contribution for bonuses: $", format(contribution_for_bonuses, ',.2f'), sep='')
+    
+#======================================================================#
+    
+def random_numbers(): #Program 5-16
+    #random_numbers accepts no arguments
+    #it generates a random integer from 1-10
+    #output the number to the user
+    
+    random_number = random.randint(1, 10) #This will find the random number
+    print("The random number is: ", random_number) #This will print the random number to the user
+    
+#======================================================================#
+    
+def random_numbers(): #Program 5-17
+    #random_numbers accepts no arguments
+    #it loops 5 times assigning a random integer from 1-100 to number
+    #it outputs the ranodm integer for each iteration
+    
+    for RANDOM_VARAIBLE in range(5):
+        random_number = random.randint(1, 100)
+        print(random_number)
+    
+#====================================================================#
+        
+def random_numbers3(): #Program 5-18
+    #random numbers 3 accepts no arguments
+    #it loops 5 times outputting a new random integer for each iteration
+    
+    for RANDOM_VARAIBLE in range(5):
+        print(random.randint(1, 100))
+        
+#==================================================================#
+        
+def dice(): #Program 2-19
+    #dice accepts no arguments
+    #it loops unti the user enter "n" or "N" to stop
+    #each iteration prints two random 6-sided die rolls
+    #it prompts the user to roll agian (y/n)
+    
+    keep_going = 'y'
+    
+    while keep_going == 'y':
+        roll1 = random.randint(1,6)
+        roll2 = random.randint(1,6)
+        
+        print("Rolling your dice...")
+        print("Your two rolls are:", roll1, "and", roll2)
+        print(" ")
+        keep_going = input("Try you luck again? (y/n) ")
+        if keep_going != 'y':
+            keep_going = 'n'
+            
+#==================================================================#
+            
+def coin_toss(): #Program 5-20
+    #coint toss accepts no arguments
+    #it sets three named constants for heads, tails, and tosses
+    #it loops for 1 tosses using a random inteer from 1 or 2 to determine
+    #if the coin flip resulted in heads or tails
+    
+    #Constants
+    heads = 1
+    tails = 2
+    tosses = 10
+    
+    for RANDOM_VARIABLE in range(tosses):
+        toss = random.randint(heads, tails)
+        if toss == heads:
+            print("Heads!")
+        elif toss == tails:
+            print("Tails!")
+            
+#==============================================================#
+    
+def total_ages():
+    #def total ages accepts no arguments
+    #it prompts the user fro two ages and passes those values to calculate_ages()
+    #it uses the return value to print the total ages
+    
+    #get input from the user
+    age1 = int(input("Please enter your age: "))
+    age2 = int(input("Please enter the age of your best friend: "))
+    
+    #call calculate ages, passing age1 and age2 and assign the return value to total
+    total = calculate_ages(age1, age2)
+    
+    #output the result
+    print("\nTogether you are", total, "years old.")
+    
+def calculate_ages(age1, age2):
+    #calculate ages receives values for age1 and age2
+    #it adds the two ages together and returns the result
+    
+    #calculate the total age
+    total_ages = age1 + age2
+    
+    #return the value
+    return total_ages
+
+#=====================================================================#
+discount_percent = .20 #global constant
+
+def sale_price(): #Program 5-22
+    #sale price accepts no arguments
+    #it calls get regulare price to get input from the user
+    #it calculates the sale price by taking the regular price and subtracting the
+    #return result of discount()
+    #it outputs the sale price
+    
+    regular_price = get_regular_price()
+    
+    discount1 = discount(regular_price)
+    
+    sale = regular_price - discount1
+    
+    print("The sale price is: $", format(sale, ',.2f'), sep='')
+    
+def get_regular_price():
+    #get regular price accepts no arguments
+    #it prompts the user to input the item's regular price
+    #and returns that value
+    
+    regular_price = float(input("Please enter the regular price of the item: "))
+    
+    return regular_price
+
+def discount(regular_price):
+    #discount accepts an argument for the integer regular price
+    #it returns the discount price @ 20% off using
+    #the global constant discount_price
+    
+    sale_price = regular_price * discount_percent
+    
+    return sale_price
+
+#======================================================================#
+
+def commission_rate(): #Program 5-24
+    #commission rate accepts no arguments
+    #it calls get_sales and get_advanced_pay
+    #it calculates the pay and outputs the pay
+    #it determines if the pay is negative and outputs if the salesperson
+    #the aount of the salesperon must reimburse the company for
+    
+    monthly_sale = get_sales()
+    
+    advanced_pay = get_advanced_pay()
+    
+    commission = determined_comm_rate(monthly_sale)
+    
+    calculated_rate = ((monthly_sale * commission) - advanced_pay) +monthly_sale
+    
+    if calculated_rate < 0:
+        print("Enter proper numbers next time.")
+    elif calculated_rate >= 0:
+        print("Your calculated commission rate is", format(calculated_rate, ',.2f'))
+    
+    
+def get_sales():
+    #get sales accepts no arguments
+    #it propts the user to input the total monthly sales
+    #and returns the monthly sales
+    
+    monthly_sales = int(input("Please enter the monthly sales: "))
+    
+    return monthly_sales
+    
+def get_advanced_pay():
+    #get advanced pay accepts no arguments
+    #it prompts the user to enter any adavnced pay, or 0 for none
+    #it returns the advanced pay
+    
+    advanced_pay = int(input("Please enter the advanced pay: "))
+    
+    return advanced_pay
+    
+def determined_comm_rate(monthly_sale):
+    #determine comm rate accepts a float for sales
+    #it calculates the commission rate for sales
+    #and returns the calculated rate
+    
+    if monthly_sale < 10000:
+        calculated_rate = .1
+    elif monthly_sale >= 10000 and sales <=14999:
+        calculated_rate = .12
+    elif monthly_sale >= 15000 and sales <=17999:
+        calculated_rate = .14
+    elif monthly_sale >=18000 and sales <= 21999:
+        calculated_rate = .16
+    elif monthly_sale >= 22000:
+        calculated_rate = .18
+    
+    return calculated_rate
+    
