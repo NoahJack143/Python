@@ -140,27 +140,26 @@ def begin_turtle(): #Begin using turtle to create the map for the user
     turtle.pendown()
     turtle.penup()
     turtle.speed(0)
-    #Constants for turtle
-    X = 0
-    Y = 0
+    #Constants for horizontal lines
+    X = -800
+    Y = -800
     #Start by creating a grid for the map
-    GRID_LOOP = 0
-    while GRID_LOOP == 0:
+    for variable in range (110):
         
         #Horizontal lines + Constants
-        X = -500
-        Y = -500
         turtle.goto(X, Y)
         turtle.pendown()
         turtle.goto(X*-1, Y)
         turtle.goto(X, Y)
         turtle.penup()
         Y += 15
-        if turtle.pos
+    
+    #Constants for vertical lines
+    X = -800
+    Y = -800
+    for variable in range(110):
         
         #Vertical lines
-        X = -500
-        Y = 500
         turtle.goto(X, Y)
         turtle.pendown()
         turtle.goto(X, Y*-1)
