@@ -141,10 +141,10 @@ def begin_turtle(): #Begin using turtle to create the map for the user
     turtle.penup()
     turtle.speed(0)
     #Constants for horizontal lines
-    X = -800
-    Y = -800
+    X = -600
+    Y = -600
     #Start by creating a grid for the map
-    for variable in range (110):
+    for variable in range (60):
         
         #Horizontal lines + Constants
         turtle.goto(X, Y)
@@ -152,12 +152,12 @@ def begin_turtle(): #Begin using turtle to create the map for the user
         turtle.goto(X*-1, Y)
         turtle.goto(X, Y)
         turtle.penup()
-        Y += 15
+        Y += 25
     
     #Constants for vertical lines
-    X = -800
-    Y = -800
-    for variable in range(110):
+    X = -600
+    Y = -600
+    for variable in range(60):
         
         #Vertical lines
         turtle.goto(X, Y)
@@ -165,8 +165,9 @@ def begin_turtle(): #Begin using turtle to create the map for the user
         turtle.goto(X, Y*-1)
         turtle.goto(X, Y)
         turtle.penup()
-        X += 15
+        X += 25
         
+    turtle.done()
         
 def Trimon(): #Main function to use
     
