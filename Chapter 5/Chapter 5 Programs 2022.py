@@ -1,5 +1,10 @@
 my_value = 10 #Global value
 import random #Import
+import math #math
+import circle#circle
+import rectangle#rectangle
+import turtle
+import My_Graphics
 
 def message(): #Program 5-1
     #message accepts no arguments
@@ -491,9 +496,9 @@ def commission_rate(): #Program 5-24
     
     advanced_pay = get_advanced_pay()
     
-    commission = determined_comm_rate(monthly_sale)
+    rate = determined_comm_rate(monthly_sale)
     
-    calculated_rate = ((monthly_sale * commission) - advanced_pay) +monthly_sale
+    calculated_rate = ((monthly_sale * rate) - advanced_pay) + monthly_sale
     
     if calculated_rate < 0:
         print("Enter proper numbers next time.")
@@ -536,4 +541,110 @@ def determined_comm_rate(monthly_sale):
         calculated_rate = .18
     
     return calculated_rate
+    
+#===============================================================#
+
+def get_name(): #String return example
+    #get name accepts no arguments
+    #it prompts the user for a name
+    #and returns the name as a string
+    
+    name = input("Please enter your name: ")
+    return name
+
+def validate_even(num): #boolean return example
+    #validate even accepts an integer for num
+    #it tests if the num is even and returns true
+    
+    if (num % 2) == 0:
+        return True
+    else:
+        return False
+    
+#===============================================================#
+    
+def get_name2(): #String return example
+    #get name accepts no arguments
+    #it prompts the user for a name
+    #and returns the name as a string
+    
+    first_name = input("Please enter your fisrt name: ")
+    last_name = input("Please enter your last name: ")
+    return first_name, last_name
+
+#==============================================================#
+#'import math' was just added to the top
+
+def square_root(): #Math example
+    #prompt the user or a number
+    #Calculate the square root using the math module
+    
+    number = float(input("Please give a number that you want to be square rooted: "))
+    
+    square_root = math.sqrt(number)
+    
+    print("The square root of", number, "is:", square_root)
+
+#=============================================================#
+    
+def hypotenuse(): #Program 5-25
+    #Prompt the user for two sides.
+    #Calculate the hypotenuse using the math module.
+    
+    A = float(input("Enter the length of side A: "))
+    B = float(input("Enter the length of side B: "))
+    
+    hypot = math.hypot(A, B)
+    
+    print(" ")
+    print("The length of the hypotenuse is:", hypot)
+    
+#============================================================#
+
+def triangle(): #Practie with the module
+    TOP_X = 0
+    TOP_Y = 100
+    BASE_LEFT_X = -100
+    BASE_LEFT_Y = -100
+    BASE_RIGHT_X = 100
+    BASE_RIGHT_Y = -100
+    My_Graphics.line(TOP_X, TOP_Y, BASE_LEFT_X, BASE_LEFT_Y, 'red')
+    My_Graphics.line(BASE_LEFT_X, BASE_LEFT_Y, BASE_RIGHT_X, BASE_RIGHT_Y, 'blue')
+    My_Graphics.line(BASE_RIGHT_X, BASE_RIGHT_Y, TOP_X, TOP_Y, 'green')
+    turtle.done()
+    
+#========================================================#
+    
+def graphic_fun():
+    #graphic_fun accepts no arguments
+    #it will create something weird using modules, some of which were made by me
+    
+    #Constants
+    X1 = 0
+    Y1 = 100
+    X2 = -100
+    Y2 = -100
+    X3 = 100
+    Y3 = -100
+    RADIUS = 50
+    WIDTH = 200
+    
+    #Square will be made here
+    My_Graphics.square(X2, Y2, WIDTH, 'gray')
+    
+    #The circles will be made here
+    My_Graphics.circle(X2, Y2, RADIUS, 'red')
+    My_Graphics.circle(X1, Y1, RADIUS, 'blue')
+    My_Graphics.circle(X3, Y3, RADIUS, 'green')
+    
+    #The triangle will be made here
+    My_Graphics.line(X2, Y2, X3, Y3, 'black')
+    My_Graphics.line(X3, Y3, X1, Y1, 'black')
+    My_Graphics.line(X1, Y1, X2, Y2, 'black')
+    
+    #Turtle is done
+    turtle.done()
+    
+#=======================================================#
+    
     
