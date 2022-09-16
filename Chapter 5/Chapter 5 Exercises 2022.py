@@ -1,6 +1,8 @@
 #Imports for Chapter 5
 import math
 import random
+import My_Graphics
+import turtle
 
 def sales_tax(): #Exercise 2
     #sales tax accepts no arguments
@@ -363,15 +365,30 @@ def game(): #Exercise 21
     #it will allow the computer to play a game of rock, paper, scissors, lizard, spock with the user
     #it will output the winner each time
     
-    player_choice1 = player_choice()
+    #Begin a while loop to loop the game
+    LOOP = 0
     
-    comp_choice = computer_choice()
-    
-    print(" ")
-    print("The computer chose...", comp_choice)
-    
-    game_winner = winner(player_choice1, comp_choice)
-    
+    while LOOP == 0:
+        player_choice1 = player_choice()
+        
+        print(" ")
+        print(" ")
+        
+        comp_choice = computer_choice()
+        
+        dominator = winner(player_choice1, comp_choice)
+        
+        print(" ")
+        print(dominator)
+        
+        print(" ")
+        again = input("Play again? (y/n) ")
+        
+        if again == 'y':
+            LOOP = 0
+        elif again != 'y':
+            LOOP = 1
+        
 def player_choice(): #For Exercise 21
     #player choice accepts no arguments
     #it prompts the user for their choice in the game and returns it to the main function
@@ -384,7 +401,7 @@ def player_choice(): #For Exercise 21
         
         if pc == "rock" or pc == 'paper' or pc == 'scissors' or pc == 'lizard' or pc == 'spock':
             print(" ")
-            print("You chose... ", pc)
+            print("You chose.... ", pc, end='.')
             LOOP = 1
         else:
             print("Choose a proper choice.")
@@ -400,6 +417,17 @@ def computer_choice(): #For Exercise 21
     
     cc = random.randint(1, 5)
     
+    if cc == 1:
+        cc = 'rock'
+    elif cc == 2:
+        cc = 'paper'
+    elif cc == 3:
+        cc = 'scissors'
+    elif cc == 4:
+        cc = 'lizard'
+    elif cc == 5:
+        cc = 'spock'
+    
     return cc
 
 def winner(player_choice1, comp_choice): #For Exercise 21
@@ -411,53 +439,181 @@ def winner(player_choice1, comp_choice): #For Exercise 21
     pc = player_choice1
     cc = comp_choice
     
+    print("The computer chose....", cc, end='.')
+    print(" ")
     #Start checking the results
-    if pp == 'rock' and cc == 'rock':
+    if pc == 'rock' and cc == 'rock':
+        champion = "It's a tie!"
+    elif pc == 'rock' and cc == 'paper':
+        champion = "The computer wins! Paper covers rock."
+    elif pc == 'rock' and cc == 'scissors':
+        champion = "You win! Rock crushes scissors."
+    elif pc == 'rock' and cc == 'lizard':
+        champion = "You win! Rock crushes lizard."
+    elif pc == 'rock' and cc == 'spock':
+        champion = "The computer wins! Spock vaporizes rock."
+    elif pc == 'paper' and cc == 'rock':
+        champion = "You win! Paper covers rock."
+    elif pc == 'paper' and cc == 'paper':
+        champion = "It's a tie!"
+    elif pc == 'paper' and cc == 'scissors':
+        champion = "The computer wins! Scissors cuts paper."
+    elif pc == 'paper' and cc == 'lizard':
+        champion = "The computer wins! Lizard eats paper."
+    elif pc == 'paper' and cc == 'spock':
+        champion = "You win! Paper disproves spock."
+    elif pc == 'scissors' and cc == 'rock':
+        champion = "The computer wins! Rock crushes scissors."
+    elif pc == 'scissors' and cc == 'paper':
+        champion = "You win! Scissors cuts paper."
+    elif pc == 'scissors' and cc == 'scissors':
+        champion = "It's a tie!"
+    elif pc == 'scissors' and cc == 'lizard':
+        champion = "You win! Scissors decapitates lizard."
+    elif pc == 'scissors' and cc == 'spock':
+        champion = "The computer wins! Spock smashes scissors."
+    elif pc == 'lizard' and cc == 'rock':
+        champion = "The computer wins! Rock crushes lizard."
+    elif pc == 'lizard' and cc == 'paper':
+        champion = "You win! Lizard eats paper."
+    elif pc == 'lizard' and cc == 'scissors':
+        champion = "The computer wins! Scissors decapitates lizard."
+    elif pc == 'lizard' and cc == 'lizard':
+        champion = "It's a tie!"
+    elif pc == 'lizard' and cc == 'spock':
+        champion = "You win! Lizard poisons spock."
+    elif pc == 'spock' and cc == 'rock':
+        champion = "You win! Spock vaporizes rock."
+    elif pc == 'spock' and cc == 'paper':
+        champion = "You win! Spock eats paper."
+    elif pc == 'spock' and cc == 'scissors':
+        champion = "You win! Spock smashes scissors."
+    elif pc == 'spock' and cc == 'lizard':
+        champion = "The computer wins! Lizard poisons spock."
+    elif pc == 'spock' and cc == 'spock':
+        champion = "It's a tie!"
         
-    elif pp == 'rock' and cc == 'paper':
-        
-    elif pp == 'rock' and cc == 'scissors':
-        
-    elif pp == 'rock' and cc == 'lizard':
-        
-    elif pp == 'rock' and cc == 'spock':
-        
-    elif pp == 'paper' and cc == 'rock':
-        
-    elif pp == 'paper' and cc == 'paper':
+    return champion
+
+#=====================================================================#
+
+def draw_snowman(): #Exercise 23
+    #draw snowman accepts no arguments
+    #draw snowman will use a variety of functions... to draw a snowman
+    #the output will be a snowman
     
-    elif pp == 'paper' and cc == 'scissors':
+    turtle.hideturtle()
     
-    elif pp == 'paper' and cc == 'lizard':
+    draw_base()
     
-    elif pp == 'paper' and cc == 'spock':
-        
-    elif pp == 'scissors' and cc == 'rock':
+    draw_mid_section()
     
-    elif pp == 'scissors' and cc == 'paper':
+    draw_head()
     
-    elif pp == 'scissors' and cc == 'scissors':
+    draw_face()
     
-    elif pp == 'scissors' and cc == 'lizard':
+    draw_hat()
     
-    elif pp == 'scissors' and cc == 'spock':
+    draw_arms()
     
-    elif pp == 'lizard' and cc == 'rock':
-        
-    elif pp == 'lizard' and cc == 'paper':
-        
-    elif pp == 'lizard' and cc == 'scissors':
-        
-    elif pp == 'lizard' and cc == 'lizard':
-        
-    elif pp == 'lizard' and cc == 'spock':
-        
-    elif pp == 'spock' and cc == 'rock':
-        
-    elif pp == 'spock' and cc == 'paper':
-        
-    elif pp == 'spock' and cc == 'scissors':
-        
-    elif pp == 'spock' and cc == 'lizard':
-        
-    elif pp == 'spock' and cc == 'spock':
+    turtle.hideturtle()
+    
+    turtle.done()
+    
+def draw_base(): #For Exercise 23
+    #draw base accpets no arguments
+    #this is for the base of the snowman
+    #this will return the turtle commands to the main function
+    
+    My_Graphics.circle(0, -170, 140, 'blue')
+    
+def draw_mid_section(): #For Exercise 23
+    #draw mid section accepts no arguments
+    #this snowman will create the middle section of the snowman
+    #it will return the turtle comands to the main function
+    
+    My_Graphics.circle(0, 70, 100, 'blue')
+    
+def draw_head(): #You get the idea by now
+    #draw head accepts no arguments
+    #it will draw the head of the snowman and send it back to the main function
+    
+    My_Graphics.circle(0, 237, 67, 'blue')
+    
+def draw_face(): #I don't have to explain what exercise this function is for
+    #draw face accepts no arguments
+    #it will draw the face of the snowman (with a pipe) and sent it back to the main function
+    
+    My_Graphics.circle(-25, 250, 15, 'black')
+    
+    My_Graphics.circle(25, 250, 15, 'black')
+    
+    My_Graphics.line(-25, 215, 25, 215, 'black')
+    
+    My_Graphics.line(15, 215, 85, 185, 'brown')
+    
+    My_Graphics.square(85, 185, 10, 'brown')
+    
+    My_Graphics.line(85, 185, 115, 215, 'gray')
+    
+    My_Graphics.circle(115, 215, 3, 'white')
+    
+    My_Graphics.line(115, 215, 145, 225, 'gray')
+    
+    My_Graphics.circle(145, 225, 3, 'white')
+    
+    My_Graphics.line(145, 225, 165, 230, 'gray')
+    
+    My_Graphics.circle(165, 230, 3, 'white')
+    
+    My_Graphics.line(165, 230, 185, 233, 'gray')
+    
+def draw_hat(): #You know where this is contributing to
+    #draw hat accepts no arguments
+    #it creates the hat for the snowman and returns it to the main function
+    
+    My_Graphics.square(-55, 300, 35, 'red')
+    
+    My_Graphics.square(25, 300, 35, 'red')
+    
+    My_Graphics.square(-20, 302, 50, 'red')
+    
+def draw_arms(): #Last one...
+    #draw darms accepts no arguments
+    #it creates arms for the snowman and returns it to the main function
+    
+    #Snowman's left arm
+    My_Graphics.line(90, 50, 130, 160, 'black')
+    
+    My_Graphics.line(130, 160, 130, 200, 'black')
+    
+    My_Graphics.line(130, 160, 150, 130, 'black')
+    
+    #Snowman's right arm
+    My_Graphics.line(-90, 50, -150, 110, 'black')
+    
+    My_Graphics.line(-150, 110, -165, 160, 'black')
+    
+    My_Graphics.line(-165, 160, -185, 140, 'black')
+    
+    My_Graphics.line(-165, 160, -170, 180, 'black')
+    
+#==============================================================================#
+    
+def checkerboard(): #Exercise 25
+    #checkerboard accepts no arguments
+    #it creates a checkerboard using loops
+    
+    color = 1 #1 = black. 2 = white
+    
+    for RANDOM_VARIABLE in range(-120, 180, 60): #This is for the rows
+        for ANOTHER_VARIABLE in range(-120, 180, 60): #This is for the columns
+            if color == 1:
+                My_Graphics.square(RANDOM_VARIABLE, ANOTHER_VARIABLE, 60, 'black')
+                color = 2
+            elif color == 2:
+                My_Graphics.square(RANDOM_VARIABLE, ANOTHER_VARIABLE, 60, 'white')
+                color = 1
+                
+    turtle.hideturtle()
+    turtle.done()
