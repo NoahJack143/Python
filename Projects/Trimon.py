@@ -172,7 +172,7 @@ def begin_turtle(): #Begin using turtle to create the map for the user
 def Trimon(): #Main function to use
     
     #Beginning of the game messages
-    
+
     
     #Begin using turtle to show graphics for the user
     begin_turtle()
