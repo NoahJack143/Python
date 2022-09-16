@@ -1,4 +1,6 @@
+#Imports for Chapter 5
 import math
+import random
 
 def sales_tax(): #Exercise 2
     #sales tax accepts no arguments
@@ -212,12 +214,19 @@ def paint_estimator(): #Exercise 8
     
     total_square_feet, cost_of_gallons_of_paint = paint_estimator_input()
     
+    print(" ")
     print("The cost breakdown to paint", total_square_feet, "square feet is:")
     print("-------------------------------------------------------------------")
     
     total_cost_of_paint, total_labor_cost = paint_estimator_total_costs(total_square_feet, cost_of_gallons_of_paint)
     
     total_cost_of_job = paint_estimator_total_cost(total_cost_of_paint, total_labor_cost)
+    
+    print("Total cost of paint: $", format(total_cost_of_paint, '.2f'), sep='')
+    
+    print("Total labor cost: $", format(total_labor_cost, '.2f'), sep='')
+    
+    print("Total cost of the job is: $", format(total_cost_of_job, '.2f'), sep='')
     
     
 def paint_estimator_input(): #For Exercise 8
@@ -262,4 +271,193 @@ def paint_estimator_total_costs(total_square_feet, cost_of_gallons_of_paint): #F
     
 def paint_estimator_total_cost(total_cost_of_paint, total_labor_cost): #For Exercise 8
     #paint estimator total cost accepts two arguments
+    #it will calculate the total cost for the job
     
+    total_cost_of_job = total_cost_of_paint + total_labor_cost
+    
+    return total_cost_of_job
+    
+#=========================================================================================#
+
+def math_quiz(): #Exercise 11
+    #math quiz accepts no arguments
+    #this will createa a simple test for the user to solve.
+    #once the user solves, correct or incorrect, the user will be asked if they want to continue.
+    
+    #Start the loop before everything to get different integers each time
+    continue1 = 'y'
+    while continue1 == 'y':
+        
+        num1, num2 = get_numbers() #Call for get_numbers and get the random integers
+        
+        answer = num1 + num2 #Find the sum of the two random integers
+        
+        #Text for the user before the loop and input from the user
+        print("Solve:")
+        print(" ")
+        print("\t\t", num1)
+        print("+\t\t", num2)
+        print(" ")
+        user_answer = int(input("Answer: "))
+        #Check their answer
+        if user_answer == answer:
+            print("Correct!")
+        elif user_answer != answer:
+            print("WRONG!! The answer is:", answer)
+        print(" ")
+        
+        #Prompt the user to see if they want to continue
+        continue1 = input("Do you want another problem? (y/n) ")
+        
+    
+def get_numbers(): #For Exercise 11
+    #get numbers accepts no arguments
+    #it will generate two random integers from 1-200 and will return them to math_quiz
+    
+    num1 = random.randint(1, 200)
+    
+    num2 = random.randint(1, 200)
+    
+    return num1, num2
+
+#===============================================================================#
+
+def time_loop(): #Exercise 13
+    #time loop accepts no arguments
+    #it loops 1-10, calls falling_distance passing time, 1-10 in seconds
+    #due to there being no inputs from the user, there will be no validation
+    
+    #Constants
+    gravity = 9.8
+    
+    #PRE text above the table
+    print("Here is the distance an object will fall for 10 seconds")
+    print("----------------------------------------------------------")
+    
+    #Start a for loop that will contain time in range
+    for time in range(1, 10+1):
+        distance = falling_distance(time) #Call for time
+        
+        print(time, "sec \t\t", format(distance, '.2f'), end='m') #print the distance for each second
+        print(" ")
+    
+def falling_distance(time): #For Exercise 13
+    #falling distance accepts one argument
+    #it will calculate the distance fallen
+    
+    #Constants
+    g = 9.8
+    t = time
+    
+    #Calculations
+    acceleration = g * t**2
+    distance = acceleration * .5
+    
+    #Return distance
+    return distance
+
+#===============================================================================#
+
+def game(): #Exercise 21
+    #game accepts no arguments
+    #it will allow the computer to play a game of rock, paper, scissors, lizard, spock with the user
+    #it will output the winner each time
+    
+    player_choice1 = player_choice()
+    
+    comp_choice = computer_choice()
+    
+    print(" ")
+    print("The computer chose...", comp_choice)
+    
+    game_winner = winner(player_choice1, comp_choice)
+    
+def player_choice(): #For Exercise 21
+    #player choice accepts no arguments
+    #it prompts the user for their choice in the game and returns it to the main function
+    #it will validate the users answser and will prompt the user again if their answer isn't valid
+    
+    LOOP = 0 #Accumulator
+    
+    while LOOP == 0: #Validate and recieve the user input
+        pc = input("Type your weapon of choice (rock, paper, scissors, lizard, spock) ").lower()
+        
+        if pc == "rock" or pc == 'paper' or pc == 'scissors' or pc == 'lizard' or pc == 'spock':
+            print(" ")
+            print("You chose... ", pc)
+            LOOP = 1
+        else:
+            print("Choose a proper choice.")
+            print(" ")
+            LOOP = 0
+    
+    return pc
+    
+def computer_choice(): #For Exercise 21
+    #computer choice accepts no arugments
+    #it will find out the computer's choice for the game
+    #no validation is needed here
+    
+    cc = random.randint(1, 5)
+    
+    return cc
+
+def winner(player_choice1, comp_choice): #For Exercise 21
+    #winner accepts two arguments
+    #it will decide whether the computer or the user wins in the game
+    #no validation is needed here
+    
+    #Changing the arguments
+    pc = player_choice1
+    cc = comp_choice
+    
+    #Start checking the results
+    if pp == 'rock' and cc == 'rock':
+        
+    elif pp == 'rock' and cc == 'paper':
+        
+    elif pp == 'rock' and cc == 'scissors':
+        
+    elif pp == 'rock' and cc == 'lizard':
+        
+    elif pp == 'rock' and cc == 'spock':
+        
+    elif pp == 'paper' and cc == 'rock':
+        
+    elif pp == 'paper' and cc == 'paper':
+    
+    elif pp == 'paper' and cc == 'scissors':
+    
+    elif pp == 'paper' and cc == 'lizard':
+    
+    elif pp == 'paper' and cc == 'spock':
+        
+    elif pp == 'scissors' and cc == 'rock':
+    
+    elif pp == 'scissors' and cc == 'paper':
+    
+    elif pp == 'scissors' and cc == 'scissors':
+    
+    elif pp == 'scissors' and cc == 'lizard':
+    
+    elif pp == 'scissors' and cc == 'spock':
+    
+    elif pp == 'lizard' and cc == 'rock':
+        
+    elif pp == 'lizard' and cc == 'paper':
+        
+    elif pp == 'lizard' and cc == 'scissors':
+        
+    elif pp == 'lizard' and cc == 'lizard':
+        
+    elif pp == 'lizard' and cc == 'spock':
+        
+    elif pp == 'spock' and cc == 'rock':
+        
+    elif pp == 'spock' and cc == 'paper':
+        
+    elif pp == 'spock' and cc == 'scissors':
+        
+    elif pp == 'spock' and cc == 'lizard':
+        
+    elif pp == 'spock' and cc == 'spock':
