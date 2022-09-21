@@ -13,15 +13,15 @@ def sales_tax(): #Exercise 2
     
     print("Your purchase price was: \t $ \t", format(sale_amount, '9.2f'))
     
-    state_tax = sales_tax_state(sale_amount)
+    state_tax = sales_tax_state(sale_amount) #Call sales tax state to get the state tax
     
-    county_tax = sales_tax_county(sale_amount)
+    county_tax = sales_tax_county(sale_amount) #Call sales tax county to get the county tax
     
     print("Your state tax amount is: \t $ \t", format(state_tax, '9.2f'))
     
     print("Your county tax amount is: \t $ \t", format(county_tax, '9.2f'))
     
-    total_tax, total_sale = sales_tax_totals(state_tax, county_tax, sale_amount)
+    total_tax, total_sale = sales_tax_totals(state_tax, county_tax, sale_amount) #sales tax totals to get the total tax amount and the total sale amount
     
     print("Your total tax is: \t\t $ \t", format(total_tax, '9.2f'))
     
@@ -79,13 +79,13 @@ def calories(): #Exercise 6
     #it will calculate the amount of calories someone has taken in for a day
     #it will use a minimum of three functions and outputs the user's calorie intake
     
-    carbs, fat = calories_grams()
+    carbs, fat = calories_grams() #Call calories grams to get information from the user
     
     print("Here is your calorie intake for the day.")
     
-    carbs_intake = carbs_for_the_day(carbs)
+    carbs_intake = carbs_for_the_day(carbs) #Prompt the user for the amount of carbs they consumed
     
-    fat_intake = fat_for_the_day(fat)
+    fat_intake = fat_for_the_day(fat) #Prompt the user for the amount of fats they consumed
     
     print("You consumed", carbs_intake, "calories worth of carbs today. Nice work...")
     
@@ -123,15 +123,15 @@ def stadium_seating(): #Exercise 7
     #stadium seating accepts no arguments
     #it will calculate the amount spent based on the tickets that were bought
     
-    class_a = class_a_tickets()
+    class_a = class_a_tickets() #Call class a tickets to get the total amount of class a seat tickets were bought
     
-    class_b = class_b_tickets()
+    class_b = class_b_tickets() #Call class b tickets to get the total amount of class b seat tickets were bought
     
-    class_c = class_c_tickets()
+    class_c = class_c_tickets() #Call class c tickets to get the total amount of class c seat tickets were bought
     
     print(" ")
     
-    tickets_income = total_income(class_a, class_b, class_c)
+    tickets_income = total_income(class_a, class_b, class_c) #Call total_income to get the total cost for all the tickets combined
     
     print("The total income sales from tickets is: $", format(tickets_income, ',.2f'), sep='')
     
@@ -214,15 +214,15 @@ def paint_estimator(): #Exercise 8
     #the price f the paint per gallon
     #this will use a minimum of three functions
     
-    total_square_feet, cost_of_gallons_of_paint = paint_estimator_input()
+    total_square_feet, cost_of_gallons_of_paint = paint_estimator_input() #Call paint estimator to get the total square feet the cost of gallons of paint
     
     print(" ")
     print("The cost breakdown to paint", total_square_feet, "square feet is:")
     print("-------------------------------------------------------------------")
     
-    total_cost_of_paint, total_labor_cost = paint_estimator_total_costs(total_square_feet, cost_of_gallons_of_paint)
+    total_cost_of_paint, total_labor_cost = paint_estimator_total_costs(total_square_feet, cost_of_gallons_of_paint) #Call paint estimator total costs to get the total costs
     
-    total_cost_of_job = paint_estimator_total_cost(total_cost_of_paint, total_labor_cost)
+    total_cost_of_job = paint_estimator_total_cost(total_cost_of_paint, total_labor_cost) #Call paint estimator total cost to get the final cost
     
     print("Total cost of paint: $", format(total_cost_of_paint, '.2f'), sep='')
     
@@ -369,14 +369,14 @@ def game(): #Exercise 21
     LOOP = 0
     
     while LOOP == 0:
-        player_choice1 = player_choice()
+        player_choice1 = player_choice() #Call for player choice to get the players choice
         
         print(" ")
         print(" ")
         
-        comp_choice = computer_choice()
+        comp_choice = computer_choice() #Call for computer choice to get the computers choice
         
-        dominator = winner(player_choice1, comp_choice)
+        dominator = winner(player_choice1, comp_choice) #Call for winner to find out whether the computer won or the user won
         
         print(" ")
         print(dominator)
@@ -502,23 +502,23 @@ def draw_snowman(): #Exercise 23
     #draw snowman will use a variety of functions... to draw a snowman
     #the output will be a snowman
     
-    turtle.hideturtle()
+    turtle.hideturtle() #This is to hide turtle
     
-    draw_base()
+    draw_base() #Calls for draw base to create the largest snowball for the snowman
     
-    draw_mid_section()
+    draw_mid_section() #Calls for draw mid section to create the second largest snowball for the snowman
     
-    draw_head()
+    draw_head() #Calls for draw head to create the third largest snowball for the snowman
     
-    draw_face()
+    draw_face() #Calls for draw face to create the face for the snowman and the pipe for the snowman
     
-    draw_hat()
+    draw_hat() #Calls for draw hat to create the hat that will go on top of the snowman
     
-    draw_arms()
+    draw_arms() #Calls for draw arms to create the sticks that will act as the snowman's arms
     
-    turtle.hideturtle()
+    turtle.hideturtle() #Hides turtle again
     
-    turtle.done()
+    turtle.done() #Turtle is done when turtle is done
     
 def draw_base(): #For Exercise 23
     #draw base accpets no arguments
@@ -603,17 +603,18 @@ def draw_arms(): #Last one...
 def checkerboard(): #Exercise 25
     #checkerboard accepts no arguments
     #it creates a checkerboard using loops
+    #Nothing was mentioned about calling another function besides the module My_Graphics
     
     color = 1 #1 = black. 2 = white
     
     for RANDOM_VARIABLE in range(-120, 180, 60): #This is for the rows
         for ANOTHER_VARIABLE in range(-120, 180, 60): #This is for the columns
             if color == 1:
-                My_Graphics.square(RANDOM_VARIABLE, ANOTHER_VARIABLE, 60, 'black')
+                My_Graphics.square(RANDOM_VARIABLE, ANOTHER_VARIABLE, 60, 'black') #Calls for My_Graphics.square when the previous color was white or when this is the first box
                 color = 2
             elif color == 2:
-                My_Graphics.square(RANDOM_VARIABLE, ANOTHER_VARIABLE, 60, 'white')
+                My_Graphics.square(RANDOM_VARIABLE, ANOTHER_VARIABLE, 60, 'white') #Calls for My_Grpahics.sqare when the previous color was black
                 color = 1
                 
-    turtle.hideturtle()
-    turtle.done()
+    turtle.hideturtle() #Hards turtle in the end
+    turtle.done() #Turtle is done when turtle is done.
