@@ -5,9 +5,20 @@
 import time
 import turtle
 
+#Main function to call to start the game
+def Trimon(): #Main function to use
+    
+    #Beginning of the game messages
+    start_game()
+    
+    #Begin using turtle to show graphics for the user
+    begin_turtle()
+
+#=============Separator for each individual function that will be called for by Trimon()=============#
+    
 #Functions that will be used in the main function
 def start_game(): #This function will contain all the messages that will appear in the beginning of the game.
-    intro_msg = 'Hello!'
+    intro_msg = 'Hi there!'
     for letter in intro_msg:
         print(letter, end='')
         time.sleep(.03)
@@ -23,7 +34,85 @@ def start_game(): #This function will contain all the messages that will appear 
     print(' ')
     print(' ')
     
-    intro_msg = 'This world is populated with lots of Trimon that are ready to be caught by you!'
+    intro_msg = 'My name is Professor Computer.'
+    intro_msg2 = 'Everyone calls me the Computer Professor!'
+    for letter in intro_msg:
+        print(letter, end='')
+        time.sleep(.03)
+    print(' ')
+    for letter in intro_msg2:
+        print(letter, end='')
+        time.sleep(.03)
+    time.sleep(1.2)
+    print(' ')
+    print(' ')
+    
+    intro_msg = "That's right! This world is widely inhabited"
+    intro_msg2 = "by mysterious creatures called Trimon!"
+    for letter in intro_msg:
+        print(letter, end='')
+        time.sleep(.03)
+    print(' ')
+    for letter in intro_msg2:
+        print(letter, end='')
+        time.sleep(.03)
+    time.sleep(1.2)
+    print(' ')
+    print(' ')
+    
+    intro_msg = "Trimon have mysterious powers. They come in many"
+    intro_msg2 = "shapes and live in many different places."
+    for letter in intro_msg:
+        print(letter, end='')
+        time.sleep(.03)
+    print(' ')
+    for letter in intro_msg2:
+        print(letter, end='')
+        time.sleep(.03)
+    time.sleep(1.2)
+    print(' ')
+    print(' ')
+    
+    intro_msg = "You humans live happily with Trimon! Living and"
+    intro_msg2 = "working together, we complement each other."
+    for letter in intro_msg:
+        print(letter, end='')
+        time.sleep(.03)
+    print(' ')
+    for letter in intro_msg2:
+        print(letter, end='')
+        time.sleep(.03)
+    time.sleep(1.2)
+    print(' ')
+    print(' ')
+    
+    intro_msg = "We help each other out to"
+    intro_msg2 = "accomplish difficult tasks."
+    for letter in intro_msg:
+        print(letter, end='')
+        time.sleep(.03)
+    print(' ')
+    for letter in intro_msg2:
+        print(letter, end='')
+        time.sleep(.03)
+    time.sleep(1.2)
+    print(' ')
+    print(' ')
+    
+    intro_msg = "Having Trimon battle one another is particulurly popular,"
+    intro_msg2 = "and it depens the bonds between people and Trimon."
+    for letter in intro_msg:
+        print(letter, end='')
+        time.sleep(.03)
+    print(' ')
+    for letter in intro_msg2:
+        print(letter, end='')
+        time.sleep(.03)
+    time.sleep(1.2)
+    print(' ')
+    print(' ')
+    
+    intro_msg = "And that is why I research Trimon."
     for letter in intro_msg:
         print(letter, end='')
         time.sleep(.03)
@@ -31,76 +120,130 @@ def start_game(): #This function will contain all the messages that will appear 
     print(' ')
     print(' ')
     
-    intro_msg = 'Before you can start your jounry, you must first tell us if you are a boy or a girl.'
+    intro_msg = "Well, that's enough from me..."
+    intro_msg2 = "Could you tell me about yourself?"
     for letter in intro_msg:
+        print(letter, end='')
+        time.sleep(.03)
+    print(' ')
+    for letter in intro_msg2:
         print(letter, end='')
         time.sleep(.03)
     time.sleep(1.2)
     print(' ')
     print(' ')
+    
     USER_INPUT = 0
+    CONFIRMATION = 'no'
     
     #Ask the user to tell you if they're a boy or a girl
     while USER_INPUT == 0:
         
         #The beginning of the question
-        intro_msg = 'Are you a boy or are you a girl'
+        intro_msg = 'Are you a boy or a girl? (boy/girl'
         for letter in intro_msg:
             print(letter, end='')
             time.sleep(.03)
-        gender = input('? ')
+        gender = input(') ').lower()
         print(' ')
         
-        #Their first choice
-        if gender == 'boy':
-            intro_msg = """It's great to know you're a boy."""
-            for letter in intro_msg:
-                print(letter, end='')
-                time.sleep(.03)
-                USER_INPUT = 1
-            time.sleep(1.2)
-            print(' ')
-            print(' ')
-        
-        #Their second choice
-        elif gender == 'girl':
-            intro_msg = """It's great to know you're a girl."""
-            for letter in intro_msg:
-                print(letter, end='')
-                USER_INPUT = 1
-                time.sleep(.03)
-            time.sleep(1.2)
-            print(' ')
-            print(' ')
-            
         #If they didn't choose either of the options
-        elif gender != 'boy' and gender != 'girl':
+        if gender != 'boy' and gender != 'girl':
             intro_msg = """Please enter either "boy" or "girl" """
             for letter in intro_msg:
                 print(letter, end='')
                 time.sleep(.03)
                 USER_INPUT = 0
+                CONFIRMATION = 'no'
             time.sleep(1.2)
             print(' ')
             print(' ')
+        
+        elif gender == 'boy':
+            intro_msg = "You're a boy, right? (yes/no"
+            for letter in intro_msg:
+                print(letter, end='')
+                time.sleep(.03)
+            CONFIRMATION = input(") ").lower()
+            time.sleep(1.2)
+            print(' ')
+        
+        elif gender == 'girl':
+            intro_msg = "You're a girl, right? (yes/no"
+            for letter in intro_msg:
+                print(letter, end='')
+                time.sleep(.03)
+            CONFIRMATION = input(") ").lower()
+            time.sleep(1.2)
+            print(' ')
+        
+        if CONFIRMATION == 'yes':
+            USER_INPUT = 1
+        else:
+            USER_INPUT = 0
+            
+    USER_INPUT = 0
+    CONFIRMATION = 'no'
     
-    #Continue the questions that appear in the beginning of the game
-    intro_msg = 'Now, please tell me your name'
+    #Start another while loop to ask the user for their name
+    while USER_INPUT == 0:
+        
+        intro_msg = "I'd like to konw your name."
+        intro_msg2 = "Please tell me. (Must be from 1-10 letters"
+        for letter in intro_msg:
+            print(letter, end='')
+            time.sleep(.03)
+        print(" ")
+        for letter in intro_msg2:
+            print(letter, end='')
+            time.sleep(.03)
+        USER_NAME = input(') ')
+        time.sleep(1.2)
+        print(' ')
+        
+        #ADD A CHECKER FOR THE AMOUNT OF LETTERS THERE ARE IN THE USERS NAME LATER
+        
+        intro_msg = "Your name is " #ADD AN IF STATEMENT LATER WHEN THE CHECKER IS ADDED AND INDENT EVERYTHING NEEDED
+        for letter in intro_msg:
+            print(letter, end='')
+            time.sleep(.03)
+        for letter in USER_NAME:
+            print(letter, end='')
+            time.sleep(.03)
+        intro_msg = '? (yes/no'
+        for letter in intro_msg:
+            print(letter, end='')
+            time.sleep(.03)
+        CONFIRMATION = input(') ').lower()
+        time.sleep(1.2)
+        print(' ')
+        print(' ')
+        
+        if CONFIRMATION == 'yes':
+            USER_INPUT = 1
+        else:
+            USER_INPUT = 0
+            
+    #End the questions for now...
+            
+    intro_msg = "So your name's "
+    intro_msg2 = "by mysterious creatures called Trimon"
     for letter in intro_msg:
         print(letter, end='')
         time.sleep(.03)
-    USER_NAME = input('. ')
-    time.sleep(.5)
+    for letter in USER_NAME:
+        print(letter, end='')
+        time.sleep(.03)
     print(' ')
-    print(' ')
-    
-    intro_msg = 'Great!'
-    for letter in intro_msg:
+    for letter in intro_msg2:
         print(letter, end='')
         time.sleep(.03)
     time.sleep(1.2)
     print(' ')
     print(' ')
+            
+        
+            
     
     intro_msg = 'Now, please tell us more about the boy living right next to you.'
     for letter in intro_msg:
@@ -168,11 +311,3 @@ def begin_turtle(): #Begin using turtle to create the map for the user
         X += 25
         
     turtle.done()
-        
-def Trimon(): #Main function to use
-    
-    #Beginning of the game messages
-
-    
-    #Begin using turtle to show graphics for the user
-    begin_turtle()
