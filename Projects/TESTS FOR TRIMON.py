@@ -1,4 +1,5 @@
 import turtle
+import time
 
 def turtle_position_test():
     #this function is here to test the position of turtle
@@ -13,6 +14,8 @@ def turtle_position_test():
         
 #=============================================================#
         
-        #random can be used fo the trimon
+        #random can be used fo the trimon that the user will encounter
+        
+#=============================================================#
 
             
