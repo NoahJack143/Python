@@ -1,3 +1,6 @@
+#Imports
+import os #Operating System. Used for giving Python more access to files
+
 def file_write():
     #accepts no arguments
     #it opens the file lotr.txt
@@ -98,7 +101,7 @@ def strip_newline(): #Program 6-5
     #read the lines and strip them
     line1 = infile.readline()
     line2 = infile.readline()
-    lne33 = infile.readline()
+    line3 = infile.readline()
     
     #Strip them
     line1 = line1.rstrip('\n')
@@ -209,7 +212,7 @@ def read_sales_while():
     sales_file = open('sales.txt', 'r')
     
     #Prime the file
-    line = sales_filereadline()
+    line = sales_file.readline()
     
     #Begin the loop and get each line
     while line != '':
@@ -227,9 +230,282 @@ def write_video_times(): #Program 6-11
     #writes the video length to a file
     #and then closes the file
     
-    #Get input the video user first
+    #Get initial input for the video user first
     videos = int(input('How many videos are in the project? '))
-    length = int(input('What is the length of the videos? '))
     
     #open/create the file
-    openfile = open('videotimes.txt', 'r'
+    openfile = open('video_times.txt', 'w')
+    
+    #Create the loop in order to get the length of each video
+    for loop in range(1, videos + 1):
+        print("What is the length for the ", loop, "st vide", sep='', end='')
+        length = input("o? ")
+        openfile.write(str(length) + '\n') #'\n' creates a new line
+    #The reason "'\n'" is outside the "str(length)", is because the length will be converted
+    #to a string, AND THEN it will have that new line added. You can't convert a new line.
+    
+    #When the loop ends, close the file
+    openfile.close()
+    
+    #Tell the user that the times have been written into the file
+    print('All times have been written to video_times.txt.')
+        
+def read_video_times(): #Program 6-12
+    #read video times accepts no arguments
+    #it will read the times that are within the file that was created
+    #in the last program
+    
+    #Open the file
+    openfile = open('video_times.txt', 'r')
+    
+    #Set the variable before the assignment
+    video = 1
+    time = 0
+    running_total_time = 0
+    
+    #Create a loop to read each line individually on their own line
+    for time in openfile:
+        #Strip it
+        time = time.rstrip('\n')
+        
+        #Then print the video # and the length of the video in seconds
+        print('For video #' + str(video) + ', the length was ',time, ' seconds long', sep='')
+        
+        #Get the running total of the time and increase the counter
+        video += 1
+        running_total_time += float(time)
+    
+    #When the loop ends, close the file
+    openfile.close()
+    
+    #Then output the total time for all the videos
+    print('The running total of time is', running_total_time, 'seconds')
+    
+def save_emp_records(): #Program 6-13
+    #save emp records accepts no arguments
+    #it prompts the user for the the number of employee records
+    #it opens a file employees.txt and saves
+    #the records Name, ID #, and Department to the file
+    #it outputs a finished message with the filename
+    
+    #Ask the user for the amount of employee records they're going to put in
+    employees = int(input('How many employee records do you want to enter? '))
+    
+    if employees > 0:
+        
+        #Open the file
+        openfile = open('employees.txt', 'w')
+        
+        #Create the loop and begin saving and asking the user for data
+        for line in range(1, employees + 1):
+            #The employee number
+            print('Enter data for employee #', line, sep='')
+            
+            #prompt the user for more data
+            name = input('Name: ')
+            ID = input('ID Number: ')
+            department = input('Department: ')
+            print(' ')
+            
+            #Write all the data for that employee
+            openfile.write(name + '\n')
+            openfile.write(ID + '\n')
+            openfile.write(department + '\n')
+        
+        #When the loop ends, close the file
+        openfile.close()
+        
+        #Tell the user that you've saved the data
+        print('All records were saved to employees.txt.')
+        
+    else:
+        print('You need employees')
+    
+def read_emp_records(): #Program 6-14
+    #read emp records accepts no arguments
+    #it opens the file employees.txt
+    #and loops for each line in the file
+    #outputting the record for Employee Name, ID #, and Department
+    
+    #open the file
+    openfile = open('employees.txt', 'r')
+    
+    #Create the variables
+    counter = 1
+    name = openfile.readline() #Prime the variable
+    
+    #Begin the while loop to reach each of the names as long as there is text to be read
+    while name != '': #This is saying, 'run while name does not equal nothing'
+        #Fetch the data and assign varaibles to them
+        line1 = name #The name
+        line2 = openfile.readline() #ID number
+        line3 = openfile.readline() #Department
+        
+        #Strip the text from the file
+        line1 = line1.rstrip('\n')
+        line2 = line2.rstrip('\n')
+        line3 = line3.rstrip('\n')
+        
+        #Print the data
+        print('Name: ', line1)
+        print('ID #: ', line2)
+        print('Department: ', line3)
+        
+        #Get the new varaible for name to make sure that there is still text to check
+        name = openfile.readline()#This is to make the WHILE LOOP end eventually
+        print(' ') #Make a space between everything to make it all look good
+    
+    #When name equals nothing, the loop will end and close the file
+    openfile.close()
+    
+    #Tell the user one last thing
+    print('That is all the data')
+    
+def write_coffee(): #Program 6-15
+    #write coffee accepts no arguments
+    #it opens the file coffee.txt to append
+    #it loops while the user wants to continue entering records
+    #it prompts the user for the coffee description and number of pounds
+    #the user should be prompted if they want to continue
+    
+    #prime the loop, open the file to append, display the header
+    another = 'y'
+    coffee_file= open('coffee.txt', 'a')
+    
+    #loop to get the records
+    while another.lower() == 'y':
+        print('Enter the following coffee data:\n')
+        desc = input('Description: ')
+        pounds = input('Quantity (in pounds): ')
+        
+        #append the data to the file
+        coffee_file.write(desc + '\n')
+        coffee_file.write(pounds + '\n')
+        
+        #prompt for another entry
+        another = input('\nDo you wish to enter another coffee? (y to continue): ')
+    
+    #Close the file and output saved message
+    coffee_file.close()
+    print('\nAll data appended to coffee.txt.')
+    
+def read_coffee(): #Program 6-16
+    #read coffee accepts no arguments
+    #it loops to read the records in coffee.txt
+    #and outputs the description and pounds of coffee
+    
+    #open coffee.txt and read the first description
+    coffee_file = open('coffee.txt', 'r')
+    desc = coffee_file.readline()
+    
+    #loop to read, strip, and output each record
+    while desc != '':
+        pounds = coffee_file.readline()
+        
+        #strip the newline
+        desc = desc.rstrip('\n')
+        pounds = pounds.rstrip('\n')
+        
+        print('\nDescription:', desc)
+        print('Quantity (in pounds):', pounds)
+        
+        #Get the new description
+        desc = coffee_file.readline() #Without this, the WHILE LOOP will run endlessly
+        
+    #Close the file and output to the user
+    coffee_file.close()
+    print('\nAll records retrived.')
+    
+def search_coffee(): #Program 6-17
+    #search coffee accepts no arguments
+    #it searched coffee.txt for a string the user enters
+    #if no record matches, it outputs a message to the user
+    
+    #a boolean flag to determine search status
+    found = False
+    
+    #get input from the user
+    search = input('Enter a coffee description to search for: ')
+    
+    #open the file coffee.txt
+    coffee_file = open('coffee.txt', 'r')
+    
+    #get the frist description from the file
+    desc = coffee_file.readline()
+    
+    #loop to read each line of the file
+    while desc != '':
+        pounds = coffee_file.readline()
+        
+        #Strip the newline from the descriptoin
+        desc = desc.rstrip('\n')
+        
+        if desc.lower() == search.lower(): #Determines if the record is foundn and displays the record if so
+            print('\nRecordfound:\n')
+            print('Description:', desc)
+            print('Quantity (in pounds):', pounds)
+            found = True #toggle the flag varaible to true
+        #get the next descriptoin
+        desc = coffee_file.readline()
+        
+    #Close the file when all the descriptions were reached
+    coffee_file.close()
+    
+    if not found: #Found = False #not stands for 'if found = false
+        print('\nThe record was not found.')
+        
+def modify_coffee(): #Program 6-18
+    #modify coffee accepts no arguments
+    #it imports the os module - this is needed to perform OS related file commands
+    #it searches through the records and allows the user to modify the quantity
+    
+    #boolean flag variable
+    found = False
+    
+    #Get the serach description and new quantity
+    search = input('Enter the coffee description to modify: ')
+    new_qty = input('Enter the new quantity: ')
+    
+    #open the coffee.txt file to read and a new temporary file to write
+    coffee_file = open('coffee.txt', 'r')
+    temp_file = open('temp.txt', 'w')
+    
+    #read the first description
+    desc = coffee_file.readline()
+    
+    #loop to read the process each line
+    while desc != '':
+        qty = coffee_file.readline()
+        
+        #strip newline
+        desc = desc.rstrip('\n')
+        qty = qty.rstrip('\n')
+        
+        if search.lower() == desc.lower(): #Coffee found
+            #write the description and new quantity to the temporary file
+            temp_file.write(desc + '\n')
+            temp_file.write(new_qtu + '\n')
+            found = True
+        else: #these are not the droids you're loking for
+            #Write the original record to the temp file
+            temp_file.write(desc + '\n')
+            temp_file.write(qty + '\n')
+            
+        #read the next description
+        desc = coffe_file.readline()
+        
+    #all records have been processed, remove and rename files
+    coffee_file.close()
+    temp_file.close()
+    
+    #delete the original
+    os.remove('coffee.txt')
+    
+    #rename the temp file to coffee.txt
+    os.rename('temp.txt', 'coffee.txt')
+    
+    #description not found
+    if found == False:
+        print('\nRecord not found.')
+    else:
+        print('THe quantity for', search, 'has been updated to', new_qty, 'pounds.')
