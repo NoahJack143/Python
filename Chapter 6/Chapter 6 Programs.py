@@ -361,6 +361,44 @@ def read_emp_records(): #Program 6-14
     #Tell the user one last thing
     print('That is all the data')
     
+def coffee_shop_menu(): #Menu for coffee_shop
+    #coffee shop menu accepts no arguments
+    #it will act as the menu for coffee shop
+    #the main function will call this and will choose an option
+    #provided by this program
+    
+    #The text for the menu
+    print('Welcome to Caffeine Overload Inventory Control System. Please choose an inventory option.')
+    print('1) Add a record')
+    print('2) Modify a record')
+    print('3) Delete a record')
+    print('4) Display all saved records')
+    print('5) Exit')
+    
+    #Gain input from the user
+    user_choice = int(input('Inventory option: '))
+    
+    #Add validation to check if they entered a number betwen 1-5
+    if user_choice < 1 and user_choice > 5:
+        print('Please choose an option from 1 - 5')
+    else:
+        #Check the users choice and then give them what they want
+        if user_choice == 1:
+            #Call for write_coffee
+            write_coffee()
+        elif user_choice == 2:
+            #Call for modify_coffee
+            modify_coffee()
+        elif user_choice == 3:
+            #Call for delete_coffee
+            delete_coffee()
+        elif user_choice == 4:
+            #Call for read_coffee
+            read_coffee()
+        elif user_choice == 5:
+            #Since they chose to exit, they will recieve this closing message
+            print('Goodbye!')    
+    
 def write_coffee(): #Program 6-15
     #write coffee accepts no arguments
     #it opens the file coffee.txt to append
@@ -508,4 +546,142 @@ def modify_coffee(): #Program 6-18
     if found == False:
         print('\nRecord not found.')
     else:
-        print('THe quantity for', search, 'has been updated to', new_qty, 'pounds.')
+        print('The quantity for', search, 'has been updated to', new_qty, 'pounds.')
+        
+def delete_coffee(): #Works for coffee_shop_menu
+    #delete coffee doesn't accept any arguments
+    #it will delete a record in coffee.txt
+    #based on the user's input
+       
+    #boolean flag variable
+    found = False
+    
+    #Get the serach description and new quantity
+    search = input('Enter the coffee description to delete: ')
+    
+    
+    #open the coffee.txt file to read and a new temporary file to write
+    coffee_file = open('coffee.txt', 'r')
+    temp_file = open('temp.txt', 'w')
+    
+    #read the first description
+    desc = coffee_file.readline()
+    
+    #loop to read the process each line
+    while desc != '':
+        qty = coffee_file.readline()
+        
+        #strip newline
+        desc = desc.rstrip('\n')
+        qty = qty.rstrip('\n')
+        
+        if search.lower() != desc.lower(): #Coffee found
+            #write the description and new quantity to the temporary file
+            temp_file.write(desc + '\n')
+            temp_file.write(qty + '\n')
+        else: #these are not the droids you're loking for
+            #Write the original record to the temp file
+            found = True
+            
+        #read the next description
+        desc = coffee_file.readline()
+        
+    #all records have been processed, remove and rename files
+    coffee_file.close()
+    temp_file.close()
+    
+    #delete the original
+    os.remove('coffee.txt')
+    
+    #rename the temp file to coffee.txt
+    os.rename('temp.txt', 'coffee.txt')
+    
+    if found:
+        print('The selected record has been deleted.')
+    else:
+        print('There was nothing found.')
+    
+    
+def division(): #Program 6-20
+    #division accepts no arguments
+    #it prompts the user for two integers
+    #it divides num1 / num2 and outputs the result
+    
+    #get input form the user
+    num1 = int(input('Enter a number: '))
+    num2 = int(input('Enter a second number: '))
+    
+    #perform calculations and ouptut
+    result = num1 / num2
+    
+    print(num1, 'divided by', num2, 'is', result)
+    
+def division2(): #Program 6-20
+    #division accepts no arguments
+    #it prompts the user for two integers
+    #it divides num1 / num2 and outputs the result
+    
+    #get input form the user
+    num1 = int(input('Enter a number: '))
+    num2 = int(input('Enter a second number: '))
+    
+    if num2 == 0:
+        print("You can't divide by 0")
+    else:
+        #perform calculations and ouptut
+        result = num1 / num2
+        
+        print(num1, 'divided by', num2, 'is', result)
+
+def division3(): #Program 6-20
+    #division accepts no arguments
+    #it prompts the user for two integers
+    #it divides num1 / num2 and outputs the result
+    
+    try:
+        #get input form the user
+        num1 = int(input('Enter a number: '))
+        num2 = int(input('Enter a second number: '))
+        
+        if num2 == 0:
+            print("You can't divide by 0")
+        else:
+            #perform calculations and ouptut
+            result = num1 / num2
+            
+            print(num1, 'divided by', num2, 'is', result)
+    except:
+        print('Please enter only numbers.')
+        
+def gross_pay1(): #Program 6-22 + 6-23
+    #gross pay 1 accepts no arguments
+    #it prompts the user for hours worked and hourly pay
+    #it calculates the gross pay = hours * rate and outputs the result
+    try:
+        #get input from the user
+        hours = int(input('Enter the number of hours worked: '))
+        rate = float(input('Enter the pay rate: '))
+        
+        pay = hours * rate
+        
+        print('Gross pay: $', format(pay, ',.2f'), sep= '')
+        
+    except ValueError as err: #if it crashes and tries to convert a value that cannot be converted
+        print(err)
+        print('ERROR: Hours worked and hourly rate must be valid numbers')
+        
+def display_file1(): #Prgoram 6-24
+    #display file 1 accepts no arguments
+    #takes input from the user for a filename to open
+    #and reads the contents of the file
+    
+    #get inptu from the user
+    fiel = input('Enter filename to open: ')
+    
+    #open the file and read the contents
+    infile = open(filename, 'r')
+    contents = infile.read()
+    
+    #output and close the file
+    print(contents)
+    infile.close()
