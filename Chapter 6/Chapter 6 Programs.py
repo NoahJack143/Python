@@ -675,8 +675,8 @@ def display_file1(): #Prgoram 6-24
     #takes input from the user for a filename to open
     #and reads the contents of the file
     
-    #get inptu from the user
-    fiel = input('Enter filename to open: ')
+    #get input from the user
+    filename = input('Enter filename to open: ')
     
     #open the file and read the contents
     infile = open(filename, 'r')
@@ -685,3 +685,91 @@ def display_file1(): #Prgoram 6-24
     #output and close the file
     print(contents)
     infile.close()
+    
+def display_file2(): #Prgoram 6-25
+    #display file 1 accepts no arguments
+    #takes input from the user for a filename to open
+    #and reads the contents of the file
+    
+    try: #see if they will work
+        #get input from the user
+        filename = input('Enter filename to open: ')
+        
+        #open the file and read the contents
+        infile = open(filename, 'r')
+        contents = infile.read()
+        
+        #output and close the file
+        print(contents)
+        infile.close()
+    except IOError: #if it doesn't work, it will run this instead. #The reason IOError is there is for a targeted error. Could also be seen as an else statement
+        #could also be except IOError as err: print('File does not exist. Traeback:', err) #IO handles anything for the input or the output (it's more general)
+        #or could be FileNotFoundError as err: print(' File does not exist. Traceback:', err) #FileNotFound handles files that do not exist or aren't found
+        print('File does not exist.')
+        
+def sales_report1(): #Program 6-26
+    #sales report1 accepts no arguments
+    #it opens a file sales_data.txt to read
+    #it accumulates the total for each line in the file
+    
+    try: #use try to see if the lines code will work or not
+        
+        #open the file
+        infile = open('sales_data.txt', 'r')
+        
+        #read the things inside the file
+        line = infile.readline()
+        
+        #make calculations with the line
+        result = line + 1
+        
+        #Spew out the result for the user
+        print(result, 'is the result')
+        
+        #Close the file
+        infile.close()
+    
+    #Exceptions (similar to if-then-else statements)
+    except IOError: #File/input/output error
+        print('ERROR: An error occured trying to read the file.')
+    except ValueError: #Numbers/Values error
+        print('ERROR: Non-numeric data found, calculations haulted.')
+    except FileNotFoundError:
+        print('FileNotFound Error.')
+    except: #Any other error that happens
+        print('ERROR: A problem was encountered.')
+
+def sales_report2(): #Program 6-27
+    #sales report1 accepts no arguments
+    #it opens a file sales_data.txt to read
+    #it accumulates the total for each line in the file
+    
+    #accumulator
+    total = 0
+    
+    try: #use try to see if the lines code will work or not
+        
+        #open the file
+        infile = open('sales_data.txt', 'r')
+        
+        #create a loop
+        for line in infile:
+            amount = float(line)
+            total += amount
+        
+        #Spew out the result for the user
+        print(format(total, ',.2f'))
+        
+        #Close the file
+        infile.close()
+    
+    #Exceptions (similar to if-then-else statements)
+    except IOError: #File/input/output error
+        print('ERROR: An error occured trying to read the file.')
+    except ValueError: #Numbers/Values error
+        print('ERROR: Non-numeric data found, calculations haulted.')
+    except Exception as err:  #when using Exception, you must put it at the bottom of all the other except
+        print(err)
+    else: #Safe way to not output garbage
+        #output the data
+        print(format(total, ',.2f'))
