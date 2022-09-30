@@ -1,4 +1,5 @@
-
+#Imports
+import random
 
 def line_numbers(): #Exercise 3
     #line numbers accepts no arguments
@@ -84,7 +85,7 @@ def average_of_numbers(): #Exercise 6
         while line != '': #CONVERT LINE
             #add to the accumulators respectively
             total_items += 1
-            sum_of_numbers += line
+            sum_of_numbers += int(line)
             
             #read the next line and continue the loop if there is another number to be added
             line = infile.readline()
@@ -103,3 +104,40 @@ def average_of_numbers(): #Exercise 6
         print('There was no file...')
     except ValueError:
         print('There was a problem with the values...')
+        
+def ran_num_writer(): #Exercise 7
+    #ran num writer accepts no arguments
+    #it will write a series of random numbers to a file. Each random number
+    #will be between 1 and 100. THe program will let the user choosethe amount of random
+    #numbers there would be.
+    
+    try: #Create a try block
+        #Prompt the user
+        amount_of_ran = int(input('How many random numbers would you like to generate? '))
+        
+        #Validate the user's input (Make sure it's > 0
+        if amount_of_ran > 0:
+            
+            #Open the file
+            infile = open('random_numbers.txt', 'w')
+            
+            #create a for loop for the amount of random numbers the user requested
+            for line in range(1, amount_of_ran + 1):
+                #Create a variable for the random number
+                number = random.randint(1, 500)
+                
+                #Write the number into the file
+                infile.write(str(number) + '\n')
+                
+        else:
+            print('Please enter a number that is greater than 0')
+    #If the try block fails, then have excepts here
+    except ValueError:
+        print('invalid literal for int() with base 10: ', amount_of_ran)
+    except:
+        print('An error has occured somewhere.')
+    else:
+        print('You have successfully generated the numbers.')
+
+ran_num_reader(): #Exercise 8
+    #ran num reader accepts no arguments
