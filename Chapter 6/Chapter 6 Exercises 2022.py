@@ -1,6 +1,50 @@
 #Imports
 import random
 
+#==============================================================================#
+
+#MAIN FUNCTION FOR EVERYTHING
+def m(): #MAIN FUNCTION TO CALL ALL OTHER MAIN FUNCTIONS
+    #m accepts no arguments
+    #it call call all other main functions
+    c
+    #Table with options
+    print('FUNCTION_CALLER.io')
+    print('--------------------')
+    print('3) Line Numbers')
+    print('4) Line Counter')
+    print('6) Average of Numbers')
+    print('7) Random_Number_File_Writer')
+    print('8) Random Number File Reader')
+    print('10) Golf Scores')
+    print('11) Personal Web Page Generator')
+    print('12) Average Steps Taken')
+    print('-')
+    #User choice
+    print('CHOICE', end='')
+    uc = int(input('? '))
+    #Check user choice and send them off!
+    if uc == 3:
+        line_numbers()
+    elif uc == 4:
+        line_counter()
+    elif uc == 6:
+        average_of_numbers()
+    elif uc == 7:
+        ran_num_writer()
+    elif uc == 8:
+        ran_num_reader()
+    elif uc == 10:
+        golf_main()
+    elif uc == 11:
+        pers_web_gen()
+    elif uc == 12:
+        avg_steps()
+    else:
+        print("You didn't choose an option from the table")
+        
+#===================================================================================#
+
 def line_numbers(): #Exercise 3
     #line numbers accepts no arguments
     #it will display the contents of the file preceded with
@@ -129,6 +173,9 @@ def ran_num_writer(): #Exercise 7
                 #Write the number into the file
                 infile.write(str(number) + '\n')
                 
+            #Close the file
+            infile.close()
+            
         else:
             print('Please enter a number that is greater than 0')
     #If the try block fails, then have excepts here
@@ -139,5 +186,395 @@ def ran_num_writer(): #Exercise 7
     else:
         print('You have successfully generated the numbers.')
 
-ran_num_reader(): #Exercise 8
+def ran_num_reader(): #Exercise 8
     #ran num reader accepts no arguments
+    #this function will display the random numbers, total the numbers
+    #and all the number of numbers read.
+    
+    try: #create a try block
+        #open the file
+        infile = open('random_numbers.txt', 'r')
+        
+        #Accumulators
+        counter = 0 #This will count the total amount of numbers
+        total = 0 #This will get the sum of all the numbers
+        
+        #Create a for loop for all the numbers
+        for line in infile:
+            print('', end=line) #Print each number that is found in the file
+            counter += 1 #Increase the counter for every loop
+            total += int(line) #Add the new number to the total each time to get the sum of all the numbers
+            
+        #When the loop ends, close the file
+        infile.close()
+        
+        #Tell the user the total numbers and the sum
+        print('The total of the', counter, 'random numbers is:', total)
+        
+    #If the try block fails, then run the exception
+    except:
+        print('An error occured some where...')
+        
+#=====================================================================================================#
+        
+def golf_main(): #Exercise 10
+    #golf main accepts no arguments
+    #golf main is the main fucntion that will utilize
+    #3 other functions. There will also be validation everywhere
+    #and try blocks everywhere
+    
+    #Create a try block
+    try:
+        #Get the user's choice 
+        user_choice = golf_menu()
+        
+        #Create a space between the user_choie and the other options
+        print(' ')
+        
+        #Check to see which option they chose and then either call a function or end the main function
+        if user_choice == 1:
+            golf_read()
+        elif user_choice == 2:
+            golf_write()
+        elif user_choice == 3:
+            print('Thank you for using the Hole in Twelve golf management system. Have a great day.')
+        
+    #If the try block fails somehow, then use this exception
+    except:
+        print('An error occured somewhere...')
+    
+def golf_menu(): #For Exercise 10
+    #golf menu accepts no arguments
+    #it will create a menu for the user, and will let them
+    #choose an option
+    
+    #Create a try block
+    try:
+        #Text before the table
+        print('Welcome to Hole in Twelve golf management system.')
+        print('Please choose from the following commands...')
+        print('-----------------------------------------------------')
+        
+        #Create a menu for the user
+        print('1) Read golf data')
+        print('2) Append golf data')
+        print('3) Exit')
+        print(' ')
+        
+        #Prompt the user for their option
+        user_choice = int(input('Menu choice: '))
+        
+        #Create an if statement to validate the user's choice
+        if user_choice <1 or user_choice >3:
+            print('Please choose an option from the table next time.')
+    except TypeError or ValueError or NameError:
+        user_choice = print("There was an issue with the user's choice")
+    except:
+        user_choice = print('An error occured somewhere...')
+    else:
+        #if everything went right, then return the user's choice
+        return user_choice
+        
+def golf_read(): #For Exercise 10
+    #golf read accepts no arguments
+    #it will read the file, golf.txt, to the user.
+    #The contents within the file will the golfer's name and
+    #their score
+    
+    #Create a try block
+    try:
+        #open the file
+        infile = open('golf.txt', 'r')
+        
+        #Create a checker to see when there is nothing left in the file to be read
+        check = infile.readline()
+        
+        #Create a while loop to read everything for the user
+        while check != '':
+            print('', end=check) #print the information for the user
+            check = infile.readline() #Check for the next line in the file
+            
+    #If the try block doesn't successfully run, run these excepts
+    except:
+        print('There was a problem somewhere...')
+    else:
+        print('All records successfully read!')
+    
+def golf_write(): #For Exercise 10
+    #golf_write accepts no arguments
+    #it will APPEND data into the file, golf.txt.
+    
+    #Creat a try block
+    try: 
+        #open the file
+        infile = open('golf.txt', 'a')
+        
+        #Set a variable to see if the user wants to keep going
+        keep_going = 'y'
+        
+        #Start a while loop so the user can add multiple golfers
+        while keep_going.lower() == 'y':
+        
+            #prompt the user for the golfer's name and their scoore
+            golfer_name = input("Golfer's name: ")
+            score = int(input('Score: '))
+            print(' ')
+            
+            #append the data to the file
+            infile.write(golfer_name + '\n')
+            infile.write(str(score) + '\n')
+            infile.write(' ' + '\n')
+            
+            #Ask the user if they would like to add another golfer
+            keep_going = input('Add another golfer (y/n) ')
+            print(' ')
+            
+            if keep_going != 'n' and keep_going != 'y':
+                print("Please choose either 'y' or 'n' next time.")
+                keep_going = 'n'
+                
+        #once the while loop ends, close the file
+        infile.close()
+        
+    except TypeError or ValueError or NameError:
+        print("There was a problem with the user's input.")
+    except:
+        print('An error occured somewhere...')
+    else:
+        print('Golf data written to golf.txt')
+
+#=========================================================================================#
+        
+def pers_web_gen(): #Exercise 11
+    #pers web gen accepts no arguments
+    #it will prompt the user to enter their name, and then ask theuser for a sentence that describes him or her.
+    #Once the user has entered the information, the program should create a HTML file with th einput and the HTML
+    #code necessary to create the webpage. The webpage program should save the file using the entered name and the
+    #extension .html
+    
+    #Create a try block
+    try:
+        #prompt the user for their name
+        user_name = input('Enter your name: ')
+        
+        #Prompt the user to write a short description of themself
+        desc = input('Write a short description of yourself: ')
+        
+        #Change the user's name to make it fit for an HTML webpage
+        user_name_html = user_name + '.html'
+        
+        #Create/reopen the html file for the user
+        infile = open(user_name_html, 'w')
+        
+        #html code (USE CONCATINATION (+) )
+        html_template = """
+        <html>
+        <head>
+        </head>
+        <body>
+            <center>
+                <h1>""" + user_name + """<h1>
+            </center>
+            <hr />
+                """ + desc + """
+            <hr />
+        </body>
+        </html>
+        
+        """
+        
+        #Writing the code into th efile
+        infile.write(str(html_template))
+        
+        #Close the file when all is said and done
+        infile.close()
+    #If there is a problem, then use this except
+    except:
+        print('An error occured somewhere...')
+    #If there aren't any problems, then tell the user this
+    else:
+        print('Webpage information saved to', user_name_html)
+        
+#=======================================================================#
+        
+def avg_steps_attempt1(): #Exercise 12
+    #avg steps accepts no arguments
+    #it will read from steps.txt and averages the number of steps taken each month,
+    #then outputs the months and average number of steps.
+    
+    #Create a try block
+    try:
+        #open steps.txt and read it
+        infile = open('steps.txt', 'r')
+        
+        #Create two accumulators for something complex later
+        counter = 0
+        total_steps_pmonth = 0
+        
+        #Create another accumulator for something complex later
+        achieved = 0
+        
+        #Use another function in order to create the days for each month
+        Jan, Feb, Mar, Apr, May, June, July, Aug, Sept, Oct, Nov, Dec = days_per_month()
+        
+        days_pmonth = Jan, Feb, Mar, Apr, May, June, July, Aug, Sept, Oct, Nov, Dec
+        #Create a for loop
+        for day in days_pmonth:
+            #Read each line in the file
+            steps = infile.readline()
+            total_steps_pmonth += int(steps)
+            #Increase the counter for a complex thing later
+            counter += 1
+            #Create if-then-else statements for something complex
+            if counter == Jan and achieved == 0: #January
+                average = total_steps_pmonth / counter
+                print('January\t\t', average, 'steps')
+                counter = 0
+            elif counter == Feb and achieved == 1: #February
+                average = total_steps_pmonth / counter
+                print('February\t\t', average, 'steps')
+                counter = 0
+            elif counter == Mar and achieved == 2: #March
+                average = total_steps_pmonth / counter
+                print('March\t\t', average, 'steps')
+                counter = 0
+            elif counter == Apr and achieved == 3: #April
+                average = total_steps_pmonth / counter
+                print('April\t\t', average, 'steps')
+                counter = 0
+            elif counter == May and achieved == 4: #May
+                average = total_steps_pmonth / counter
+                print('May\t\t', average, 'steps')
+                counter = 0
+            elif counter == June and achieved == 5: #June
+                average = total_steps_pmonth / counter
+                print('June\t\t', average, 'steps')
+                counter = 0
+            elif counter == July and achieved == 6: #July
+                average = total_steps_pmonth / counter
+                print('July\t\t', average, 'steps')
+                counter = 0
+            elif counter == Aug and achieved == 7: #August
+                average = total_steps_pmonth / counter
+                print('August\t\t', average, 'steps')
+                counter = 0
+            elif counter == Sept and achieved == 8: #September
+                average = total_steps_pmonth / counter
+                print('September\t\t', average, 'steps')
+                counter = 0
+            elif counter == Oct and achieved == 9: #October
+                average = total_steps_pmonth / counter
+                print('October\t\t', average, 'steps')
+                counter = 0
+            elif counter == Nov and achieved == 10: #November
+                average = total_steps_pmonth / counter
+                print('November\t\t', average, 'steps')
+                counter = 0
+            elif counter == Dec and achieved == 11: #December
+                average = total_steps_pmonth / counter
+                print('December\t\t', average, 'steps')
+                counter = 0
+            else:
+                print('PROBLEM')
+            
+            #When all is said an done, close the file
+        infile.close()
+    except NameError:
+        print('An error occured somewhere.')
+def days_per_month(): #For Exercise 12
+    #days per month accepts no arguments
+    #it will get the days per month and will return the information to the
+    #main function
+    
+    jan = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+    
+    feb = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+
+    mar = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+
+    apr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+    
+    may = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+
+    june = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+
+    july = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+    
+    aug = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+
+    sept = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+
+    octo = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+    
+    nov = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+
+    dec = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+    
+    return [jan, feb, mar, apr, may, june, july, aug, sept, octo, nov, dec]
+
+#============================================================================================#
+
+def avg_steps_attempt2(): #Exercise 12
+    #avg steps accepts no arguments
+    #it will read from steps.txt and averages the number of steps take each month
+    #, then outputs the months and the average number of steps.
+    
+    #open a try block
+    try:
+        #open the file
+        infile = open('steps.txt', 'r')
+        
+        #Create accumulators
+        counter = 0
+        achieved = 1
+        total = 0
+        
+        #Call for months and dpm
+        MONTHS = months()
+        dpm = dpm()
+        
+        #Start multiple for loops and multiple if statements
+        for name in months:
+            for day in dpm:
+                line = infile.readlien()
+                total += int(line)
+                if name == 'January' and counter == 31:
+                    print(name, '\t\t', total, 'steps')
+    except:
+        print('o')
+        
+def months(): #For Exercise 12
+    #months accepts no arguments
+    #it will give the name of the months back to the main function
+    
+    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+def dpm(): #For Exercise 12
+    #dpm accepts no arguments
+    #it will give the days in each month to the main function
+    
+    return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+#========================================================================================#
+
+def avg_steps(): #Exercise 12
+    #avg steps accepts no arguments
+    #it will read from steps.txt and average the number of steps taken each month, and
+    #then outputs the months and the averages number of steps.
+    
+    #Create a try block
+    try:
+        #open the file
+        infile = open('steps.txt', 'r')
+        
+        #Accumulators
+        counter = 0
+        achieved = 1
+        steps = 0
+        
+        #for loops
+        for num in range(1, 31 + 1):
+            while counter >= 0 or <32:
+                for line in infile:
+                    
+                    #I'm taking a break my brain is fried.
