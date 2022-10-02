@@ -426,56 +426,66 @@ def avg_steps_attempt1(): #Exercise 12
             #Increase the counter for a complex thing later
             counter += 1
             #Create if-then-else statements for something complex
-            if counter == Jan and achieved == 0: #January
+            if counter == 31 and achieved == 0: #January
                 average = total_steps_pmonth / counter
                 print('January\t\t', average, 'steps')
                 counter = 0
-            elif counter == Feb and achieved == 1: #February
+                achieved += 1
+            elif counter == 28 and achieved == 1: #February
                 average = total_steps_pmonth / counter
                 print('February\t\t', average, 'steps')
                 counter = 0
-            elif counter == Mar and achieved == 2: #March
+                achieved += 1
+            elif counter == 31 and achieved == 2: #March
                 average = total_steps_pmonth / counter
                 print('March\t\t', average, 'steps')
                 counter = 0
-            elif counter == Apr and achieved == 3: #April
+                achieved += 1
+            elif counter == 30 and achieved == 3: #April
                 average = total_steps_pmonth / counter
                 print('April\t\t', average, 'steps')
                 counter = 0
-            elif counter == May and achieved == 4: #May
+                achieved += 1
+            elif counter == 31 and achieved == 4: #May
                 average = total_steps_pmonth / counter
                 print('May\t\t', average, 'steps')
                 counter = 0
-            elif counter == June and achieved == 5: #June
+                achieved += 1
+            elif counter == 30 and achieved == 5: #June
                 average = total_steps_pmonth / counter
                 print('June\t\t', average, 'steps')
                 counter = 0
-            elif counter == July and achieved == 6: #July
+                achieved += 1
+            elif counter == 31 and achieved == 6: #July
                 average = total_steps_pmonth / counter
                 print('July\t\t', average, 'steps')
                 counter = 0
-            elif counter == Aug and achieved == 7: #August
+                achieved += 1
+            elif counter == 31 and achieved == 7: #August
                 average = total_steps_pmonth / counter
                 print('August\t\t', average, 'steps')
                 counter = 0
-            elif counter == Sept and achieved == 8: #September
+                achieved += 1
+            elif counter == 30 and achieved == 8: #September
                 average = total_steps_pmonth / counter
                 print('September\t\t', average, 'steps')
                 counter = 0
-            elif counter == Oct and achieved == 9: #October
+                achieved += 1
+            elif counter == 31 and achieved == 9: #October
                 average = total_steps_pmonth / counter
                 print('October\t\t', average, 'steps')
                 counter = 0
-            elif counter == Nov and achieved == 10: #November
+                achieved += 1
+            elif counter == 30 and achieved == 10: #November
                 average = total_steps_pmonth / counter
                 print('November\t\t', average, 'steps')
                 counter = 0
-            elif counter == Dec and achieved == 11: #December
+                achieved += 1
+            elif counter == 31 and achieved == 11: #December
                 average = total_steps_pmonth / counter
                 print('December\t\t', average, 'steps')
                 counter = 0
-            else:
-                print('PROBLEM')
+                achieved += 1
             
             #When all is said an done, close the file
         infile.close()
@@ -536,8 +546,9 @@ def avg_steps_attempt2(): #Exercise 12
         #Start multiple for loops and multiple if statements
         for name in months:
             for day in dpm:
-                line = infile.readlien()
+                line = infile.readline()
                 total += int(line)
+                counter += 1
                 if name == 'January' and counter == 31:
                     print(name, '\t\t', total, 'steps')
     except:
@@ -557,7 +568,7 @@ def dpm(): #For Exercise 12
 
 #========================================================================================#
 
-def avg_steps(): #Exercise 12
+def avg_steps_attempt3(): #Exercise 12
     #avg steps accepts no arguments
     #it will read from steps.txt and average the number of steps taken each month, and
     #then outputs the months and the averages number of steps.
@@ -574,7 +585,124 @@ def avg_steps(): #Exercise 12
         
         #for loops
         for num in range(1, 31 + 1):
-            while counter >= 0 or <32:
+            while counter >= 0 or counter <32:
                 for line in infile:
+                    print(' hi ')
                     
-                    #I'm taking a break my brain is fried.
+    except:
+        print('hi')
+                    
+#=====================================================================================#
+        
+def avg_steps(): #Exercise 12
+    #avg steps accepts no arguments
+    #it will read from steps.txt and average the number of steps taken each month, and
+    #then outputs the month and averages the number of steps.
+    
+    #Create a try block
+    try:
+        #open the file
+        infile = open('steps.txt', 'r')
+        
+        #Set some accumulators
+        counter = 0
+        total_steps_pmonth = 0
+        achieved = 0
+        
+        #Set variables
+        DAYS_PER_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        
+        #Create nested loops
+        for name in MONTHS:
+            for day in DAYS_PER_MONTH:
+                for line in infile:
+                    while achieved == 0:
+                        #Add the steps together
+                        total_steps_pmonth += int(line)
+                        #Increate the counter
+                        counter += 1
+                        #if counter is good to go
+                        if counter == day and achieved == 0:
+                            achieved += 1
+                            average = total_steps_pmonth / counter
+                            print(name, '\t', average, 'steps')
+                            total_steps_pmonth = 0
+                            counter = 0
+                    while achieved == 1:
+                        #Add the steps together
+                        total_steps_pmonth += int(line)
+                        #Increate the counter
+                        counter += 1
+                        #if counter is good to go
+                        if counter == day and achieved == 1:
+                            achieved += 1
+                            average = total_steps_pmonth / counter
+                            print(name, '\t', average, 'steps')
+                            total_steps_pmonth = 0
+                            counter = 0
+                    while achieved == 2:
+                        #Add the steps together
+                        total_steps_pmonth += int(line)
+                        #Increate the counter
+                        counter += 1
+                        #if counter is good to go
+                        if counter == day and achieved == 2:
+                            achieved += 1
+                            average = total_steps_pmonth / counter
+                            print(name, '\t', average, 'steps')
+                            total_steps_pmonth = 0
+                            counter = 0
+    except ValueError as err:
+        print(err)
+        
+        
+def avg_steps_lame(): #Exercise 12 LAME
+    #avg steps lame accepts no arguments
+    #just read
+    
+    #create a try block
+    try:
+        #open the file
+        infile = open('steps.txt', 'r')
+        
+        #accumulators
+        counter = 0
+        total_steps_pmonth = 0
+        achieved = 0
+        
+        #nested loops
+        for line in infile.readline()[1:31]:
+            while achieved == 0:
+                total_steps_pmonth += int(line)
+                counter += 1
+                if counter == 31 and achieved == 0:
+                    average = total_steps_pmonth / counter
+                    counter = 0
+                    total_steps_pmonth = 0
+                    print('January \t\t', average, 'steps')
+                    achieved = 1
+            while achieved == 1:
+                total_steps_pmonth += int(line)
+                counter += 1
+                if counter == 28 and achieved == 1:
+                    average = total_steps_pmonth / counter
+                    counter = 0
+                    total_steps_pmonth = 0
+                    print('February \t\t', average, 'steps')
+                    achieved += 1
+            while achieved == 2:
+                total_steps_pmonth += int(line)
+                counter += 1
+                if counter == 31 and achieved == 2:
+                    average = total_steps_pmonth / counter
+                    counter = 0
+                    total_steps_pmonth = 0
+                    print('March \t\t', average, 'steps')
+                    achieved += 1
+            
+    except ValueError as err:
+        print(err)
+        
+
+                
