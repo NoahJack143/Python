@@ -584,10 +584,9 @@ def avg_steps2(): #Exercise 12
             average = total_steps / counter
             if name == 'April' or name == 'March' or name == 'May' or name == 'June' or name == 'July' or name == 'August':
                 name = name + '\t'
-            elif name != 'December':
                 print(name, '\t', format(average, ',.2f'), 'steps')
-            elif name == 'December':
-                print('December \t', format(average, ',.2f'), 'steps')
+            elif name != 'April' or name != 'March' or name != 'May' or name != 'June' or name != 'July' or name != 'August':
+                print(name, '\t', format(average, ',.2f'), 'steps')
             else:
                 print('Name was not found.')
             counter = 0
