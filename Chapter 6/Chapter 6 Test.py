@@ -8,3 +8,10 @@ def file_test():#Test for file in a for loop
     
     for line in infile:
         print(line)
+        
+def range_test():
+    
+    DPM = 2
+    
+    for line in range(1, DPM):
+        print('hi')
