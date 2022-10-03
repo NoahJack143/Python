@@ -7,7 +7,7 @@ import random
 def m(): #MAIN FUNCTION TO CALL ALL OTHER MAIN FUNCTIONS
     #m accepts no arguments
     #it call call all other main functions
-    c
+    
     #Table with options
     print('FUNCTION_CALLER.io')
     print('--------------------')
@@ -23,6 +23,10 @@ def m(): #MAIN FUNCTION TO CALL ALL OTHER MAIN FUNCTIONS
     #User choice
     print('CHOICE', end='')
     uc = int(input('? '))
+    #Make a space between the table and the other main functions
+    print(' ')
+    print(' ')
+    print(' ')
     #Check user choice and send them off!
     if uc == 3:
         line_numbers()
@@ -157,7 +161,9 @@ def ran_num_writer(): #Exercise 7
     
     try: #Create a try block
         #Prompt the user
-        amount_of_ran = int(input('How many random numbers would you like to generate? '))
+        response = input('How many random numbers would you like to generate? ')
+        
+        amount_of_ran = int(response)
         
         #Validate the user's input (Make sure it's > 0
         if amount_of_ran > 0:
@@ -178,11 +184,14 @@ def ran_num_writer(): #Exercise 7
             
         else:
             print('Please enter a number that is greater than 0')
+            j = j + 34
     #If the try block fails, then have excepts here
     except ValueError:
-        print('invalid literal for int() with base 10: ', amount_of_ran)
+        print('invalid literal for int() with base 10: ', response)
+    except UnboundLocalError:
+        print('An error occured becuase you entered a number less than 0')
     except:
-        print('An error has occured somewhere.')
+        print('An unknown error occured.')
     else:
         print('You have successfully generated the numbers.')
 
@@ -594,7 +603,7 @@ def avg_steps_attempt3(): #Exercise 12
                     
 #=====================================================================================#
         
-def avg_steps(): #Exercise 12
+def avg_steps_attepmt4(): #Exercise 12
     #avg steps accepts no arguments
     #it will read from steps.txt and average the number of steps taken each month, and
     #then outputs the month and averages the number of steps.
@@ -657,7 +666,7 @@ def avg_steps(): #Exercise 12
         print(err)
         
         
-def avg_steps_lame(): #Exercise 12 LAME
+def avg_steps_attempt5(): #Exercise 12 LAME
     #avg steps lame accepts no arguments
     #just read
     
@@ -705,4 +714,234 @@ def avg_steps_lame(): #Exercise 12 LAME
         print(err)
         
 
-                
+def avg_steps_attempt6():
+    
+    try:
+        infile = open('steps.txt', 'r')
+        
+        counter = 0
+        total_steps_pmonth = 0
+        achieved = 0
+        
+        MONTHS = ['January', 'February', 'March']
+        DPM = [31, 28, 31]
+        
+        for line in infile:
+            for name in MONTHS:
+                if achieved == 1:
+                    DPM = [28, 31]
+                elif achieved == 2:
+                    DPM = [31]
+                for days in DPM:
+                    total_steps_pmonth += int(line)
+                    counter += 1
+                    if counter == 31 and achieved == 0:
+                        average = total_steps_pmonth / counter
+                        total_steps_pmonth = 0
+                        counter = 0
+                        print(name, '\t', average, 'steps')
+                        achieved += 1
+                        DPM = 0
+                    elif counter == 28 and achieved == 1:
+                        average = total_steps_pmonth / counter
+                        total_steps_pmonth = 0
+                        counter = 0
+                        print(name, '\t', average, 'steps')
+                        achieved += 1
+                        DPM = 0
+                    elif counter == 31 and achieved == 2:
+                        average = total_steps_pmonth / counter
+                        total_steps_pmonth = 0
+                        counter = 0
+                        print(name, '\t', average, 'steps')
+                        achieved += 1
+                        DPM = 1
+    except TypeError as err:
+        print(err)
+          
+#================================================================================#          
+          
+def avg_steps(): #Exercise 12
+    #avg steps accepts no arguments
+    #it will read from steps.txt and average the number of steps taken each month
+    #, then outputs the months and the average number of steps for each month
+    
+    #Create a try block
+    try:
+        #Open the file
+        infile = open('steps.txt', 'r')
+        
+        #Accumulators
+        counter = 0
+        total_steps = 0
+        
+        #Variables for list
+        MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        
+        #For loop in order to get the name of the months
+        for name in MONTH:
+            #A bunch of if statements to check for the amount of days in each month
+            if name == 'January':
+                DPM = 31
+            elif name == 'February':
+                DPM = 28
+            elif name == 'March':
+                DPM = 31
+            elif name == 'April':
+                DPM = 30
+            elif name == 'May':
+                DPM = 31
+            elif name == 'June':
+                DPM = 30
+            elif name == 'July':
+                DPM = 31
+            elif name == 'August':
+                DPM = 31
+            elif name == 'September':
+                DPM = 30
+            elif name == 'October':
+                DPM = 31
+            elif name == 'November':
+                DPM = 30
+            elif name == 'December':
+                DPM = 31
+            #Create another for loop in order to read the lines in the file and calculate the
+            #average amount of steps per month
+            for days in range(1, DPM + 1):
+                line = infile.readline()
+                total_steps += int(line)
+                counter += 1
+                #A bunch of if and elif statements to check whether the accumulators meet the requirements.
+                #If they do, then the average is calculated for the respected month, and then it's ouptuted
+                if counter == 31 and name == 'January': #January
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t', format(average, ',.2f'), 'steps')
+                elif counter == 28 and name == 'February': #February
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t', format(average, ',.2f'), 'steps')
+                elif counter == 31 and name == 'March': #March
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t\t', format(average, ',.2f'), 'steps')
+                elif counter == 30 and name == 'April': #April
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t\t', format(average, ',.2f'), 'steps')
+                elif counter == 31 and name == 'May': #May
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t\t', format(average, ',.2f'), 'steps')
+                elif counter == 30 and name == 'June': #June
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t\t', format(average, ',.2f'), 'steps')
+                elif counter == 31 and name == 'July': #July
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t\t', format(average, ',.2f'), 'steps')
+                elif counter == 31 and name == 'August': #August
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t\t', format(average, ',.2f'), 'steps')
+                elif counter == 30 and name == 'September': #September
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t', format(average, ',.2f'), 'steps')
+                elif counter == 31 and name == 'October': #Obtober
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t', format(average, ',.2f'), 'steps')
+                elif counter == 30 and name == 'November': #November
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t', format(average, ',.2f'), 'steps')
+                elif counter == 31 and name == 'December': #December
+                    average = total_steps / counter
+                    total_steps = 0
+                    counter = 0
+                    print(name, '\t', format(average, ',.2f'), 'steps')
+        #when everything is done, close the file
+        infile.close()
+    #If something goes wrong, then run one of these excepts
+    except TypeError as err:
+        print(err)
+    except:
+        print('An error occured somewhere...')
+        
+def avg_stepss(): #Exercise 12
+    #avg steps accepts no arguments
+    #it will read from steps.txt and average the number of steps taken each month
+    #, then outputs the months and the average number of steps for each month
+    
+    #Create a try block
+    try:
+        #Open the file
+        infile = open('steps.txt', 'r')
+        
+        #Accumulators
+        counter = 0
+        total_steps = 0
+        
+        #Variables for list
+        MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        
+        #For loop in order to get the name of the months
+        for name in MONTH:
+            #A bunch of if statements to check for the amount of days in each month
+            if name == 'January':
+                DPM = 31
+            elif name == 'February':
+                DPM = 28
+            elif name == 'March':
+                DPM = 31
+            elif name == 'April':
+                DPM = 30
+            elif name == 'May':
+                DPM = 31
+            elif name == 'June':
+                DPM = 30
+            elif name == 'July':
+                DPM = 31
+            elif name == 'August':
+                DPM = 31
+            elif name == 'September':
+                DPM = 30
+            elif name == 'October':
+                DPM = 31
+            elif name == 'November':
+                DPM = 30
+            elif name == 'Decemer':
+                DPM = 31
+            #Create another for loop in order to read the lines in the file and calculate the
+            #average amount of steps per month
+            for days in range(1, DPM + 1):
+                line = infile.readline()
+                total_steps += int(line)
+                counter += 1
+            average = total_steps / counter
+            if name == 'April' or name == 'March' or name == 'May' or name == 'June' or name == 'July' or name == 'August':
+                name = name + '\t'
+            elif name != 'December':
+                print(name, '\t', format(average, ',.2f'), 'steps')
+            elif name == 'December':
+                print('December \t', format(average, ',.2f'), 'steps')
+            else:
+                print('Name was not found.')
+            counter = 0
+            total_steps = 0
+        infile.close()
+    except TypeError as err:
+        print(err)
