@@ -533,6 +533,7 @@ def avg_steps2(): #Exercise 12
     #avg steps accepts no arguments
     #it will read from steps.txt and average the number of steps taken each month
     #, then outputs the months and the average number of steps for each month
+    #this is just an EXTRA FUNCTION
     
     #Create a try block
     try:
@@ -579,6 +580,7 @@ def avg_steps2(): #Exercise 12
                 line = infile.readline()
                 total_steps += int(line)
                 counter += 1
+            #Make calculations and print the appropraite things
             average = total_steps / counter
             if name == 'April' or name == 'March' or name == 'May' or name == 'June' or name == 'July' or name == 'August':
                 name = name + '\t'
