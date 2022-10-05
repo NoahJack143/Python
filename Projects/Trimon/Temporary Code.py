@@ -4,6 +4,7 @@
 #Imports
 import time
 import turtle
+import random
 
 #Main function to call to start the game
 def Trimon(): #Main function to use
@@ -200,8 +201,21 @@ def start_game(): #This function will contain all the messages that will appear 
         print(' ')
         
         #Validate the length of the rival's name
+        #If the the rival's name is longer than 10 characters
         if len(RIVAL_NAME) > 10:
             length_requirement = 0
+            CONFIRMATION = 'no'
+            intro_msg = "The rival's name can not be longer than 10 letters."
+            for letter in intro_msg:
+                print(letter, end='')
+                time.sleep(.03)
+            time.sleep(1.2)
+            print(' ')
+            print(' ')
+        #If the rival's name is equal to or less than 10, change the length_requirement
+        elif len(RIVAL_NAME) <= 10:
+            length_requirement = 1
+            #If the length_requirement is met, then ask the user to confirm the rival's name
         if length_requirement == 1:
             intro_msg = RIVAL_NAME
             for letter in intro_msg:
@@ -211,13 +225,14 @@ def start_game(): #This function will contain all the messages that will appear 
             for letter in intro_msg:
                 print(letter, end='')
                 time.sleep(.03)
-            CONFIRMATION = input(') ')
+            CONFIRMATION = input(') ').lower()
         #Check the response
         if CONFIRMATION == 'yes':
             CONFIRMATION = 1
         elif CONFIRMATION == 'no':
             CONFIRMATION = 0
         else:
+            #If the user didn't type "yes" or "no", print this and make the confirmation = 0
             intro_msg = 'Please enter either "yes" or "no".'
             for letter in intro_msg:
                 print(letter, end='')
@@ -227,51 +242,113 @@ def start_game(): #This function will contain all the messages that will appear 
             print(' ')
             CONFIRMATION = 0
         
-    intro_msg = """Now it's time for you to begin your journy."""
-    for letter in intro_msg:
-        print(letter, end='')
-        time.sleep(.03)
-    time.sleep(1.2)
-    print(' ')
-    print(' ')
-    
-    intro_msg = 'Be sure to catch lots of Trimon and fill the tridex'
-    for letter in intro_msg:
-        print(letter, end='')
-        time.sleep(.03)
-    time.sleep(1.2)
-    print(' ')
-    print(' ')
+    #Create a new list to tell the user that they are now ready to begin their jouney
+    intro_msgs = [{"msg1": "Now it's time for you to begin your journey.", "msg2": "", 'msg3': ''},{"msg1": "Be sure to catch lots of Trimon and fill the Tridex","msg2": "", 'msg3': ''},
+                  {"msg1": "\t\t\t\t=== IMPORTANT ===", "msg2": "The size of the turtle screen is meant to be the initial size given to you when turtle first starts up.",
+                   'msg3': 'Please do not change the size of the screen.'},{'msg1': 'Now enjoy the game!', 'msg2': '', 'msg3': ''}
+                ]
+    #Accumulator
+    c = 0 #Counter
+    finish = False
+
+    #print every message accordingly, and change the times when necessary
+    while not finish:   
+        #Start a nested loop for every message       
+        for x in intro_msgs:
+            if c < 2: #If the loop hasn't looped more than or equal to 2 times, print these
+                for letter in x['msg1']:
+                    print(letter, end='')
+                    time.sleep(.03)
+                if x['msg2'] != '':
+                    print(' ')
+                if x['msg3'] != '' and x['msg2'] != '':
+                    print(' ')
+                for letter in x['msg2']:
+                    print(letter, end='')
+                    time.sleep(.03)
+                time.sleep(1.2)
+                print(' ')
+                print(' ')
+            elif c == 2: #If the loop has looped exactly 2 times, print these
+                for letter in x['msg1']:
+                    print(letter, end='')
+                    time.sleep(.1)
+                time.sleep(1.2)
+                print(' ')
+                for letter in x['msg2']:
+                    print(letter, end='')
+                    time.sleep(.1)
+                time.sleep(1.2)
+                print(' ')
+                for letter in x['msg3']:
+                    print(letter, end='')
+                    time.sleep(.1)
+                time.sleep(1.2)
+                print(' ')
+                print(' ')
+            elif c > 2: #If the loop has looped more than 2 times, then print this
+                for letter in x['msg1']:
+                    print(letter, end='')
+                    time.sleep(.03)
+                time.sleep(1.2)
+                print(' ')
+                
+            c += 1 #Increase the accumulator for every loop(printed message)
+            if c == 4: #Check to see if the loop as looped enough times. If so, then break the while loop
+                finish = True
     
 def begin_turtle(): #Begin using turtle to create the map for the user
-    turtle.pendown()
-    turtle.penup()
-    turtle.speed(0)
-    #Constants for horizontal lines
-    X = -600
-    Y = -600
-    #Start by creating a grid for the map
-    for variable in range (60):
-        
-        #Horizontal lines + Constants
-        turtle.goto(X, Y)
-        turtle.pendown()
-        turtle.goto(X*-1, Y)
-        turtle.goto(X, Y)
-        turtle.penup()
-        Y += 25
+    #begin turtle accepts no arguments
+    #it will create the map for the user and will change according to
+    #whatever the user wants
     
-    #Constants for vertical lines
-    X = -600
-    Y = -600
-    for variable in range(60):
-        
-        #Vertical lines
-        turtle.goto(X, Y)
-        turtle.pendown()
-        turtle.goto(X, Y*-1)
-        turtle.goto(X, Y)
+    #PRE settings for turtle
+    turtle.speed(0) #set turtle's speed
+    turtle.hideturtle() #hide turtle
+    turtle.delay(0) #make turtle have no delay
+    turtle.screensize(400,300) #size of the screen
+    turtle.pencolor('#000000') #This will be the normal pen color that is used
+    
+    #Variables for the starting x and y position
+    x = -400
+    y = -300
+    
+    #Accumulator
+    c = 0 #Counter
+    finish = False
+    
+    #Set the color for the grid
+    turtle.pencolor('#d9d9d9')
+    
+    #Begin creating the grid for Trimon
+    #Begin by creating the horizontal lines
+    while not finish:
         turtle.penup()
-        X += 25
+        turtle.goto(x, y)
+        turtle.pendown()
+        turtle.goto(-x,y)
         
+        y += 30
+        c += 1
+        if c == 20:
+            finish = True
+    #Reset the accumulators
+    c = 0 #Counter
+    finish = False
+    
+    #Now make the vertical lines
+    while not finish:
+        turtle.penup()
+        turtle.goto(x, y)
+        turtle.pendown()
+        turtle.goto(x,-y)
+        
+        x += 30
+        c += 1
+        if c == 25:
+            finish = True
+            
+    #Make the surroundings
+    #CREATE THE MODULE 'Trimon Objects' AND CREATE TREES, HOUSES, AND OTHER OBJECTS THAT WILL BE USED IN THE GAME
+            
     turtle.done()
