@@ -1,5 +1,11 @@
+#Imports
 import turtle
 import time
+#Imports for pygame
+import pygame
+import os
+#import time
+#==============================================#
 
 def turtle_position_test():
     #this function is here to test the position of turtle
@@ -84,4 +90,5 @@ def message_test():
             c += 1 #Increase the accumulator for every loop(printed message)
             if c == 4: #Check to see if the loop as looped enough times. If so, then break the while loop
                 finish = True
-
+#===========================================#
+                
