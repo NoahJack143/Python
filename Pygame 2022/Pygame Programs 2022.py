@@ -4,9 +4,10 @@
 #pygame.quit() >>> used to close the window
 #scr.fill >>> chooses the color for the screen
 #pygame.display.set_mode((500,400)pygame.RESIZABLE) >>> used to allow the user to change the size of the window accordingly
-#
-#
-#
+#blit() >>> will render an object in order to show it (BLITTING IS SLOW, USE IT MINIMALLY)
+#canvas.blit(image, dest = position) >>> iamge = source of the image. dest / position = coordinates where the image is going to be displayed
+#canvas.fill(255,255,255) >>> (255,255,255) represent RGB color. This will color the background
+#pygame.update() >>> updates the screen
 #
 #
 #
@@ -145,3 +146,68 @@ def resize_window():
                 running = False #If the user clicks close, then break the loop
                 
     pygame.quit() #quit once outside of the loop
+    
+#====================================#
+    
+def image_shower():
+    #image shower accepts no arguments
+    #it will show an image on the screen
+    
+    pygame.init() #Initailize the modules in pygame
+    
+    #Choose a color for the canvas (Screen/Window)
+    color = (255,255,255)
+    
+    #Get the position of the screen
+    position = (0,0)
+    
+    #Create the canvas
+    canvas = pygame.display.set_mode((500,500))
+    
+    #Title of convas
+    pygame.display.set_caption("Show Image")
+    
+    #Find the image and show it
+    image = pygame.image.load("tree.png") #MAKE SURE THE IMAGE IS IN THE SAME FILE AS 'Pygame Programs 2022.py'
+    
+    #Create a boolean variable
+    done = False
+    
+    #Loop to check when the user is done
+    while not done:
+        #Choose the color for the window
+        canvas.fill(color)
+        
+        #Paste the image in and it's position
+        canvas.blit(image, dest = position)
+        
+        #Create a for loop to check when the user clicks the close
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+            
+        pygame.display.update()
+    
+    pygame.quit()
+        
+#===============================#
+    
+def drawing_rectangle(): #DRAW A RECTANGLE IN THE WINDOW
+    #drawing rectangle accepts no arguments
+    #it will draw a rectangle in the screen
+    
+    pygame.init() #Initialize the modules in pygame
+    
+    #Variables
+    color = (255,255,255) #the color the background of the scree/window
+    rect_color = (255,0,0) #the color of the rectangle
+    
+    x = 500 #width of the screen
+    y = 500 #height of the screen
+    
+    
+    #Create the canvas
+    canvas = pygame.display.set_mode((x,y))
+    
+    #The title for the canvas
+    pygame.display.set_caption('

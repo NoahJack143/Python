@@ -42,7 +42,7 @@ def lottery(): #Exercise 2
     try:
     
         #Create an accumulator
-        c = 0
+        c = 0 #Counter
         
         #Create an empty list
         lot_nums = []
@@ -82,87 +82,91 @@ def rainfall(): #Exercise 3
     #highest and lowest amount
     #USER VALIDATIONS AND HANDLE EXCEPTIONS
     
-    #Create a list of the months
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July'
-              , 'August', 'September', 'October', 'November', 'December']
-    
-    #Create an empty list for the next bit of questions
-    rainfall = []
-    
-    #Ask the user to tell the inches of rainfall for each month
-    for month in months:
-        #Ask the user for input
-        print('Enter the rainfall for', month, end='')
-        inches = int(input(': '))
+    #Use try blocks
+    try:
+        #Create a list of the months
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July'
+                  , 'August', 'September', 'October', 'November', 'December']
         
-        #Append the input into the created list
-        rainfall.append(inches)
-    
-    #After for loop is over, copy the list
-    #rainfall2 = X , rainfall = Y
-    rainfall2 = []
-    
-    for element in rainfall:
-        rainfall2.append(element)
-    
-    
-    #sort the numbers in list X
-    rainfall2.sort()
-    
-    #Accumulator and counter variables
-    c = 0
-    index = -1
-    
-    #read the first element in list X and see where it is located in list Y
-    minimum = rainfall2[0] #Find the minimum
-    
-    for num in rainfall: #Loop through all the elemnts in list Y
+        #Create an empty list for the next bit of questions
+        rainfall = []
         
-        if minimum == num: #If minimum matches, then index will = the location of that element in list Y
-            index = c
+        #Ask the user to tell the inches of rainfall for each month   #CREATE USER VALIDATION # USER IsValid
+        for month in months:
+            #Ask the user for input
+            print('Enter the rainfall for', month, end='')
+            inches = int(input(': '))
             
-        c += 1 #Increase the counter every time
-
-    min_month = months[index] #Find the month with the least rainfall
-    
-    #Reverse the order of the numbers in list X
-    rainfall2.reverse()
-    
-    #Accumulator counter variables
-    c = 0
-    index = -1
-    
-    #read the first element in list X and see where it is located in list Y
-    maximum = rainfall2[0] #Find the minimum
-    
-    for num in rainfall: #Loop through all the elemnts in list Y
+            #Append the input into the created list
+            rainfall.append(inches)
         
-        if maximum == num: #If minimum matches, then index will = the location of that element in list Y
-            index = c
-
-        c += 1 #Increase the counter every time
-
-    max_month = months[index] #Find the month with the least rainfall
-    
-    #Once the maximum and minimum have been found, find the total rainfall
-    #for the year and the average rain per month
-    
-    #TOTAL RAINFALL
-    
-    #Variable
-    total_rain = 0
-    
-    #Loop for each year
-    for rain in rainfall:
-        total_rain += rain
+        #After for loop is over, copy the list
+        #rainfall2 = X , rainfall = Y
+        rainfall2 = []
         
-    #AVERAGE RAIN P/ MONTH
+        for element in rainfall:
+            rainfall2.append(element)
         
-    average_rain = total_rain / 12
-    
-    #Once all is said and done, print everything that has been found
-    print()
-    print(min_month, 'had the least rain with', minimum, 'inches of rain.')
-    print(max_month, 'had the most rain with', maximum, 'inches of rain.')
-    print('Total rain for the year:', format(total_rain, ',.2f'), 'inches')
-    print('Average rain per month:', format(average_rain, ',.2f'), 'inches')
+        
+        #sort the numbers in list X
+        rainfall2.sort()
+        
+        #Accumulator and counter variables
+        c = 0
+        index = -1
+        
+        #read the first element in list X and see where it is located in list Y
+        minimum = rainfall2[0] #Find the minimum
+        
+        for num in rainfall: #Loop through all the elemnts in list Y
+            
+            if minimum == num: #If minimum matches, then index will = the location of that element in list Y
+                index = c
+                
+            c += 1 #Increase the counter every time
+
+        min_month = months[index] #Find the month with the least rainfall
+        
+        #Reverse the order of the numbers in list X
+        rainfall2.reverse()
+        
+        #Accumulator counter variables
+        c = 0
+        index = -1
+        
+        #read the first element in list X and see where it is located in list Y
+        maximum = rainfall2[0] #Find the minimum
+        
+        for num in rainfall: #Loop through all the elemnts in list Y
+            
+            if maximum == num: #If minimum matches, then index will = the location of that element in list Y
+                index = c
+
+            c += 1 #Increase the counter every time
+
+        max_month = months[index] #Find the month with the least rainfall
+        
+        #Once the maximum and minimum have been found, find the total rainfall
+        #for the year and the average rain per month
+        
+        #TOTAL RAINFALL
+        
+        #Variable
+        total_rain = 0
+        
+        #Loop for each year
+        for rain in rainfall:
+            total_rain += rain
+            
+        #AVERAGE RAIN P/ MONTH
+            
+        average_rain = total_rain / 12
+        
+        #Once all is said and done, print everything that has been found
+        print()
+        print(min_month, 'had the least rain with', minimum, 'inches of rain.')
+        print(max_month, 'had the most rain with', maximum, 'inches of rain.')
+        print('Total rain for the year:', format(total_rain, ',.2f'), 'inches')
+        print('Average rain per month:', format(average_rain, ',.2f'), 'inches')
+    except:
+        print('There was an error somewhere...')
