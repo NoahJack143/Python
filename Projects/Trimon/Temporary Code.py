@@ -221,7 +221,7 @@ def start_game(): #This function will contain all the messages that will appear 
             for letter in intro_msg:
                 print(letter, end='')
                 time.sleep(.03)
-            intro_msg = "is his name right? (yes/no"
+            intro_msg = " is his name right? (yes/no"
             for letter in intro_msg:
                 print(letter, end='')
                 time.sleep(.03)
