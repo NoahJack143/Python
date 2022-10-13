@@ -288,6 +288,147 @@ def charge_accts(): #Exercise 5
     #Once everything is said and done, have the exceptions
     except:
         print('There was a problem somewhere.')
+    #If everything went right, close the file
+    else:
+        infile.close()
         
 #====================================================================#
         
+def drivers_exam(): #Exercise 7
+    #drivers_exam accepts no arguments
+    #it will ask the user for the test to grade and read the student's
+    #answers for each of the 20 questions from a test file. These answers
+    #should be stored in another list. After the student's answers have been read from the file,
+    #the program should display a message indicating whether the student passes or faile the exam
+    #(at least 15/20 to pass)it should then display the total number of correctly answered questions, the total
+    #number of incorrectly, answered questions, and a list showing the question number of the incorreclty
+    #answered questions.
+    
+    #Start off by creating a try block
+    try:
+        
+        #Set the boolean variable to True
+        keep_going = 'y'
+        
+        #Create a while loop here in order to loop again if the user would like to
+        while keep_going.lower():
+                
+            #Open the file diver_test_key and read it
+            infile = open('driver_test_key.txt', 'r')
+                
+            #Ask the user which file of student answers they would like to open and check
+            wanted_file = input("Which student's answers would you like to check? ")
+            
+            #Open the file that the user requested and read it
+            student_answers = open(wanted_file, 'r')
+            
+            #Read the first line in each file and add a counter
+            key_line = infile.readline()
+            student_line = student_answers.readline()
+            c = 1 #Counter
+            
+            #Create accumulators for amount of correct answers and for the answers missed
+            correct = 0
+            incorrect = 0
+            
+            #Create an empty list in order to know which problems were wrong
+            incor_probs = []
+            
+            #Begin a while loop for every for all the lines in the answer key
+            while key_line != '':
+                
+                #check to see if the student's answer matches the correct answer and add to the appropriate accumulator
+                if key_line == student_line:
+                    correct += 1
+                elif key_line != student_line:
+                    incorrect += 1
+                    #If the answer is wrong, add the problem # to the list, incor_probs
+                    incor_probs.append(c)
+                
+                #Read the next line in both of the files
+                key_line = infile.readline()
+                student_line = student_answers.readline()
+                
+                #At the end of every loop, add to the counter to know which problem is being worked on
+                c += 1
+            
+            #Tell the user how many answers they got correct out of 20
+            print('You answered', correct, 'questions correctly out of 20\n')
+            
+            #Tell the user how many questions they missed and the minimum the needed to pass.
+            print('You missed ', incorrect, '. The minimum you could miss to pass is 5.\n', sep='')
+            
+            #Tell the user if they passed or failed
+            if incorrect > 5:
+                print('YOU FAILED.\n')
+            elif incorrect <= 5:
+                print('You passed...\n')
+                
+            #Tell the user which questions they missed if any
+            if incorrect > 0:
+                print('Here are the questions you missed.\n', incor_probs)
+                print()
+            elif incorrect < 1:
+                print("You didn't miss anything...\n")
+                
+            #Ask the user if they would like to check another test
+            print('Would you like to check another', end='')
+            keep_going = input('? (y/n) ')
+            
+            #No matter what, close the files to reset the lines
+            infile.close()
+            student_answers.close()
+            
+    #If something went wrong, then use the except message.
+    except:
+        print('Something went wrong...')
+        
+#==========================================================#
+        
+def tic_tac_toe(): #Exercise 11
+    #tic tac toe accepts no arguments
+    #it will play the game, tic tac toe
+    #user other functions for this game
+    #two computers will clash it out!!!!!
+    
+    #Create a try block
+    try:
+        
+        #Set variables for two players (computers)
+        x = 'x'
+        o = 'o'
+        
+        #Create a variable to see who's turn it is. player x will always go first
+        turn = x
+        
+        #Create a counter for the amount of turns in the game
+        plays = 1
+        
+        #Create the empty two-dimensional list
+        game_board = [['-','-','-'],
+                      ['-','-','-'],
+                      ['-','-','-']]
+        #Create a boolean that will stay true until the game is over
+        cont = True #Continue = True
+        #Create a while loop to check if the game_board
+        while cont:
+        
+def game_over(board): #For Exercise 11
+    #game over accepts one argument
+    #it will return True/False depending if all the plays
+    #have been made without a winner
+    
+    #Variables from the main function
+    x = 'x'
+    o = 'x'
+    
+    board = [[x,x,x],[o,o,o],[o,o,o]]
+    
+    #Create multiple boards with possible outcomes
+    if board.index[1][1] == x and board.index[1][2] == x and board.index[1][3] == x:
+        print('hi')
+    
+def winner(board): #For Exercise 11
+    #it will return True/False and the winner
+    
+    
