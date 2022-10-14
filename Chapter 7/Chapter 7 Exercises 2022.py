@@ -385,7 +385,7 @@ def drivers_exam(): #Exercise 7
         
 #==========================================================#
         
-def tic_tac_toe(): #Exercise 11
+def tic_tac_toe(): #Exercise 11   FAIL
     #tic tac toe accepts no arguments
     #it will play the game, tic tac toe
     #user other functions for this game
@@ -405,15 +405,55 @@ def tic_tac_toe(): #Exercise 11
         plays = 1
         
         #Create the empty two-dimensional list
-        game_board = [['-','-','-'],
+        game_board = [['-','-','-'], 
                       ['-','-','-'],
                       ['-','-','-']]
-        #Create a boolean that will stay true until the game is over
-        cont = True #Continue = True
-        #Create a while loop to check if the game_board
-        while cont:
+        #Create two boolean variables
+        continue_playing = True
+        cont = True  #Continue = True
         
-def game_over(board): #For Exercise 11
+        #Create a while loop to check if the game_board
+        while continue_playing:
+            #Generate two random numbers for the computers move
+            row_spot = random.randint(0,2)
+            column_spot = random.randint(0,2)
+            
+            #Check to see if the spot is occupied or not
+            if game_board[row_spot][column_spot] == '-':
+                game_board[row_spot][column_spot] = turn
+                cont = True
+            elif game_board[row_spot][column_spot] == x or game_board[row_spot][column_spot] == o:
+                cont = False
+                
+            #Continue with the loop ONLY if the spot isn't occupied AND if 5 plays have been made
+            if cont == True and plays > 4:
+                #Call for the function game_over and check to see if the game is over or not
+                continue_playing, plays = game_over(game_board, plays)
+                
+                #Add something to make sure that the game will end when the board is filled
+                if plays == 9:
+                    continue_playing = False
+                
+            #Check to see who's turn it is
+            if turn == x:
+                turn = o
+            elif turn == o:
+                turn = x
+                
+            #Increase plays
+            plays += 1
+         
+        #Once out of the file loop, check to see who's the winner by callig another function
+        victor, plays, tie = winner(game_board, plays)
+        
+        #Print the game_board and tell the user the results
+        print(game_board[0], '\n', game_board[1], '\n', game_board[2], '\nThe winner is player ', victor, end='.', sep='')
+    
+    #If something goes wrong, print the error message using the except
+    except ValueError as err:
+        print(err)
+        
+def game_over(game_board, plays): #For Exercise 11
     #game over accepts one argument
     #it will return True/False depending if all the plays
     #have been made without a winner
@@ -422,13 +462,141 @@ def game_over(board): #For Exercise 11
     x = 'x'
     o = 'x'
     
-    board = [[x,x,x],[o,o,o],[o,o,o]]
+    #Simplify the variable for board
+    b = game_board
     
-    #Create multiple boards with possible outcomes
-    if board.index[1][1] == x and board.index[1][2] == x and board.index[1][3] == x:
-        print('hi')
+    #Check to see if the rows are the same or not
+    if b[0][0] == b[0][1] == b[0][2] != '-'or b[1][0] == b[1][1] == b[1][2] != '-'or b[2][0] == b[2][1] == b[2][2]!= '-':
+        return False, plays #Return false to stop the loop
     
-def winner(board): #For Exercise 11
+    #Check to see if the columns are the same or not
+    elif b[0][0] == b[1][0] == b[2][0] != '-'or b[0][1] == b[1][1] == b[2][1] != '-'or b[0][2] == b[1][2] == b[2][2]!= '-':
+        return False, plays #Return false to stop the loop
+    
+    #Check to see if the diagonals are the same or not
+    elif b[0][0] == b[1][1] == b[2][2] != '-'or b[0][2] == b[1][1] == b[2][0]!= '-':
+        return False, plays #Return false to stop the loop
+    
+    #Check to see if the entire game_board is fill or not
+    elif plays > 8:
+        return False, plays #Return false to stop the loop because the board is filled
+    
+    #If no winner or a tie hasn't been decided yet, then return True to keep looping
+    else:
+        return True, plays
+    
+def winner(game_board, plays): #For Exercise 11
     #it will return True/False and the winner
     
+    #Check to see who is by checking whether the amount of plays is odd or even
+    if plays > 8:
+        return 'x', plays, True
+    else:
+        if (plays % 2) == 0: #Evens for player X
+            return 'x', plays, False
+        elif (plays % 2) == 1: #Odds for player O
+            return 'o', plays, False
+        
+
+
+#============#
+        
+def tic_tac_toe2(): #Exercise 11
+    #tic tac toe2 accepts no arguments
+    #this is going to be a retry for exercise 11
     
+    #Set variables
+    x = 'x'
+    o = 'o'
+    
+    #Create a variable for the symbol used by either of the computers
+    symbol = 'x'
+    
+    #Create the two dimensional list
+    board = [['-','-','-'],
+             ['-','-','-'],
+             ['-','-','-']]
+    
+    #Create an accumulator
+    c = 1 #Counter = 1
+    
+    #Create boolean varaibles
+    keep_going = True
+    check = True
+    
+    #Create a try block
+    try:
+        #Use a while loop
+        while keep_going:
+            #Use the random module to find two random integers
+            row = random.randint(0,2)
+            column = random.randint(0,2)
+            
+            #Check to see if the spot is occupied or not
+            if board[row][column] == '-':
+                board[row][column] = symbol
+                check = True
+            elif board[row][column] == x or board[row][column] == o:
+                check = False
+                
+            #Check to see if there is a winner if check = True
+            if check:
+                
+                #Call for another function to check for a winner
+                keep_going = game_over2(board)
+            
+                #Check to see who's turn is it and then change the symbol for the next player
+                if symbol == x:
+                    symbol = o
+                else:
+                    symbol = x
+                    
+                #Increase the accumulator for the amount of plays
+                c += 1
+            
+            #If the the amount of plays is 9, then the game is over
+            if c == 9:
+                keep_going = False
+            
+        #Once the while loop is over, find the winner
+        victor = winner2(board)
+        
+        #Check to see if there even is a victor
+        if victor != 'tie':
+            print(board[0], '\n', board[1], '\n', board[2], '\nThe winner is player', victor, sep='', end='.')
+        elif victor == 'tie':
+            print(board[0], '\n', board[1], '\n', board[2], '\nIt was a tie', sep='', end='!')
+    except TypeError as err:
+        print(err)
+        
+def game_over2(board): #For Exercise 11 Retry
+    #game_over2 accepts one argument
+    
+    b = board
+    
+    #Check to see if the rows are the same or not
+    if b[0][0] == b[0][1] == b[0][2] or b[1][0] == b[1][1] == b[1][2] != '-'or b[2][0] == b[2][1] == b[2][2]!= '-':
+        return False
+    
+    #Check to see if the columns are the same or not
+    elif b[0][0] == b[1][0] == b[2][0] != '-'or b[0][1] == b[1][1] == b[2][1] != '-'or b[0][2] == b[1][2] == b[2][2]!= '-':
+        return False
+    
+    #Check to see if the diagonals are the same or not
+    elif b[0][0] == b[1][1] == b[2][2] != '-'or b[0][2] == b[1][1] == b[2][0]!= '-':
+        return False
+    
+    #If no winner or a tie hasn't been decided yet, then return True to keep looping
+    else:
+        return True
+
+def winner2(board): #For Exercise 11 Retry
+    #winner2 accepts one argument
+    
+    if c >8:
+        return 'tie'
+    else:
+        if (c % 2) == 0:
+            return 'o'
+        elif (c % 2) == 1:
+            return 'x'
