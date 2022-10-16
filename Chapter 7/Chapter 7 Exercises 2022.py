@@ -126,7 +126,7 @@ def rainfall(): #Exercise 3
                 if not IsValid(inches) or int(inches) < 0: #If the user's input isn't valid, destroy the list and ruin the function
                     cont = False
                 else: #Append the input into the list if the input is valid
-                    rainfall.append(inches)
+                    rainfall.append(int(inches))
         
         #Only continue with the function if the boolean variable is true
         if cont:
@@ -166,11 +166,11 @@ def rainfall(): #Exercise 3
             index = -1
             
             #read the first element in list X and see where it is located in list Y
-            maximum = rainfall2[0] #Find the minimum
+            maximum = rainfall2[0] #Find the maximum
             
             for num in rainfall: #Loop through all the elemnts in list Y
                 
-                if maximum == num: #If minimum matches, then index will = the location of that element in list Y
+                if maximum == num: #If maximum matches, then index will = the location of that element in list Y
                     index = c
 
                 c += 1 #Increase the counter every time
@@ -182,7 +182,7 @@ def rainfall(): #Exercise 3
             
             #TOTAL RAINFALL
             
-            #Variable
+            #Variable for the total amount of rain
             total_rain = 0
             
             #Loop for each year
@@ -404,7 +404,7 @@ def tic_tac_toe(): #Exercise 11
             ]
         
         #Create a counter to keep track of the rounds and to see who's turn it is
-        counter = 1
+        counter = 0
         
         #Create a boolean variable for the while loop
         keep_going = True
@@ -421,12 +421,24 @@ def tic_tac_toe(): #Exercise 11
             
             #Find out if the element is taken up by an X or an O
             if board[row][column] == '-':
-                board[row][column] = symbol
+                board[row][column] = symbol #Replace the empty spot
+                
+                #Change the second boolean
                 keep_going2 = True
+                
+                #Swtich turns
+                if (counter % 2) == 0:
+                    symbol = 'o'
+                elif (counter % 2) == 1:
+                    symbol = 'x'
+                
             
             #If the spot on the board is taken up, then loop again
             else:
+                #Change the second boolean and loop again
                 keep_going2 = False
+                
+                #Decrease the counter so that the game will act as if nothing ever happened when it loops again
                 counter -= 1
                 
             #Create an if statement that will go run if the element isn't taken up by X or O
@@ -439,14 +451,8 @@ def tic_tac_toe(): #Exercise 11
             counter += 1
             
             #Check to see if there is any room left on the board
-            if counter == 9:
-                keep_going == False
-            
-            #Switch turns
-            if (counter % 2) == 0:
-                symbol = 'o'
-            elif (counter % 2) == 1:
-                symbol = 'x'
+            if counter > 8:
+                keep_going = False
                 
         #When the while loop ends, call for the function winner to find out who won the game, or if the game ended in a tie
         results = winner(victor)
