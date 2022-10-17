@@ -56,6 +56,7 @@ def tic_tac_toe1(): #Computer V.s Computer
                 
             #Create an if statement that will run if keep_going2 is True
             #and if there has been at least 4 turns.
+            print(board[0], '\n', board[1], '\n', board[2], '\n/n', sep = '')
             if keep_going2 and c > 4:
                 
                 #Call for the function game_over() to check if there was been a winner
@@ -487,3 +488,7 @@ def winner2(victor): #For Exercise 11
     return result
 
 #=============================================================================================================#
+
+
+#list[ran_num]
+#remove ran_num from list and then choose another random number from the list
