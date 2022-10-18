@@ -481,3 +481,127 @@ def white(): #For Exercise 12
     print(gifter, 'gifts to', receiver)
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+def elephant(): #THIS IS MISSING THE PART WHERE IT CHECKS TO SEE IF IndexR IS IN THE SAME COMPANY AS IndexG VICE VERSA
+    
+    try:
+        
+        DD = ['Julia','Oliver','Abigail']
+        HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
+        SD = ['Avery','Charlotte','Elle']
+        
+        people = DD + HRD + SD #Remove people form this list to signify that they have gone
+        
+        persons = [] #Main list to pull names
+        
+        Receivers = [] #Remove people from this list to signify that they've received a gift
+        
+        for name in people:
+            persons.append(name)
+            
+        for name in people:
+            Receivers.append(name)
+        
+        done = False
+        
+        c = 0
+        
+        while not done:
+            
+            cont = False
+            
+            while not cont:
+                try:
+                    indexG = random.randint(0,len(persons))
+                    
+                    if persons[indexG] in people:
+                        p = 6+5
+                    else:
+                        e = v + i
+                except:
+                    cont = False
+                else:
+                    cont = True
+                    people.remove((persons[indexG]))
+                                            
+            gifter = persons[indexG]
+            
+            cont = False
+            
+            while not cont:
+                try:
+                    
+                    indexR = random.randint(0,len(persons))
+                    
+                    if persons[indexR] in Receivers and persons[indexG] != persons[indexR]:
+                        o = 1+1
+                    else:
+                        o = b + u
+                    if indexG <= 2:
+                        for name in DD:
+                            if persons[indexR] == name:
+                                o = b + e
+                            else:
+                                o = 1+1
+                    elif indexG >= 3 and indexG <= 6:
+                        for name in HRD:
+                            if persons[indexR] == name:
+                                o = b + u
+                            else:
+                                o = 1+1
+                    elif indexG >= 7:
+                        for name in SD:
+                            if persons[indexR] == name:
+                                o = b+9
+                            else:
+                                o=1+1
+                except:
+                    cont = False
+                else:
+                    cont = True
+                    Receivers.remove((persons[indexR]))
+            
+            receiver = persons[indexR]
+            
+            print(gifter, 'gifts to', receiver)
+            
+            c += 1
+            if c == 9:
+                done = True
+            else:
+                done = False
+    except FileNotFoundError:
+        print('I tried')
+        
+elephant()
