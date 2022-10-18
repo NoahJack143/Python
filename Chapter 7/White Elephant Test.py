@@ -597,7 +597,7 @@ def elephant(): #THIS IS MISSING THE PART WHERE IT CHECKS TO SEE IF IndexR IS IN
             print(gifter, 'gifts to', receiver)
             
             c += 1
-            if c == 9:
+            if c == 10:
                 done = True
             else:
                 done = False
