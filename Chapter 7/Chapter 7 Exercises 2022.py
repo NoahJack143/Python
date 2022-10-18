@@ -665,7 +665,7 @@ def winner(board):
   
 #========================================================================================#
         
-def white_elephant(): #Exercise 12
+def white_elephant(): #Exercise 12                  REMODEL LATER ON
     #white elephant accepts no arguments
     #it will use three lists that will take a name from each list
     #and each of them will give a gift to a person
@@ -674,69 +674,157 @@ def white_elephant(): #Exercise 12
     
     #Create a try block
     try:
-        
-        #Create a list of every person inside of each department
+
+        #Create lists for all the names in their own companies
         DD = ['Julia','Oliver','Abigail']
         HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
-        SF = ['Avery','Charlotte','Elle']
+        SD = ['Avery','Charlotte','Elle']
         
-        for num in range(1, 10):
+        #Create a list that has everyone
+        people = DD + HRD + SD
+        
+        #Shuffle all of the lists
+        random.shuffle(people)
+        
+        print('Here are the results:')
+        
+        #Apply givers to receivers
+        gifter = people[3]
+        receiver = people[9]
+        
+        #print
+        print(gifter, 'gifts to', receiver)
+        
+        #Apply givers to receivers
+        gifter = people[9]
+        receiver = people[1]
+        
+        #print
+        print(gifter, 'gifts to', receiver)
+        
+        #Apply givers to receivers
+        gifter = people[1]
+        receiver = people[6]
+        
+        #print
+        print(gifter, 'gifts to', receiver)
+        
+        #Apply givers to receivers
+        gifter = people[6]
+        receiver = people[0]
+        
+        #print
+        print(gifter, 'gifts to', receiver)
+        
+        #Apply givers to receivers
+        gifter = people[0]
+        receiver = people[8]
+        
+        #print
+        print(gifter, 'gifts to', receiver)
+        
+        #Apply givers to receivers
+        gifter = people[8]
+        receiver = people[3]
+        
+        #print
+        print(gifter, 'gifts to', receiver)
+        
+        #Apply givers to receivers
+        gifter = people[7]
+        receiver = people[5]
+        
+        #print
+        print(gifter, 'gifts to', receiver)
+        
+        #Apply givers to receivers
+        gifter = people[5]
+        receiver = people[4]
+        
+        #print
+        print(gifter, 'gifts to', receiver)
+        
+        #Apply givers to receivers
+        gifter = people[4]
+        receiver = people[2]
+        
+        #print
+        print(gifter, 'gifts to', receiver)
+        
+        #Apply givers to receivers
+        gifter = people[2]
+        receiver = people[7]
+        
+        #print
+        print(gifter, 'gifts to', receiver)
+
+    #Except
+    except:
+        print('There was an issue some where')
+        
+
+#=======================================================#
+        
+def magic_8_ball(): #For Exercise 13
+    #magic 8 ball accepts no arguments
+    #it will give the user random responsese
+    #to yes or no questions
+    
+    #Create a try block
+    try:
+        
+        #Open the file
+        infile = open('8_ball_responses.txt', 'r')
+        
+        #Create an empty list
+        responses = []
+        
+        #Read the first line in the file
+        line = infile.readline()
+        
+        #Make a while loop and move every line into a list
+        while line != '':
             
-            #Boolean variable
-            cont = False
+            #appen the line into the list
+            responses.append(line.rstrip('\n'))
             
-            #Make two more lists that will contain those who have given and those who have recieved
-            given = []
-            received = []
+            #Read the next line
+            line = infile.readline()
             
-            #Choose a random list
-            index = random.randint(0,2)
-            if index == 0:
-                giving_comp = DD
-            elif index == 1:
-                giving_comp = HRD
-            else:
-                giving_comp = SF
+        #Create a boolean variable
+        done = False
+        
+        #Create a while loop
+        while not done:
             
-            while not cont:
-                #Choose a random person from that list and then add them to the given list
-                index = random.randint(0,len(giving_comp)-1)
-                gifter = giving_comp[index]
-                if gifter in given:
-                    cont = False
-                else:
-                    cont = True
-                    given.append(gifter)
-            cont = False
+            #Ask the user for a question
+            question = input('What is your question? ')
             
-            #Find a receiving company
-            while not cont:
-                index = random.randint(0,2)
-                if index == 0:
-                    receiving_comp = DD
-                elif index == 1:
-                    receiving_comp = HRD
-                else:
-                    receiving_comp = SF
-                if receiving_comp == giving_comp:
-                    cont = False
-                else:
-                    cont = True
-            cont = False
+            #Get a random index number
+            index = random.randint(0,11)
             
-            #Find a person from the receiving company
-            while not cont:
-                    index = random.randint(0,len(receiving_comp)-1)
-                    receiver = receiving_comp[index]
-                    if receiver in received:
-                        cont = False
-                    else:
-                        cont = True
-                        received.append(receiver)
-                        
-            #print the results
-            print(gifter, 'gifts to', received)
-        print(given)
-        print(received)
-    except NameError:
-        print('oo')
+            #Get a response from the list
+            response = responses[index]
+            
+            #print the response for the user
+            print('\n', response, '\n')
+            
+            #Ask the user if they want to ask another question
+            keep_going = input('Do you want to ask another question? (y/n): ')
+            print()
+            
+            #Check their response
+            if keep_going == 'y':
+                done = False
+            elif keep_going == 'n':
+                done = True
+            elif keep_going != 'y' and keep_going != 'n':
+                done = True
+            
+    #Have an exception handling message
+    except:
+        print('There was an issue with the great 8 ball.')
+    #If everything went right, close the file and output a message
+    else:
+        infile.close()
+        print('Beware the prophecy... Take care.')
