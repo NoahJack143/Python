@@ -514,7 +514,7 @@ def white(): #For Exercise 12
     
     
 def elephant(): #THIS IS MISSING THE PART WHERE IT CHECKS TO SEE IF IndexR IS IN THE SAME COMPANY AS IndexG VICE VERSA
-    
+    #
     try:
         
         DD = ['Julia','Oliver','Abigail']
