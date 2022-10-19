@@ -513,95 +513,117 @@ def white(): #For Exercise 12
     
     
     
-def elephant(): #THIS IS MISSING THE PART WHERE IT CHECKS TO SEE IF IndexR IS IN THE SAME COMPANY AS IndexG VICE VERSA
-    #
+def white_elephant(): #THIS IS MISSING THE PART WHERE IT CHECKS TO SEE IF IndexR IS IN THE SAME COMPANY AS IndexG VICE VERSA
+    #white elephant accepts no arguments
+    #it will pair people from different companies that will give gifts to each other
+    #this is basically a program for making a Secret Santa list
+    
+    #Create a try block
     try:
         
+        #Create a list for everyone and their respective companies
         DD = ['Julia','Oliver','Abigail']
         HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
         SD = ['Avery','Charlotte','Elle']
         
-        people = DD + HRD + SD #Remove people form this list to signify that they have gone
+        people = DD + HRD + SD #Remove people from this list to signify that they have gone
         
         persons = [] #Main list to pull names
         
         Receivers = [] #Remove people from this list to signify that they've received a gift
         
+        #Copy the names from people into persons
         for name in people:
             persons.append(name)
             
+        #Copy the names from people into Receivers
         for name in people:
             Receivers.append(name)
         
-        done = False
-        
-        c = 0
-        
-        while not done:
+        #Create a while loop for the entire process
+        for thing in range(1,len(persons)+1):
             
+            #Create a boolean variable
             cont = False
             
+            #Create a while loop for the gifters
             while not cont:
+                #Create a try block
                 try:
+                    #Get the random index for gifters
                     indexG = random.randint(0,len(persons))
                     
-                    if persons[indexG] in people:
+                    #Check to see if the gifter has already given a gift
+                    if persons[indexG] in people: #If they haven't
                         p = 6+5
-                    else:
+                    else: #If they have
                         e = v + i
+                #Loop again if gifter has already given a gift
                 except:
                     cont = False
+                #Break the loop if the gifter has yet to give a gift and remove them from the people list
                 else:
                     cont = True
                     people.remove((persons[indexG]))
-                                            
+                            
+            #Assign the gifter to gifter
             gifter = persons[indexG]
             
+            #Reset the boolean variable
             cont = False
             
+            #Create a while loop for the receivers
             while not cont:
+                #Create a try block
                 try:
                     
+                    #Create an index for the receivers
                     indexR = random.randint(0,len(persons))
                     
-                    if persons[indexR] in Receivers and persons[indexG] != persons[indexR]:
+                    #Check to see if the receiver has already received a gift AND if their name matches the gifter
+                    if persons[indexR] in Receivers and persons[indexG] != persons[indexR]: #If both are True
                         o = 1+1
-                    else:
+                    else: #If they both are False
                         o = b + u
-                    if indexG <= 2:
+                        
+                    #Check to see which department the gifter is from. Then use a for loop
+                    #to check if the gifter and the receiver are in the same department.
+                    if indexG <= 2: #Development Department
                         for name in DD:
                             if persons[indexR] == name:
                                 o = b + e
                             else:
                                 o = 1+1
-                    elif indexG >= 3 and indexG <= 6:
+                    elif indexG >= 3 and indexG <= 6: #HR Department
                         for name in HRD:
                             if persons[indexR] == name:
                                 o = b + u
                             else:
                                 o = 1+1
-                    elif indexG >= 7:
+                    elif indexG >= 7: #Sales Department
                         for name in SD:
                             if persons[indexR] == name:
                                 o = b+9
                             else:
                                 o=1+1
+                #If there is a crash anywhere, then loop again
                 except:
                     cont = False
+                #If no crash, break the loop and remove the receiver from the Receivers list
                 else:
                     cont = True
                     Receivers.remove((persons[indexR]))
             
+            #Assign the receiver to receiver
             receiver = persons[indexR]
             
+            #Print the results and loop again
             print(gifter, 'gifts to', receiver)
-            
-            c += 1
-            if c == 10:
-                done = True
-            else:
-                done = False
-    except FileNotFoundError:
-        print('I tried')
+
+    #Except messages
+    except NameError:
+        print('There are one or more variables that have a mispelled name')
+    except:
+        print('There was an issue within the program')
         
-elephant()
+white_elephant()

@@ -32,6 +32,10 @@ def m(): #Exercise 0
             drivers_exam()
         elif ui == 11:
             tic_tac_toe()
+        elif ui == 12:
+            white_elephant()
+        elif ui == 13:
+            magic_8_ball()
         else:
             print('Please choose an option from the table.')
             
@@ -665,104 +669,179 @@ def winner(board):
   
 #========================================================================================#
         
-def white_elephant(): #Exercise 12                  REMODEL LATER ON
+def white1():
+    
+    DD = ['Julia','Oliver','Abigail']
+    HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
+    SD = ['Avery','Charlotte','Elle']
+    
+    random.shuffle(DD)
+    random.shuffle(HRD)
+    random.shuffle(SD)
+    
+    index = 0
+    
+    for num in range(0,2+1):
+        try:
+            print(DD[num],'gifts to',HRD[num])
+            print(HRD[num],'gifts to',SD[num])
+            print(SD[num],'gifts to',DD[num+1])
+        except:
+            print(SD[2],'gifts to',HRD[3])
+    print(HRD[3],'gifts to',DD[0])
+        
+def white2():
+    
+    DD = ['Julia','Oliver','Abigail']
+    HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
+    SD = ['Avery','Charlotte','Elle']
+        
+    match = []
+          
+    max_length = len(DD)
+    if max_length < len(HRD):
+          max_length = len(HRD)
+    if max_length < len(SD):
+          max_length = len(SD)
+          
+    index = 0
+          
+    while index < max_length:
+          
+        if index < len(DD):
+            match.append(DD[index])
+        if index < len(HRD):
+            match.append(HRD[index])
+        if index < len(SD):
+            match.append(SD[index])
+        index += 1
+    
+    index = 0
+    
+    for num in range(1,10+1):
+        
+        try:
+            print(match[index],'gifts to', match[index+1])
+            
+            index += 1
+        except:
+            print(match[9],'gifts to', match[0])
+            break
+        
+                
+def white_elephant(): #THIS IS MISSING THE PART WHERE IT CHECKS TO SEE IF IndexR IS IN THE SAME COMPANY AS IndexG VICE VERSA
     #white elephant accepts no arguments
-    #it will use three lists that will take a name from each list
-    #and each of them will give a gift to a person
-    #from another apartment. People from the same list can't give
-    #gifts to each other
+    #it will pair people from different companies that will give gifts to each other
+    #this is basically a program for making a Secret Santa list
     
     #Create a try block
     try:
-
-        #Create lists for all the names in their own companies
+        
+        #Create a list for everyone and their respective companies
         DD = ['Julia','Oliver','Abigail']
         HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
         SD = ['Avery','Charlotte','Elle']
         
-        #Create a list that has everyone
-        people = DD + HRD + SD
+        people = DD + HRD + SD #Remove people from this list to signify that they have gone
         
-        #Shuffle all of the lists
-        random.shuffle(people)
+        persons = [] #Main list to pull names
         
-        print('Here are the results:')
+        Receivers = [] #Remove people from this list to signify that they've received a gift
         
-        #Apply givers to receivers
-        gifter = people[3]
-        receiver = people[9]
+        #Copy the names from people into persons
+        for name in people:
+            persons.append(name)
+            
+        #Copy the names from people into Receivers
+        for name in people:
+            Receivers.append(name)
         
-        #print
-        print(gifter, 'gifts to', receiver)
-        
-        #Apply givers to receivers
-        gifter = people[9]
-        receiver = people[1]
-        
-        #print
-        print(gifter, 'gifts to', receiver)
-        
-        #Apply givers to receivers
-        gifter = people[1]
-        receiver = people[6]
-        
-        #print
-        print(gifter, 'gifts to', receiver)
-        
-        #Apply givers to receivers
-        gifter = people[6]
-        receiver = people[0]
-        
-        #print
-        print(gifter, 'gifts to', receiver)
-        
-        #Apply givers to receivers
-        gifter = people[0]
-        receiver = people[8]
-        
-        #print
-        print(gifter, 'gifts to', receiver)
-        
-        #Apply givers to receivers
-        gifter = people[8]
-        receiver = people[3]
-        
-        #print
-        print(gifter, 'gifts to', receiver)
-        
-        #Apply givers to receivers
-        gifter = people[7]
-        receiver = people[5]
-        
-        #print
-        print(gifter, 'gifts to', receiver)
-        
-        #Apply givers to receivers
-        gifter = people[5]
-        receiver = people[4]
-        
-        #print
-        print(gifter, 'gifts to', receiver)
-        
-        #Apply givers to receivers
-        gifter = people[4]
-        receiver = people[2]
-        
-        #print
-        print(gifter, 'gifts to', receiver)
-        
-        #Apply givers to receivers
-        gifter = people[2]
-        receiver = people[7]
-        
-        #print
-        print(gifter, 'gifts to', receiver)
+        #Create a while loop for the entire process
+        for thing in range(1,len(persons)+1):
+            
+            #Create a boolean variable
+            cont = False
+            
+            #Create a while loop for the gifters
+            while not cont:
+                #Create a try block
+                try:
+                    #Get the random index for gifters
+                    indexG = random.randint(0,len(persons))
+                    
+                    #Check to see if the gifter has already given a gift
+                    if persons[indexG] in people: #If they haven't
+                        p = 6+5
+                    else: #If they have
+                        e = v + i
+                #Loop again if gifter has already given a gift
+                except:
+                    cont = False
+                #Break the loop if the gifter has yet to give a gift and remove them from the people list
+                else:
+                    cont = True
+                    people.remove((persons[indexG]))
+                            
+            #Assign the gifter to gifter
+            gifter = persons[indexG]
+            
+            #Reset the boolean variable
+            cont = False
+            
+            #Create a while loop for the receivers
+            while not cont:
+                #Create a try block
+                try:
+                    
+                    #Create an index for the receivers
+                    indexR = random.randint(0,len(persons))
+                    
+                    #Check to see if the receiver has already received a gift AND if their name matches the gifter
+                    if persons[indexR] in Receivers and persons[indexG] != persons[indexR]: #If both are True
+                        o = 1+1
+                    else: #If they both are False
+                        o = b + u
+                        
+                    #Check to see which department the gifter is from. Then use a for loop
+                    #to check if the gifter and the receiver are in the same department.
+                    if indexG <= 2: #Development Department
+                        for name in DD:
+                            if persons[indexR] == name:
+                                o = b + e
+                            else:
+                                o = 1+1
+                    elif indexG >= 3 and indexG <= 6: #HR Department
+                        for name in HRD:
+                            if persons[indexR] == name:
+                                o = b + u
+                            else:
+                                o = 1+1
+                    elif indexG >= 7: #Sales Department
+                        for name in SD:
+                            if persons[indexR] == name:
+                                o = b+9
+                            else:
+                                o=1+1
+                #If there is a crash anywhere, then loop again
+                except:
+                    cont = False
+                #If no crash, break the loop and remove the receiver from the Receivers list
+                else:
+                    cont = True
+                    Receivers.remove((persons[indexR]))
+            
+            #Assign the receiver to receiver
+            receiver = persons[indexR]
+            
+            #Print the results and loop again
+            print(gifter, 'gifts to', receiver)
 
-    #Except
+    #Except messages
+    except NameError:
+        print('There are one or more variables that have a mispelled name')
     except:
-        print('There was an issue some where')
+        print('There was an issue within the program')
         
-
 #=======================================================#
         
 def magic_8_ball(): #For Exercise 13
@@ -828,3 +907,70 @@ def magic_8_ball(): #For Exercise 13
     else:
         infile.close()
         print('Beware the prophecy... Take care.')
+        
+#=======================================================#
+        
+def expense_pie_chart(): #Exercise 14
+    #expense pie chart accepts no arguments
+    #it will be a main function and will prompt the user for
+    #their monthly expenses. Then it will call the function show_chart(categories) and
+    #it output the chart
+    
+    #Create a try block
+    try:
+        
+        #Open a file and write in it
+        infile = open('monthly_expenses.txt', 'w')
+        
+        #Create a list of expenses you'd ask the user about
+        categories = ['rent','gas','food','clothing','car payment','misc']
+        
+        #Create an index variable / accumulator
+        index = 0
+        
+        #Create a boolean variable
+        keep_going = False
+        
+        #Create a for loop, ask about each category, and write the information to the file
+        for cat in range(0,len(categories)+1):
+            #Create a while loop
+            while not keep_going:
+                #ask the user about their expenses for every category
+                print('How much do you spend in the category of', categories[index], end='')
+                expense = int(input('? '))
+                #Validate the input and move on accordingly
+                if expense >= 0 and IsValid(str(expense)):
+                    keep_going = True
+                else:
+                    keep_going = False
+                    print('\nPlease enter a proper number\n')
+                
+            #write their expense in the file
+            infile.write(str(expense))
+            
+        #call for the function show_chart(categories)
+        show_chart(categories)
+    except:
+        print('hi')
+        
+def show_chart(categories): #For Exercise 14
+    #show_chart accepts one argument
+    #it will display the chart based on the data gathered by
+    #expense pie chart
+    
+    #first, create a try block
+    try:
+        
+        #open the file and read it
+        infile2 = open('expense_pie_chart.txt', 'r')
+        
+        #Assign categories to another variable
+        cat_labels = categories
+        
+        #Create an empty list for the sizes of each section in the circle/pie
+        cat_size = []
+        
+        #Use a while loop in order to get each data for their respective category
+        
+    except:
+        print('hi')
