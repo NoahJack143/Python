@@ -1,5 +1,6 @@
 #Imports
 import random
+import matplotlib.pyplot as plt
 
 #==============================================#
 
@@ -669,18 +670,14 @@ def winner(board):
   
 #========================================================================================#
         
-def white1():
-    
+def white1():    #EXTRA WAY TO WRITE ELEPHANT
     DD = ['Julia','Oliver','Abigail']
     HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
     SD = ['Avery','Charlotte','Elle']
-    
     random.shuffle(DD)
     random.shuffle(HRD)
     random.shuffle(SD)
-    
-    index = 0
-    
+    index = 0 
     for num in range(0,2+1):
         try:
             print(DD[num],'gifts to',HRD[num])
@@ -690,24 +687,21 @@ def white1():
             print(SD[2],'gifts to',HRD[3])
     print(HRD[3],'gifts to',DD[0])
         
-def white2():
-    
+def white2(): #EXTRA WAY TO WRITE ELEPHANT
     DD = ['Julia','Oliver','Abigail']
     HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
     SD = ['Avery','Charlotte','Elle']
-        
-    match = []
-          
+    random.shuffle(DD)
+    random.shuffle(HRD)
+    random.shuffle(SD)
+    match = []   
     max_length = len(DD)
     if max_length < len(HRD):
           max_length = len(HRD)
     if max_length < len(SD):
-          max_length = len(SD)
-          
-    index = 0
-          
-    while index < max_length:
-          
+          max_length = len(SD)   
+    index = 0    
+    while index < max_length:   
         if index < len(DD):
             match.append(DD[index])
         if index < len(HRD):
@@ -715,21 +709,17 @@ def white2():
         if index < len(SD):
             match.append(SD[index])
         index += 1
-    
     index = 0
-    
     for num in range(1,10+1):
-        
         try:
-            print(match[index],'gifts to', match[index+1])
-            
+            print(match[index],'gifts to', match[index+1])   
             index += 1
         except:
             print(match[9],'gifts to', match[0])
             break
         
                 
-def white_elephant(): #THIS IS MISSING THE PART WHERE IT CHECKS TO SEE IF IndexR IS IN THE SAME COMPANY AS IndexG VICE VERSA
+def white_elephant(): #Exercise 12
     #white elephant accepts no arguments
     #it will pair people from different companies that will give gifts to each other
     #this is basically a program for making a Secret Santa list
@@ -930,28 +920,31 @@ def expense_pie_chart(): #Exercise 14
         
         #Create a boolean variable
         keep_going = False
-        
-        #Create a for loop, ask about each category, and write the information to the file
-        for cat in range(0,len(categories)+1):
-            #Create a while loop
-            while not keep_going:
+
+        #Create a while loop
+        while not keep_going:
+            #Try block
+            try:
                 #ask the user about their expenses for every category
                 print('How much do you spend in the category of', categories[index], end='')
                 expense = int(input('? '))
                 #Validate the input and move on accordingly
                 if expense >= 0 and IsValid(str(expense)):
-                    keep_going = True
-                else:
                     keep_going = False
+                    infile.write(str(expense) + '\n')
+                    index += 1
+                else:
                     print('\nPlease enter a proper number\n')
+            except:
+                keep_going = True
+        
+        #Close the file
+        infile.close()
                 
-            #write their expense in the file
-            infile.write(str(expense))
-            
         #call for the function show_chart(categories)
         show_chart(categories)
-    except:
-        print('hi')
+    except FileNotFoundError:
+        print('Oops, the file may not exist')
         
 def show_chart(categories): #For Exercise 14
     #show_chart accepts one argument
@@ -962,7 +955,7 @@ def show_chart(categories): #For Exercise 14
     try:
         
         #open the file and read it
-        infile2 = open('expense_pie_chart.txt', 'r')
+        infile2 = open('monthly_expenses.txt', 'r')
         
         #Assign categories to another variable
         cat_labels = categories
@@ -970,7 +963,63 @@ def show_chart(categories): #For Exercise 14
         #Create an empty list for the sizes of each section in the circle/pie
         cat_size = []
         
-        #Use a while loop in order to get each data for their respective category
+        #Read the first line in the file
+        line = infile2.readline()
         
-    except:
+        #Use a while loop in order to get each data for their respective category
+        while line != '':
+            cat_size.append(line.rstrip('\n'))
+            line = infile2.readline()
+            
+        #draw the pie chart
+        plt.pie(cat_size, labels=cat_labels)
+        
+        #Add a title for the pie chart
+        plt.title('Monthly Expenses')
+            
+    except FileNotFoundError:
         print('hi')
+    else:
+        plt.show()
+
+#==============================================================#
+        
+def gas_averages(): #Exercise 15
+    #gas averages accepts no arguments
+    #it will show the weekly gas averages for each week in the year
+    #1994(52 lines). matplotlib will write a function that will
+    #read the contents in the file and then it wil lplot the data
+    #as a line graph or a bar graph. A title, tick marks,
+    #and labels along the X and Y axes will be displayed too
+        
+    #open the file and read it
+    infile = open('1994_Weekly_Gas_Averages.txt.', 'r')
+    
+    #Draw the line graph
+    plt.plot()
+    
+    #Create an emptry two dimensional list
+    y_ticks = [[0],[]]
+    
+    #Accumulator
+    tick = 1
+    
+    #get the y ticks from the file and from an accumulator
+    for line in infile:
+        y_ticks[0].append(tick)
+        y_ticks[1].append(line.rstrip('\n'))
+        tick += 1
+        
+    #Get the x ticks
+    plt.xticks = [[0,1,2,3,4],['10','20','30','40','50']]
+    
+    #Set the y ticks
+    plt.yticks = y_ticks
+    
+    #Label the axises
+    plt.xlablel('Days')
+    pltylable('Weekly Averages')
+    
+    #Get a title
+    plt.title('1994 Weekly Gas Averages')
+            
