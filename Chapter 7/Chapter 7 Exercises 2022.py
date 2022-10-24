@@ -17,7 +17,7 @@ def m(): #Exercise 0
         
         #Prompt the user for an main function to call
         ui = int(input('Which main function would you like to call? '))
-        print('\n\n\n\n\n\n\n')
+        print('\n' * 100)
         
         #List of options
         options = [2,3,5,7,11,12,13,14,15]
@@ -37,6 +37,10 @@ def m(): #Exercise 0
             white_elephant()
         elif ui == 13:
             magic_8_ball()
+        elif ui == 14:
+            expense_pie_chart()
+        elif ui == 15:
+            weekly_gas_graph()
         else:
             print('Please choose an option from the table.')
             
@@ -244,7 +248,7 @@ def charge_accts(): #Exercise 5
         
         #Another boolean variable
         bad_input = False
-        print(acc_nums)
+
         #Once the list has been created, ask the user for an account
         while cont:
             #Ask the user for an account number if they haven't entered a bad input yet or if the loop has just restarted
@@ -394,8 +398,8 @@ def drivers_exam(): #Exercise 7
         
 #==========================================================#
 
-def tic_tac_toe1(): #Exercise 11
-    #tic tac toe1 accepts no arguments
+def tic_tac_toe(): #Exercise 11
+    #tic tac toe accepts no arguments
     #it is going to put two computers against each other in
     #a game of tic tac toe
     #this program is quite long in order to meet the requirements
@@ -442,7 +446,6 @@ def tic_tac_toe1(): #Exercise 11
                 
             #Create an if statement that will run if keep_going2 is True
             #and if there has been at least 4 turns.
-            print(board[0], '\n', board[1], '\n', board[2], '\n/n', sep = '')
             if keep_going2 and c > 4:
                 
                 #Call for the function game_over() to check if there was been a winner
@@ -668,26 +671,110 @@ def winner(board):
     except:
         print('There was a problem within the winner1(board) function.')
   
+#===============#
+  
+def ttt_comp_comp(): #Computer V.s Computer --- EXTRA WAY TO WRITE TIC TAC TOE(inspired version)
+    #ttt comp comp accepts no arguments
+    #it will have two computers go against each other
+    #in a game of Tic Tac Toe
+    
+    #Create the board
+    board = [['-','-','-'],
+             ['-','-','-'],
+             ['-','-','-']
+             ]
+    
+    #Set Variables for simplicity
+    x = 'x'
+    o = 'o'
+    
+    #Create a variable that will stand for both of the symbols
+    symbol = x
+    
+    #Create a for loop
+    for turn in range(9):
+        
+        #while loop to get an open spot on the board
+        cont = False
+        while not cont:
+            #Find a random spot on the board
+            row = random.randint(0,2)
+            col = random.randint(0,2)
+            
+            #Check to see if that spot on the board is taken and then move accordingly
+            if board[row][col] == '-':
+                board[row][col] = symbol
+                cont = True
+            else:
+                cont = False
+        
+        #If the board is filled, end the loop and say there was a tie
+        if turn == 9:
+            break
+        
+        #Check for a winner if there could be one
+        winner = False
+        if turn > 4:
+            winner = game_over(board, row, col)
+        
+        #If there is a winner, then close the loop and check to see who won
+        if winner:
+            break
+        
+        #Swtich the symbols at the end of each loop
+        if symbol == o:
+            symbol = x
+        elif symbol == x:
+            symbol = o
+    
+    #Print the board
+    for row1 in board:
+        print(row1)
+    #Check the outcome and print accordingly
+    if winner:
+        victor = board[row][col]
+        print(f'Player {victor} won the game.\nGG')
+    elif not winner:
+        print('The game ended in a tie!\nGG')  
+  
+def game_over(board, row, col):
+    #check accepts three arguments
+    #it will check for a winner with the given information
+    
+    #Check horizontally for the played spot
+    if board[row][0] == board[row][1] == board[row][2] != '-':
+        return True
+    #Check verticaly for the played spot
+    if board[0][col] == board[1][col] == board[2][col] != '-':
+        return True
+    #Check for both of the diagonal possibilities
+    if board[0][0] == board[1][1] == board[2][2] != '-':
+        return True
+    if board[0][2] == board[1][1] == [2][0] != '-':
+        return True
+    #If all fails, return False
+    return False
+
 #========================================================================================#
-        
-def white1():    #EXTRA WAY TO WRITE ELEPHANT
-    DD = ['Julia','Oliver','Abigail']
-    HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
-    SD = ['Avery','Charlotte','Elle']
-    random.shuffle(DD)
-    random.shuffle(HRD)
-    random.shuffle(SD)
-    index = 0 
-    for num in range(0,2+1):
-        try:
-            print(DD[num],'gifts to',HRD[num])
-            print(HRD[num],'gifts to',SD[num])
-            print(SD[num],'gifts to',DD[num+1])
-        except:
-            print(SD[2],'gifts to',HRD[3])
-    print(HRD[3],'gifts to',DD[0])
-        
-def white2(): #EXTRA WAY TO WRITE ELEPHANT
+    
+def white_elephant(): #Exercise 12
+    #white elephant accepts no arguments
+    #it will output a list for a Secret Santa event between three departments, and people from the same department can't gift to each other
+    
+    people = [['Julia','Oliver','Abigail'],['Camden','Kayleigh','Cooper','Kerrigan'],['Avery','Charlotte','Elle']] #Two dimensional list with names in respective companies
+    random.shuffle(people[0]) #Shuffle the names from the Development Department
+    random.shuffle(people[1]) #Shuffle the names from the Human Resources Department
+    random.shuffle(people[2]) #Shuffle the names from the Sales Department
+    for num in range(0,2+1): #A for loop that will loop three times
+        try: #try block
+            print(people[0][num],' gifts to ',people[1][num],'\n',people[1][num],' gifts to ',people[2][num],'\n',people[2][num],' gifts to ',people[0][num+1], sep='') #print the gifter and receiver
+        except: #exception for when there isn't enough people in the Development Department for the loop to continue with
+            print(people[2][2],'gifts to',people[1][3]) #Print the remaining two gifters and receivers in their respective spots
+            print(people[1][3],'gifts to',people[0][0])
+    
+#===============#
+
+def white2(): #EXTRA WAY TO WRITE WHITE_ELEPHANT
     DD = ['Julia','Oliver','Abigail']
     HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
     SD = ['Avery','Charlotte','Elle']
@@ -717,121 +804,7 @@ def white2(): #EXTRA WAY TO WRITE ELEPHANT
         except:
             print(match[9],'gifts to', match[0])
             break
-        
-                
-def white_elephant(): #Exercise 12
-    #white elephant accepts no arguments
-    #it will pair people from different companies that will give gifts to each other
-    #this is basically a program for making a Secret Santa list
-    
-    #Create a try block
-    try:
-        
-        #Create a list for everyone and their respective companies
-        DD = ['Julia','Oliver','Abigail']
-        HRD = ['Camden','Kayleigh','Cooper','Kerrigan']
-        SD = ['Avery','Charlotte','Elle']
-        
-        people = DD + HRD + SD #Remove people from this list to signify that they have gone
-        
-        persons = [] #Main list to pull names
-        
-        Receivers = [] #Remove people from this list to signify that they've received a gift
-        
-        #Copy the names from people into persons
-        for name in people:
-            persons.append(name)
-            
-        #Copy the names from people into Receivers
-        for name in people:
-            Receivers.append(name)
-        
-        #Create a while loop for the entire process
-        for thing in range(1,len(persons)+1):
-            
-            #Create a boolean variable
-            cont = False
-            
-            #Create a while loop for the gifters
-            while not cont:
-                #Create a try block
-                try:
-                    #Get the random index for gifters
-                    indexG = random.randint(0,len(persons))
-                    
-                    #Check to see if the gifter has already given a gift
-                    if persons[indexG] in people: #If they haven't
-                        p = 6+5
-                    else: #If they have
-                        e = v + i
-                #Loop again if gifter has already given a gift
-                except:
-                    cont = False
-                #Break the loop if the gifter has yet to give a gift and remove them from the people list
-                else:
-                    cont = True
-                    people.remove((persons[indexG]))
-                            
-            #Assign the gifter to gifter
-            gifter = persons[indexG]
-            
-            #Reset the boolean variable
-            cont = False
-            
-            #Create a while loop for the receivers
-            while not cont:
-                #Create a try block
-                try:
-                    
-                    #Create an index for the receivers
-                    indexR = random.randint(0,len(persons))
-                    
-                    #Check to see if the receiver has already received a gift AND if their name matches the gifter
-                    if persons[indexR] in Receivers and persons[indexG] != persons[indexR]: #If both are True
-                        o = 1+1
-                    else: #If they both are False
-                        o = b + u
-                        
-                    #Check to see which department the gifter is from. Then use a for loop
-                    #to check if the gifter and the receiver are in the same department.
-                    if indexG <= 2: #Development Department
-                        for name in DD:
-                            if persons[indexR] == name:
-                                o = b + e
-                            else:
-                                o = 1+1
-                    elif indexG >= 3 and indexG <= 6: #HR Department
-                        for name in HRD:
-                            if persons[indexR] == name:
-                                o = b + u
-                            else:
-                                o = 1+1
-                    elif indexG >= 7: #Sales Department
-                        for name in SD:
-                            if persons[indexR] == name:
-                                o = b+9
-                            else:
-                                o=1+1
-                #If there is a crash anywhere, then loop again
-                except:
-                    cont = False
-                #If no crash, break the loop and remove the receiver from the Receivers list
-                else:
-                    cont = True
-                    Receivers.remove((persons[indexR]))
-            
-            #Assign the receiver to receiver
-            receiver = persons[indexR]
-            
-            #Print the results and loop again
-            print(gifter, 'gifts to', receiver)
-
-    #Except messages
-    except NameError:
-        print('There are one or more variables that have a mispelled name')
-    except:
-        print('There was an issue within the program')
-        
+      
 #=======================================================#
         
 def magic_8_ball(): #For Exercise 13
@@ -984,42 +957,71 @@ def show_chart(categories): #For Exercise 14
 
 #==============================================================#
         
-def gas_averages(): #Exercise 15
+def weekly_gas_graph(): #Exercise 15
     #gas averages accepts no arguments
     #it will show the weekly gas averages for each week in the year
     #1994(52 lines). matplotlib will write a function that will
     #read the contents in the file and then it wil lplot the data
     #as a line graph or a bar graph. A title, tick marks,
     #and labels along the X and Y axes will be displayed too
+    
+    #try block
+    try:
+        #Open the file
+        infile = open('1994_Weekly_Gas_Averages.txt', 'r')
         
-    #open the file and read it
-    infile = open('1994_Weekly_Gas_Averages.txt.', 'r')
-    
-    #Draw the line graph
-    plt.plot()
-    
-    #Create an emptry two dimensional list
-    y_ticks = [[0],[]]
-    
-    #Accumulator
-    tick = 1
-    
-    #get the y ticks from the file and from an accumulator
-    for line in infile:
-        y_ticks[0].append(tick)
-        y_ticks[1].append(line.rstrip('\n'))
-        tick += 1
+        #Set limits for the x and y axis
+        plt.xlim(xmin = 0, xmax = 52)
+        plt.ylim(ymin = 0, ymax = 52)
         
-    #Get the x ticks
-    plt.xticks = [[0,1,2,3,4],['10','20','30','40','50']]
-    
-    #Set the y ticks
-    plt.yticks = y_ticks
-    
-    #Label the axises
-    plt.xlablel('Days')
-    pltylable('Weekly Averages')
-    
-    #Get a title
-    plt.title('1994 Weekly Gas Averages')
+        #Create an empty two dimensional list
+        y_ticks = [[],[]]
+        
+        #Create an accumulator
+        index = 0
+        
+        #Create loop to get y_ticks
+        for line in infile:
+            y_ticks[0].append(index)
+            index += 1
+            y_ticks[1].append(line.rstrip('\n'))
             
+        #Use the list y_ticks for the y ticks on the chart
+        plt.yticks(y_ticks[0],y_ticks[1])
+        
+        #Create the x ticks for the chart
+        plt.xticks([10,20,30,40,50],['10','20','30','40','50'])
+        
+        #Create a title for the chart
+        plt.title('1994 Weekly Gas Averages')
+        
+        #Label the x and y axis
+        plt.xlabel('Weeks')
+        plt.ylabel('Gas Price / Gallon')
+        
+        #Get the x and y coordinates for the line on the graph
+        x_coords = [0,9,10,11,12,13,34,35,36,40,41,42,52]
+        y_coords = [0,8,5,4,5,9,34,33,35,40,30,41,52]
+        
+        #Build the graph
+        plt.plot(x_coords,y_coords)
+        
+        #Draw the graph
+        
+        #Showg grid lines
+        plt.grid(True)
+        
+        #Display the graph
+        plt.show()
+        
+    #Execptions
+    except ModuleNotFoundError:
+        print("You don't have the module, matplotlib.")
+    except FileNotFoundError:
+        print('There was an issue with finding the file.')
+    except:
+        print('There was an issue with the data that goes into the chart.')
+
+#================================================#
+        
+m() #Call the m function that will call other main functions
