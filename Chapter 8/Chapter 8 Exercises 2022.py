@@ -42,37 +42,59 @@ def date_converter(): #Exercise 3
     #it will read a string in the format of 01/02/2007 and
     #will output the date if the string is formatted correctly
     
-    #Ask the user for a date
-    date = input('Enter a date in the format mm/dd/yyyy: ')
+    #List of dates and days
+    month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+                   'September', 'October', 'November', 'December']
+    months = ['01','02','03','04','05','06','07','08','09','10','11','12']
+    days = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31']
     
     #Create a boolean variable and a while loop
     cont = False
     while not cont:
         
-        #Try block     #BE SURE TO CONVERT date[#] TO INTEGERS
+        #Try block
         try:
-        
-            #Check to see if the characters are in the right spots
-            if date[:1+1].isdigit() and date[2] == '/' and date[3:4+1].isdigit() and date[4] == '/' and date[5:].isdigit():
-                t = 1
+            
+            #Ask the user for the date
+            date = input('\nEnter a date in the format mm/dd/yyyy: ')
+            
+            #Check to see if the format is formatted correctly and split the date if so
+            if date[:1].isdigit() and date[3:4].isdigit() and date[6:].isdigit() and date[2] == '/' and date[5] == '/':
+                date_splitted = date.split('/')
             else:
                 t = b
-             
-             #Check to see if the month number and the days number are right
-            if date[0] > 1 or date[0] < 0 or date[1] < 0 or date[0] == 1 and date[1] > 2 or date[3] > 2 and date[4] > 1 or date[3] < 0 or date[4] < 0:
-                t = b
-            else: 
-                t = 1
-                
-            #Check to see if the month and the amount of days match
-            if date[0] == 0 and date[1] == 2 and date[3] < 3 and date[4] > 8:
-                t = b
+            
+            #Check to see if the month and date are valid
+            if date_splitted[0] in months and date_splitted[1] in days:
+                m = date_splitted[0]
+                d = date_splitted[1]
+                y = date_splitted[2]
             else:
-                t = 1
-        except: #If something fails
-            cont = False
-        else: #If all works
+                0/0
+            
+            #Check to see if the month and day and valid with each other
+            if m == '02' and int(d) > 28:
+                m += 1
+            elif m =='04' or m == '06' or m == '09' or m == '11':
+                if int(d) > 30:
+                    m += 1
+            
+            #Check for the name of the month apply a name to m
+            index = 0
+            for month in months:
+                if m == month:
+                    m = month_names[index]
+                else:
+                    index += 1
+            
+        #If soemthing goes wrong, ask again and continue looping
+        except NameError:
+            print('\nCheck your formatting and make sure there are no letters.')
+        except ZeroDivisionError:
+            print('\nMake sure you month number and day number are actual month and day numbers.')
+        except TypeError:
+            print('\nMake sure that your day is appropriate according to your month.')
+        #If something goes right, then print the outcome and stop looping
+        else:
+            print(f'\nThe date is: {m} {d}, {y}')
             cont = True
-    
-    #print the date that the user entered
-    if date[0] == 0 and date[1] == 1

@@ -118,3 +118,54 @@ def validate_password(): #Program  8-7
             
     #If requirements are met, print that the password is accepted
     print('Password accepted.')
+    
+#==========#
+    
+def repetition(): #Program 8-8
+    #repetition accepts no aguments
+    #it multiples 'z' by ranges(1,10)
+    #then multiples 'z' by range(8,0,-1)
+    
+    #print z range(1,10-times increasing in length
+    for count in range(1,10):
+        print('Z' * count)
+        
+    for count in range(8, 0, -1):
+        print('Z' * count)
+        
+#=========#
+        
+def string_split(): #Program 8-9
+    #string split accepts no arguments
+    #it splits the string one two three four
+    #adding it to a list
+    
+    #Create the string to be split later
+    string = 'one/two/thre/four'
+    
+    #spit the text
+    string_splitted = string.split('/')
+    
+    #print
+    print(string_splitted)
+    
+#==========#
+    
+def split_date(): #Program 8-10
+    #split date accepts no arguments
+    #it creates a date string of 11/26/2018
+    #and pslits the date into mm dd yyyy
+    
+    #Create the string to be split later
+    date = '11/26/2018'
+    
+    #split the date
+    splitted_date = date.split('/')
+    
+    #assign the month, days, and years to theri own variables
+    month = splitted_date[0]
+    days = splitted_date[1]
+    year = splitted_date[2]
+    
+    #Print the output
+    print('Month:', month, '\nDay:', days, '\nYear:', year)
