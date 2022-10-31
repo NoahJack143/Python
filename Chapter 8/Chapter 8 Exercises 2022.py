@@ -60,7 +60,7 @@ def date_converter(): #Exercise 3
             date = input('\nEnter a date in the format mm/dd/yyyy: ')
             
             #Check to see if the format is formatted correctly and split the date if so
-            if date[:1].isdigit() and date[3:4].isdigit() and date[6:].isdigit() and date[2] == '/' and date[5] == '/' and date.isalnum():
+            if date[:1].isdigit() and date[3:4].isdigit() and date[6:].isdigit() and date[2] == '/' and date[5] == '/':
                 date_splitted = date.split('/')
             else:
                 t = b
@@ -121,8 +121,7 @@ def morse_code(): #Exercise 4
     #Boolean variable and while loop to keep asking for a valid code
     cont = False
     while not cont:
-        
-        
+
         #try block
         try:
             
@@ -165,8 +164,7 @@ def phone_converter(): #Exercise 5
     #and then it will convert it into numbers
     
     #Create a two dimensional list with all of the letters and the alphabet
-    numpad = [['abc'],['def'],['ghi'],['jkl'],['mno'],['pqrs'],['tuv'],['wxyz']]
-    alphabet = 'abcdefghijklmnopqrstubwxyz'
+    numpad = ['abc','def','ghi','jkl','mno','pqrs','tuv','wxyz']
     
     #Boolean variable with while loop
     cont = False
@@ -175,19 +173,98 @@ def phone_converter(): #Exercise 5
         #try block
         try:
             
-            #Ask the user for a number
+            #Ask the user for a number and copy their message
             tpn = input('Enter a telephone number in the form of XXX-XXX-XXXX: ')
             
             #Check to see if the phone number is valid
-            if tpn[:2].isalnum() and tpn[3] == '-' and tpn[4:6].isalnum() and tpn[7] == '-' and tpn[8:].isalnum():
+            if tpn[:2+1].isalnum() and tpn[3] == '-' and tpn[4:6+1].isalnum() and tpn[7] == '-' and tpn[8:].isalnum() and len(tpn) == 12:
                 t = 1
             else:
                 t = b
             
-            #Check for every character in the tpn and move on accordingly
+            #Check for every character in the tpn and move on accordingly + Accumulator
             for character in tpn:
-                if character.isalpha():
-                    index = alphabet.find(character)
-                    
-                else:
-                    t = 1
+                index = 0
+                for group in numpad:
+                    if not character.isalpha():
+                        break
+                    elif character in group:
+                        tpn = tpn.replace(character, str(index))
+                        break
+                    else:
+                        index += 1
+                        
+        #Run the excepts after the loop is over
+        except NameError:
+            print('There is an issue with your input.')
+        else: #If everything works, output the new phone number
+            print('Here is your convereted telephone number:', tpn)
+            cont = True
+            
+#================================================================================#
+            
+def avg_num_words(): #Exercise 6
+    #avg num words accepts no arguments
+    #it will read froma file and will calculate the total
+    #number of words, total number of sentences, and average
+    #number of words per sentence in the document
+    #A WORD IS CONSIDERED ANYTHING SEPARATED BY A SPACE
+    
+    #create a try block
+    try:
+        
+        #open the file
+        file = 'text.txt'
+        infile = open(file, 'r')
+        
+        #Put every thing from the file and put it into a list
+        contents = ''
+        for line in infile:
+            contents += line
+        
+        #Split the text base on the new lines to find the amount of sentences
+        sentences = contents.split('\n')
+        
+        #Find out how many sentences there are in total
+        index_s = 0
+        for sentence in sentences:
+            index_s += 1
+        
+        #Split the text base on spaces to find out how many words there are
+        contents = contents.replace('\n', ' ') #Take out the new lines
+        words = contents.split(' ') #Split every single word by splitting the spaces
+        
+        #Find out how many words there are in total
+        index_w = 0
+        for word in words:
+            index_w += 1
+        
+        #Calculate the average words per sentence
+        average = index_w / index_s
+    
+    #If there is a problem, run the exception
+    except:
+        print('There was a problem with the file or the calculations')
+    else:
+        print('The file',file,'has',index_w,'words.\n' +
+              'There are',index_s,'total sentences.\n' +
+              'The average number of words per sentence is:',format(average, '.2f'))
+
+#================================================================================#
+        
+def igpay_atinlay(): #Exercise 12
+    #igpya_atinlay accepts no arguments
+    #it will convert english words into "Pig Latin"
+    #it will output the user's message in "Pig Latin"
+    
+    #Get a message from the user
+    message = input('Enter a message to convert to pig latin: ')
+    
+    #Separate every word in the user's message
+    message = message.split()
+    
+    #Make a loop that will look at every word
+    for word in message:
+        
+        #If the word is more than 1 letter
+        
