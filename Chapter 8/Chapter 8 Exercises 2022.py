@@ -160,40 +160,32 @@ def morse_code(): #Exercise 4
             
 def phone_converter(): #Exercise 5
     #phone converter accepts no arguments
-    #it will ask the user for a phone number
-    #and then it will convert it into numbers
-    
+    #get input from thw user, convert the phone number, and output the convertted number
     #Create a two dimensional list with all of the letters and the alphabet
     numpad = ['abc','def','ghi','jkl','mno','pqrs','tuv','wxyz']
-    
     #Boolean variable with while loop
     cont = False
     while not cont:
-        
         #try block
         try:
-            
             #Ask the user for a number and copy their message
             tpn = input('Enter a telephone number in the form of XXX-XXX-XXXX: ')
-            
             #Check to see if the phone number is valid
             if tpn[:2+1].isalnum() and tpn[3] == '-' and tpn[4:6+1].isalnum() and tpn[7] == '-' and tpn[8:].isalnum() and len(tpn) == 12:
                 t = 1
             else:
                 t = b
-            
             #Check for every character in the tpn and move on accordingly + Accumulator
             for character in tpn:
                 index = 0
                 for group in numpad:
                     if not character.isalpha():
                         break
-                    elif character in group:
+                    elif character.lower() in group:
                         tpn = tpn.replace(character, str(index))
                         break
                     else:
-                        index += 1
-                        
+                        index += 1      
         #Run the excepts after the loop is over
         except NameError:
             print('There is an issue with your input.')
@@ -263,8 +255,56 @@ def igpay_atinlay(): #Exercise 12
     #Separate every word in the user's message
     message = message.split()
     
+    #Create an empty list for the converted words
+    new_message = []
+    
     #Make a loop that will look at every word
+    index = 1
     for word in message:
+        word = word[1:].upper() + word[0].upper() + 'AY '
+        new_message.append(word)
         
-        #If the word is more than 1 letter
+    #Print the new message
+    for word in new_message:
+        print(word, end='')
         
+#================================================================================#
+        
+def pb_main(): #Exercise 13
+    #pb main accepts no arguments
+    #it will call for anther function
+    #and it will find out the most and least
+    #frequently occuring lotto numbers
+    print('hi')
+    #Call for the function, pb_frequency, to find out the frequency of all lotto numbers
+    
+def pb_frequency(): #For Exercise 13
+    #pb frequency accepts no arguments
+    #pb frequency will find out how often each number appears
+    #it will open the file pbnumbers.txt and will read all
+    #of the numbers within the file
+    
+    #open the file
+    infile = open('pbnumbers.txt', 'r')
+    
+    #move everything from within the file into a single string and then split them by spaces
+    contents = ''
+    for line in infile:
+        contents += line.replace('\n', ' ')
+    contents = contents.split()
+    
+    
+    #Create a list that will have all of the numbers the could be chosen
+    lotto_numbers = ['01','02','03','04','05','06','07','08','09']
+    for num in range(1,69):
+        lotto_numbers.append(str(num))
+        
+    #Create an empty list, a boolean variable, and then an accumulator, then make a nested loop, and then a try block
+    frequency = []
+    c = 0
+    for num in lotto_numbers:
+        c = contents.count(str(num))
+        frequency.append(c)
+    print(frequency)
+    
+pb_frequency()
