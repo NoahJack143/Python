@@ -11,7 +11,17 @@ def gas_prices1(): #Exercise 14 Part 1
     #There will be FOUR outputs
     
     #call for the function, gas_prices_info
-    print('hi')
+    average_prices, lowest_prices, highest_prices = gas_prices_info()
+    
+    #Print the average prices
+    year = 1993
+    for price in average_prices:
+        print(f'The average price in {year} was {price}.')
+        year += 1
+    print(average_prices)
+    
+        
+    #Print the highest to lowest prices
     
 def gas_prices_info(): #For Exercise 14
     #gas prices info accepts no arguments
@@ -23,6 +33,10 @@ def gas_prices_info(): #For Exercise 14
     
     #Create a two dimensional list that will contain all the years
     gasprices_in_years = [[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],['']]
+    gasprices_unsorted = [''] #WON'T BE SORTED
+    lowest_to_highest = ['']
+    highest_to_lowest = ['']
+    dates_unsorted = ['']
     
     #Create two accumulators, read the first line in the file, have a while loop
     #and add each price to their respective variable
@@ -32,16 +46,25 @@ def gas_prices_info(): #For Exercise 14
     while line != '':
         if line[6:9+1] == str(current_year):
             gasprices_in_years[year][0] += line[11:].replace('\n',' ') #LATER ON BE SURE TO ADD IN THE ANOTHER LIST THAT CONTAINS THE DATES
+            dates_unsorted[0] += line[:10+1].replace(':',' ')
+            gasprices_unsorted[0] += line[11:].replace('\n',' ') #Prices will not be sorted into years
+            lowest_to_highest[0] += line[11:].replace('\n',' ')
+            highest_to_lowest[0] += line[11:].replace('\n',' ')
             line = infile.readline()
         else:
             current_year += 1
             year += 1
+    infile.close()
     
-    #Reset one of the accumulators, and split all of the prices in their respective years
+    #Reset one of the accumulators, and split all of the prices in their respective years in their respective years
     year = 0
     for prices in gasprices_in_years:
         gasprices_in_years[year][0] = gasprices_in_years[year][0].split()
         year += 1
+    dates_unsorted = dates_unsorted[0].split()
+    gasprices_unsorted = gasprices_unsorted[0].split()
+    lowest_to_highest = lowest_to_highest[0].split()
+    highest_to_lowest = highest_to_lowest[0].split()
         
     #AVERAGE GAS PRICES
         
@@ -52,11 +75,12 @@ def gas_prices_info(): #For Exercise 14
     year = 0
     gas_price = 0
     total = 0
-    for i in range(1,1065):
+    for i in range(1,1065): #1065
         try:
-            total += float(gasprices_in_years[year][0][gas_price])
+            total += float(gasprices_in_years[year][0][gas_price]) #THE YEAR 2013 IS NOT BEING READ
             gas_price += 1
         except:
+            print(year)
             average = total/gas_price
             average_gasprices_in_years.append(format(average, '.2f'))
             year += 1
@@ -70,18 +94,48 @@ def gas_prices_info(): #For Exercise 14
     #the highest and lowest prices.
     highest_prices = []
     lowest_prices = []
-    for year in range(0,19):
+    current_year = 1993
+    for year in range(0,21):
         high_price = max(gasprices_in_years[year][0])
         low_price = min(gasprices_in_years[year][0])
         highest_prices.append(high_price)
         lowest_prices.append(low_price)
+        #Add the year for each price
+        highest_prices[year] = f'The highest price for {current_year} is: ' + highest_prices[year]
+        lowest_prices[year] = f'The lowest price for {current_year} is: ' + lowest_prices[year]
+        current_year += 1
+        
+    #LIST OF PRICES FROM LOWEST TO HIGHEST  
     
-    for i in range(0,19):
-        date = gasprices_in_years[i][0].index(highest_prices[i])
-        print(date)
-            
+    infile = open('lowest_to_highest_gas_prices.txt', 'w')
+    lowest_to_highest_prices = ['']
+    lowest_to_highest.sort()
+    for price in lowest_to_highest:
+        price_index = gasprices_unsorted.index(price)
+        date = dates_unsorted[price_index]
+        lowest_to_highest_prices[0] += f'{date}:{price} '
+    lowest_to_highest_prices = lowest_to_highest_prices[0].split()
+    #Move the dates and their gas prices into a new list called, 'lowest_to_highest_gas_prices.txt'
+    for line in lowest_to_highest_prices:
+        infile.write(line + '\n')
+    infile.close()
         
+    infile = open('highest_to_lowest_gas_prices.txt', 'w')
+    highest_to_lowest_prices = ['']
+    highest_to_lowest.sort()
+    highest_to_lowest.reverse()
+    for price in highest_to_lowest:
+        price_index = gasprices_unsorted.index(price)
+        date = dates_unsorted[price_index]
+        highest_to_lowest_prices[0] += f'{date}:{price} '
+    highest_to_lowest_prices = highest_to_lowest_prices[0].split()
+    #Move the dates and their gas prices into a new list called, 'lowest_to_highest_gas_prices.txt'
+    for line in highest_to_lowest_prices:
+        infile.write(line + '\n')
         
+    print(average_gasprices_in_years)
         
-        
-gas_prices_info()
+    #Return the listst that will be outputted by the main function
+    return average_gasprices_in_years, highest_prices, lowest_prices
+
+gas_prices1()

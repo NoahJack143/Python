@@ -244,7 +244,7 @@ def avg_num_words(): #Exercise 6
 
 #================================================================================#
         
-def igpay_atinlay(): #Exercise 12
+def igpay_atinlay(): #Exercise 12             #ADD VALIDATION
     #igpya_atinlay accepts no arguments
     #it will convert english words into "Pig Latin"
     #it will output the user's message in "Pig Latin"
@@ -306,5 +306,4 @@ def pb_frequency(): #For Exercise 13
         c = contents.count(str(num))
         frequency.append(c)
     print(frequency)
-    
-pb_frequency()
+
