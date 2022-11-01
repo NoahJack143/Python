@@ -13,15 +13,13 @@ def pb_main(): #Exercise 13
     for element in frequency:
         frequency_sort.append(element)
     frequency_sort.sort()
-    frequency_sort.reverse()
     
     #Create an empty list, run a nested for loop, find the top ten highest frequencies the first time and then the top ten lowest frequencies,
     #then find the position of those frequencies in the frequency list, change their position to anythying so they aren't used again,
     #then use that as an index for the lotto_numbers list, and append the result to the frequencies list
     frequencies = []
     for loop in range(0,2):
-        if loop == 1:
-            frequency_sort.reverse() #Reverse the list the second time through
+        frequency_sort.reverse() #Reverse the list
         for num in range(0,9+1):
             current_frequency = frequency_sort[num]
             position = frequency.index(current_frequency)

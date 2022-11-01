@@ -1,6 +1,6 @@
 
 
-def gas_prices1(): #Exercise 14 Part 1
+def gas_prices(): #Exercise 14
     #gas prices 1 accepts no arguments
     #it will call on the function gas_prices_info(),
     #gain information from it, then it will find the
@@ -18,7 +18,14 @@ def gas_prices1(): #Exercise 14 Part 1
     for price in average_prices:
         print(f'The average price in {year} was {price}.')
         year += 1
-    print(average_prices)
+    print()
+    
+    for msg in lowest_prices:
+        print(msg)
+        
+    print()
+    for msg in highest_prices:
+        print(msg)
     
         
     #Print the highest to lowest prices
@@ -75,12 +82,12 @@ def gas_prices_info(): #For Exercise 14
     year = 0
     gas_price = 0
     total = 0
-    for i in range(1,1065): #1065
+
+    while year < 21: #for i in range(0,1087): <-- ME
         try:
             total += float(gasprices_in_years[year][0][gas_price]) #THE YEAR 2013 IS NOT BEING READ
             gas_price += 1
         except:
-            print(year)
             average = total/gas_price
             average_gasprices_in_years.append(format(average, '.2f'))
             year += 1
@@ -132,10 +139,7 @@ def gas_prices_info(): #For Exercise 14
     #Move the dates and their gas prices into a new list called, 'lowest_to_highest_gas_prices.txt'
     for line in highest_to_lowest_prices:
         infile.write(line + '\n')
-        
-    print(average_gasprices_in_years)
-        
+    infile.close()
+    
     #Return the listst that will be outputted by the main function
-    return average_gasprices_in_years, highest_prices, lowest_prices
-
-gas_prices1()
+    return average_gasprices_in_years, lowest_prices, highest_prices
