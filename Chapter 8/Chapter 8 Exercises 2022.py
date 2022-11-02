@@ -1,4 +1,48 @@
+#MAIN MENU FUNCTION
+def m(): #MAIN MENU
+    #m accepts no arguments
+    #it will call other functions
+    
+    print('\n' * 100)
+    print('MAIN MENU\n---------------\n'+
+          '2) Sum of Digits\n3) '+
+          'Date Converter\n4) Morse Code\n5) '+
+          'Telephone Number Translator\n6) '+
+          'Average Number of Words\n12) '+
+          'Igplay Atinlay\n13) '+
+          'Powerball Lottery\n14) '+
+          'Gas Prices\n---------------')
+    
+    #Prompt the user for an main function to call
+    try:
+        ui = int(input('Which main function would you like to call? '))
+    except:
+        print('Enter a number...')
+    else:
+        print('\n' * 100)
+        
+        #Check to see if the user input is any of the option
+        if ui == 2:
+            sum_of_digits()
+        elif ui == 3:
+            date_converter()
+        elif ui == 4:
+            morse_code()
+        elif ui == 5:
+            phone_converter()
+        elif ui == 6:
+            avg_num_words()
+        elif ui == 12:
+            igpay_atinlay()
+        elif ui == 13:
+            pb_main()
+        elif ui == 14:
+            gas_prices()
+        else:
+            print('Please choose an option from the table.')
+    
 
+#====Imports=====#
 
 #==========#
 
@@ -127,13 +171,14 @@ def morse_code(): #Exercise 4
             
             #copy the message and then strip the old message
             message2 = message
-            message = message.strip()
+            message = message.split()
             
             #Check to see if the message is valid
-            if message.isalnum():
-                t = 1
-            else:
-                t = b
+            for word in message:
+                if word.isalnum():
+                    t = 1
+                else:
+                    t = b
             
             #Check to see if the character is a number or letter and print the right morse code
             for letter in message2:
@@ -145,6 +190,8 @@ def morse_code(): #Exercise 4
                     index = numbers.find(letter)
                     morse_code = numbers_list[index]
                     message2 = message2.replace(letter, morse_code + ' ')
+                elif letter == ' ':
+                    message2 = message2.replace('  ', ' / ')
                 else:
                     t = b
                
@@ -252,58 +299,247 @@ def igpay_atinlay(): #Exercise 12             #ADD VALIDATION
     #Get a message from the user
     message = input('Enter a message to convert to pig latin: ')
     
-    #Separate every word in the user's message
-    message = message.split()
-    
-    #Create an empty list for the converted words
-    new_message = []
-    
-    #Make a loop that will look at every word
-    index = 1
-    for word in message:
-        word = word[1:].upper() + word[0].upper() + 'AY '
-        new_message.append(word)
-        
-    #Print the new message
-    for word in new_message:
-        print(word, end='')
+    cont = False #Boolean Variable
+    while not cont: #Used to validate the user's input
+        if message.isalpha():
+            #Separate every word in the user's message
+            message = message.split()
+            
+            #Create an empty list for the converted words
+            new_message = []
+            
+            #Make a loop that will look at every word
+            index = 1
+            for word in message:
+                word = word[1:].upper() + word[0].upper() + 'AY '
+                new_message.append(word)
+                
+            #Print the new message
+            print('\nHere is your new message in pig latin: ')
+            for word in new_message:
+                print(word, end='')
+            cont = True
+        else:
+            message = input('\nOnly enter letters to be converted to pig latin: ')
         
 #================================================================================#
         
 def pb_main(): #Exercise 13
     #pb main accepts no arguments
-    #it will call for anther function
-    #and it will find out the most and least
-    #frequently occuring lotto numbers
-    print('hi')
-    #Call for the function, pb_frequency, to find out the frequency of all lotto numbers
+    #it is the main function that will have outputs
+    #and will call on other functions
+    
+    #Call for the function, pb_frequency, and get back the frequency of the numbers and the available lottery numbers
+    frequency, lotto_numbers = pb_frequency()
+    
+    #Copy the frequency list, and sort the new list from greatest to least
+    frequency_sort = []
+    for element in frequency:
+        frequency_sort.append(element)
+    frequency_sort.sort()
+    
+    #Create an empty list, run a nested for loop, find the top ten highest frequencies the first time and then the top ten lowest frequencies,
+    #then find the position of those frequencies in the frequency list, change their position to anythying so they aren't used again,
+    #then use that as an index for the lotto_numbers list, and append the result to the frequencies list
+    frequencies = []
+    for loop in range(0,2):
+        frequency_sort.reverse() #Reverse the list twice
+        for num in range(0,9+1):
+            current_frequency = frequency_sort[num]
+            position = frequency.index(current_frequency)
+            frequency[position] = -1
+            currently_occuring_number = lotto_numbers[position]
+            frequencies.append(currently_occuring_number) #Append every number to the same list
+            
+    #Reverse the list back to greatest to least, and then print the most occuring numbers and their frequency
+    frequency_sort.reverse()
+    print('Here are the 10 most frequently occuring numbers:')
+    for num in range(0,9+1):
+        print(frequencies[num], 'with a frequency of', frequency_sort[num])
+    #Reverse the list back to least to greatest, and then print the most occuring numbers and their frequency
+    frequency_sort.reverse()
+    print('\nHere are the 10 least frequently occuring numbers:')
+    for num in range(10,19+1):
+        print(frequencies[num], 'with a frequency of', frequency_sort[num-10])
+    
     
 def pb_frequency(): #For Exercise 13
-    #pb frequency accepts no arguments
-    #pb frequency will find out how often each number appears
-    #it will open the file pbnumbers.txt and will read all
-    #of the numbers within the file
+    #pb_frequency accepts no arguments
+    #it will find how often each number occurs
     
     #open the file
     infile = open('pbnumbers.txt', 'r')
     
-    #move everything from within the file into a single string and then split them by spaces
+    #Move the first 15 characters of every line into a string, and then split that string
     contents = ''
     for line in infile:
-        contents += line.replace('\n', ' ')
+        contents = contents + line[:15]
     contents = contents.split()
     
-    
-    #Create a list that will have all of the numbers the could be chosen
+    #Create a list of all the possible lottery numbers
     lotto_numbers = ['01','02','03','04','05','06','07','08','09']
-    for num in range(1,69):
+    for num in range(10,69+1):
         lotto_numbers.append(str(num))
         
-    #Create an empty list, a boolean variable, and then an accumulator, then make a nested loop, and then a try block
+    #Create an empty list, find out how often every number appears within contents, and then append the frequency
+    #to the list
     frequency = []
-    c = 0
     for num in lotto_numbers:
-        c = contents.count(str(num))
-        frequency.append(c)
-    print(frequency)
+        frequency_count = contents.count(num)
+        frequency.append(frequency_count)
+    
+    #return the list to the main function
+    return frequency, lotto_numbers
 
+#================================================================================#
+
+def gas_prices(): #Exercise 14
+    #gas prices 1 accepts no arguments
+    #it will call on the function gas_prices_info(),
+    #gain information from it, and then output the average
+    #gas prices per year, the lowest price for each year
+    #and the highest price for each year
+    
+    #call for the function, gas_prices_info
+    average_prices, lowest_prices, highest_prices = gas_prices_info()
+    
+    #Print the average prices
+    year = 1993
+    for price in average_prices:
+        print(f'The average price in {year} was {price}')
+        year += 1
+    print()
+    
+    #Print the lowest and the highest prices per year
+    for msg in lowest_prices:
+        print(msg)
+    print()
+    for msg in highest_prices:
+        print(msg)
+    
+def gas_prices_info(): #For Exercise 14
+    #gas prices info accepts no arguments
+    #it will pull information from the file,
+    #GasPrices.txt, find the average of the gas prices
+    #per year, find the highest and lowest prices
+    #for each year, create a file that sorts the
+    #gas prices from lowest to highest, and it will
+    #create a file that sorts the gas prices from
+    #highest to lowest
+    
+    #open the file
+    infile = open('GasPrices.txt', 'r')
+    
+    #Create a two dimensional list that will contain all the years and four other lists
+    gasprices_in_years = [[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],[''],['']] #WILL BE SORTED
+    gasprices_unsorted = [''] #WON'T BE SORTED
+    lowest_to_highest = [''] #WON'T BE SORTED
+    highest_to_lowest = [''] #WON'T BE SORTED
+    dates_unsorted = [''] #WON'T BE SORTED
+    
+    #Create two accumulators, read the first line in the file, have a while loop,
+    #and add parts of the current line into all of the lists created so far
+    current_year = 1993
+    year = 0
+    line = infile.readline()
+    while line != '':
+        if line[6:9+1] == str(current_year): #If there are any gas prices left to read in the current year
+            gasprices_in_years[year][0] += line[11:].replace('\n',' ')
+            dates_unsorted[0] += line[:10+1].replace(':',' ')
+            gasprices_unsorted[0] += line[11:].replace('\n',' ')
+            lowest_to_highest[0] += line[11:].replace('\n',' ')
+            highest_to_lowest[0] += line[11:].replace('\n',' ')
+            line = infile.readline() #Read the next line in the file
+        else: #If there are no more gas prices left to be read in the current year
+            current_year += 1 #Increase the current year to check its gas prices
+            year += 1 #Move to the next year in the list gasprices_in_years
+    infile.close()
+    
+    #Reset one of the accumulators, and split all of the prices in their respective years. Split the other lists as well
+    year = 0
+    for prices in gasprices_in_years:
+        gasprices_in_years[year][0] = gasprices_in_years[year][0].split()
+        year += 1
+    dates_unsorted = dates_unsorted[0].split()
+    gasprices_unsorted = gasprices_unsorted[0].split()
+    lowest_to_highest = lowest_to_highest[0].split()
+    highest_to_lowest = highest_to_lowest[0].split()
+        
+    #AVERAGE GAS PRICES
+        
+    #Create an empty list for the avg of the gas prices per year, create 3 accumulators
+    #loop for each of the years, and append the average to the list, average_gasprices_in_years
+    #gas prices per year into the new list
+    average_gasprices_in_years = [] #List for the averages
+    year = 0 #Will tell the current year for the loop and the list, gasprices_in_years
+    gas_price = 0 #Reads each gas price in the years
+    total = 0
+
+    while year < 21: #<-- Kyle #for i in range(0,1087): <-- ME
+        try:
+            total += float(gasprices_in_years[year][0][gas_price]) #THE YEAR 2013 IS NOT BEING READ
+            gas_price += 1
+        except:
+            average = total/gas_price
+            average_gasprices_in_years.append(format(average, '.2f')) #Append the average the newest list
+            year += 1 #Increase the accumulator
+            gas_price = 0 #Reset the accumulator
+            total = 0 #Reset the accumulator
+            average = 0 #Reset the average for the next year
+            
+    #HIGHEST AND LOWEST GAS PRICES
+        
+    #Create two empty lists for the highest and lowest gas prices per year. Have a loop and use max and min to find
+    #the highest and lowest prices for each year
+    highest_prices = []
+    lowest_prices = []
+    current_year = 1993
+    for year in range(0,21): #Loop for all of the years
+        high_price = max(gasprices_in_years[year][0])
+        low_price = min(gasprices_in_years[year][0])
+        highest_prices.append(high_price)
+        lowest_prices.append(low_price)
+        #Add the year for each lowest and highest price
+        highest_prices[year] = f'The highest price for {current_year} is: ' + highest_prices[year]
+        lowest_prices[year] = f'The lowest price for {current_year} is: ' + lowest_prices[year]
+        current_year += 1
+        
+    #LIST OF PRICES FROM LOWEST TO HIGHEST  
+    
+    #Create or write in a file called, lowest_to_highest_gas_prices.txt, create an empty list for the
+    #file that's being written in, sort the lowest_to_highest list that was created in the beginning(contains
+    #unsorted prices), and loop for every price in the list, lowest_to_highest.
+    infile = open('lowest_to_highest_gas_prices.txt', 'w')
+    lowest_to_highest_prices = ['']
+    lowest_to_highest.sort()
+    for price in lowest_to_highest:
+        price_index = gasprices_unsorted.index(price) #Find the index of the price in the list, gasprices_unsorted, and label it 'price_index'
+        date = dates_unsorted[price_index] #Find the date in the list, dates_unsorted, using the previously found index, price_index
+        lowest_to_highest_prices[0] += f'{date}:{price} ' #concatenate the formatted string and the text from within the newly created list
+    lowest_to_highest_prices = lowest_to_highest_prices[0].split() #Split the information
+    #Move the dates and their gas prices into a new list called, 'lowest_to_highest_gas_prices.txt'
+    for line in lowest_to_highest_prices:
+        infile.write(line + '\n')
+    infile.close()
+    
+    #Do the same thing that was done for the lowest to highest prices, but instead find the highest to lowest prices
+    #All the comments would appear to be the same for all of the steps excpet for the names of the created lists, the
+    #new file, and the list used to sort the prices.
+    infile = open('highest_to_lowest_gas_prices.txt', 'w')
+    highest_to_lowest_prices = ['']
+    highest_to_lowest.sort()
+    highest_to_lowest.reverse()
+    for price in highest_to_lowest:
+        price_index = gasprices_unsorted.index(price)
+        date = dates_unsorted[price_index]
+        highest_to_lowest_prices[0] += f'{date}:{price} '
+    highest_to_lowest_prices = highest_to_lowest_prices[0].split()
+    #Move the dates and their gas prices into a new list called, 'lowest_to_highest_gas_prices.txt'
+    for line in highest_to_lowest_prices:
+        infile.write(line + '\n')
+    infile.close()
+    
+    #Return the lists that will be outputted by the main function
+    return average_gasprices_in_years, lowest_prices, highest_prices
+
+m()
