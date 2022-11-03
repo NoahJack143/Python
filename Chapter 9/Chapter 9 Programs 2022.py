@@ -15,3 +15,7 @@
 #will print the value for each key
 
 #phonebook.clear() #Clears the phonebook
+
+t = 1+1
+def h():
+    print('h')
