@@ -10,7 +10,7 @@ def m(): #Exercise 0
     
         #Text before and inside the table
         print('Main Function caller\n---------------------\n' +
-        '2) Lotter Number Generator\n3) Rainfall Statistics\n5) Charge Account Validation\n' +
+        '2) Lottery Number Generator\n3) Rainfall Statistics\n5) Charge Account Validation\n' +
         "7) Driver's License Exam\n11) Tic Tac Toe\n12) White Elephant Exchange\n" +
         "13) Magic 8 Ball\n14) Expense Pie Chart\n15) 1994 Weekly Gas Graph\n" +
         "----------------------")
