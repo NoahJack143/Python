@@ -11,7 +11,7 @@ def m(): #MAIN MENU
           'Unique Words\n7) '+
           'World Series Winners\n9) '+
           'Blackjack Simulation\n '+
-          '\n---------------')
+          '---------------')
     
     #Prompt the user for an main function to call with validation
     while True:
@@ -406,16 +406,23 @@ def blackjack():
         #a winner or a tie. If either case occured, reset the points
         if (counter%2) == 0:
             if player1_pts > 21 and player2_pts > 21:
-                print('Both players have won.')
+                print('The results is a draw.')
+                print(f'Player 1 had {player1_pts}.')
+                print(f'Player 2 had {player2_pts}.')
                 player1_pts = 0
             elif player1_pts > 21 and player2_pts < 22:
-                print('Player 1 has won.')
+                print('Player 2 has won.')
+                print(f'Player 1 had {player1_pts}.')
+                print(f'Player 2 had {player2_pts}.')
                 player1_pts = 0
             elif player1_pts < 22 and player2_pts > 21:
-                print('Player 2 has won.')
+                print('Player 1 has won.')
+                print(f'Player 1 had {player1_pts}.')
+                print(f'Player 2 had {player2_pts}.')
                 player1_pts = 0
             if player1_pts == 0:
                 player2_pts = 0
+                print()
                 
         #Increase the counter
         counter += 1
