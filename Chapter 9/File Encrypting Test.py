@@ -6,7 +6,7 @@ def encrypting_code(): #Exercise 3
     
     #Create a dictionary for uppercase letter, numbers, and symbols
     code = {}
-    num = 160
+    num = 179
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     other = '''`1234567890-=~!@#$%^&*()_+,./<>?;':"[]{}|'''
     for i in range(0,3):
@@ -17,7 +17,9 @@ def encrypting_code(): #Exercise 3
             num += 1
         if i == 2:
             for letter in other:
-                code[letter] = chr(num)
+                print(letter)
+                print(chr(num))
+                code[letter] = letter
                 num += 1
     
     #Prompt the user for a file to be opened. Validation will be included for this
@@ -66,11 +68,13 @@ def encrypting_code(): #Exercise 3
             next_char = 0
         
     #Move the encrypted content into the file, Encrypted_Version, and close the file
-    infile.write(encrypted_contents)
+    infile.write(str(encrypted_contents))
     infile.close()
     
     #Tell the user that the contents have been put into the file
     print(f'\nThe contents from the file, {file}, have been encrypted and put into the file, Encrypted_Version')
+
+
 
 def decrypting_code(): #For Exercise 3
     #decrypting code accepts no arguments
@@ -80,7 +84,7 @@ def decrypting_code(): #For Exercise 3
     
     #Create the same dictionary from the main function
     code = {}
-    num = 160
+    num = 179
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     other = '''`1234567890-=~!@#$%^&*()_+,./<>?;':"[]{}|'''
     for i in range(0,3):
@@ -91,7 +95,7 @@ def decrypting_code(): #For Exercise 3
             num += 1
         if i == 2:
             for letter in other:
-                code[letter] = chr(num)
+                code[letter] = letter
                 num += 1
     new_code = {}
     for character in code:
@@ -139,3 +143,5 @@ def decrypting_code(): #For Exercise 3
     #Print the decrypted_contents for the user
     print('Here is the decrypted message.\n')
     print(decrypted_contents)
+    
+
