@@ -355,6 +355,7 @@ def blackjack():
     player1_pts = 0
     player2_pts = 0
     counter = 1
+    dealings = 0
     
     #Create a for loop for every card
     for i in range(1,52):
@@ -388,7 +389,7 @@ def blackjack():
         #Find out where the card is from and find it's value. Change a boolean variable
         #to see who's turn it is too
         try:
-            pts = player1_deck[card]
+            pts = player1_deck[card]    #ADD SOMETHING HERE THAT WILL ADD THE CARD TO THE PLAYERS INDIVIDUAL DECKS
             turn = True
         except:
             pts = player2_deck[card]
@@ -415,6 +416,13 @@ def blackjack():
                 print('The results is a draw.')
                 print(f'Player 1 had {player1_pts}.')
                 print(f'Player 2 had {player2_pts}.')
+                for card in dealt_cards:
+                    if (counter%2) == 0:
+                        dealt_card = player1_deck[card]
+                        print(f'{dealt_card}')
+                    else:
+                        dealt_card = player2_deck[card]
+                        print(f'{
                 player1_pts = 0
             elif player1_pts > 21 and player2_pts < 22:
                 print('Player 2 has won.')
@@ -428,11 +436,13 @@ def blackjack():
                 player1_pts = 0
             if player1_pts == 0:
                 player2_pts = 0
+                dealings = 0
+                counter = 0
                 print()
-                
+
         #Increase the counter
         counter += 1
-        
+        dealings += 1
 def encrypting_code2(): #Exercise 3
     #encrypting_code accepts no arguments
     #it will take contents from a file, convert them to
