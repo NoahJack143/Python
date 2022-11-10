@@ -86,17 +86,7 @@ def blackjack(): #Exercise 9
         msg = 'Player 2 won the round!'
     elif player2_pts > player1_pts:
         msg = 'Player 1 won the round!'
-    
-    if len(deck) > 0:
-        print(f'{msg}'+
-              "\nHere are the players' cards"+
-              f"\nPlayer 1's points: {player1_pts}"+
-              f"\nPlayer 2's points: {player2_pts}"+
-              '\n------------------------------')
-        for num in range(len(player1_deck)):
-                print(f'{player1_deck[num]}',end='')
-                print(f'\t\t{player2_deck[num]}')
-                
+  
 def victor(player1_pts, player2_pts, player1_deck, player2_deck, winner, total_turns):
     d = player1_deck
     if winner == 0: #Draw
@@ -115,5 +105,3 @@ def victor(player1_pts, player2_pts, player1_deck, player2_deck, winner, total_t
             print(f'{d[num]}\t{player2_deck[num]}')
         else:
             print(f'{d[num]}\t\t{player2_deck[num]}')
-
-blackjack()

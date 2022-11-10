@@ -318,9 +318,7 @@ def world_series_winners(): #Exercise 7
 
 #================================================================================#
         
-def blackjack():
-    #blackjack accepts no arguments
-    #it will simlulate a simplified version of the game Blackjack
+def blackjack(): #Exercise 9
     
     #Create the deck of cards
     deck = {'Ace of Spades' : 11, '2 of Spades' : 2, '3 of Spades' : 3,
@@ -347,102 +345,85 @@ def blackjack():
         '10 of Diamonds' : 10, 'Jack of Diamonds' : 10, 'Queen of Diamonds' : 10,
         'King of Diamonds' : 10}
     
-    #Create a list for the order of dealings and two dictionaries for the two players
-    #also create two variables that will represent the player's points, and an accumulator
-    dealt_cards = []
-    player1_deck = {}
-    player2_deck = {}
+    #Create variables for the points, an accumulator for the turns passed, and two lists for each player's deck
     player1_pts = 0
     player2_pts = 0
-    counter = 1
-    dealings = 0
+    player1_deck = []
+    player2_deck = []
+    total_turns = 1
     
-    #Create a for loop for every card
-    for i in range(1,52):
+    #Loop for every single card within the deck
+    for turn in range(1,53):
         
-        #If the it's player 1's turn
-        if (i%2) == 1:
-            
-            #Find a card and it's number from the deck
-            card = random.choice(list(deck))
-            value = deck.pop(card)
-            
-            #Move the card and it's value into the respective deck
-            player1_deck[card] = value
-            
-        #If the it's player 1's turn
-        elif (i%2) == 0:
-            
-            #Find a card and it's number from the deck
-            card = random.choice(list(deck))
-            value = deck.pop(card)
-            
-            #Move the card and it's value into the respective deck
-            player2_deck[card] = value
+        #Get a random card and its value
+        card = random.choice(list(deck))
+        value = deck.pop(card)
         
-        #Appent he card to the list
-        dealt_cards.append(card)
-            
-    #Loop for every card in the list, dealt_cards
-    for card in dealt_cards:
-        
-        #Find out where the card is from and find it's value. Change a boolean variable
-        #to see who's turn it is too
-        try:
-            pts = player1_deck[card]    #ADD SOMETHING HERE THAT WILL ADD THE CARD TO THE PLAYERS INDIVIDUAL DECKS
-            turn = True
-        except:
-            pts = player2_deck[card]
-            turn = False
-        
-        #Check to see who's turn it was, and move accordingly
-        if turn:
-            #Check card AND how many points the player has and move accordingly
+        if (turn%2) == 1:
             if card[:3] == 'Ace' and player1_pts > 10:
-                player1_pts += 1
+                player1_deck.append(card)
+                player1_pts+=1
             else:
-                player1_pts += pts
+                player1_deck.append(card)
+                player1_pts+=value
         else:
-            #Check card AND how many points the player has and move accordingly
             if card[:3] == 'Ace' and player2_pts > 10:
-                player2_pts += 1
+                player2_deck.append(card)
+                player2_pts+=1
             else:
-                player2_pts += pts
-
-        #After every two turns, check the players' points and see if there is
-        #a winner or a tie. If either case occured, reset the points
-        if (counter%2) == 0:
+                player2_deck.append(card)
+                player2_pts+=value
+                
+                
+        if (turn%2) == 0:
             if player1_pts > 21 and player2_pts > 21:
-                print('The results is a draw.')
-                print(f'Player 1 had {player1_pts}.')
-                print(f'Player 2 had {player2_pts}.')
-                for card in dealt_cards:
-                    if (counter%2) == 0:
-                        dealt_card = player1_deck[card]
-                        print(f'{dealt_card}')
-                    else:
-                        dealt_card = player2_deck[card]
-                        print(f'{
+                winner = 0
+                victor(player1_pts, player2_pts, player1_deck, player2_deck, winner, total_turns)
+                total_turns = 0
+            elif player1_pts > 21:
+                winner = 1
+                victor(player1_pts, player2_pts, player1_deck, player2_deck, winner, total_turns)
+                total_turns = 0
+            elif player2_pts > 21:
+                winner = 2
+                victor(player1_pts, player2_pts, player1_deck, player2_deck, winner, total_turns)
+                total_turns = 0
+            if total_turns == 0:
+                player1_deck = []
+                player2_deck = []
                 player1_pts = 0
-            elif player1_pts > 21 and player2_pts < 22:
-                print('Player 2 has won.')
-                print(f'Player 1 had {player1_pts}.')
-                print(f'Player 2 had {player2_pts}.')
-                player1_pts = 0
-            elif player1_pts < 22 and player2_pts > 21:
-                print('Player 1 has won.')
-                print(f'Player 1 had {player1_pts}.')
-                print(f'Player 2 had {player2_pts}.')
-                player1_pts = 0
-            if player1_pts == 0:
                 player2_pts = 0
-                dealings = 0
-                counter = 0
-                print()
-
-        #Increase the counter
-        counter += 1
-        dealings += 1
+                print('\n-\n')
+        total_turns += 1
+        
+    if player1_pts == player2_pts:
+        msg = 'The round was a draw!'
+    elif player1_pts > player2_pts:
+        msg = 'Player 2 won the round!'
+    elif player2_pts > player1_pts:
+        msg = 'Player 1 won the round!'
+  
+def victor(player1_pts, player2_pts, player1_deck, player2_deck, winner, total_turns):
+    d = player1_deck
+    if winner == 0: #Draw
+        msg = 'The round was a draw!'
+    elif winner == 1: #1 won
+        msg = 'Player 2 won the round!'
+    else: #2 won
+        msg = 'Player 1 won the round!'
+    print(f'{msg}'+
+          "\nHere are the players' cards"+
+          f"\nPlayer 1's points: {player1_pts}"+
+          f"\nPlayer 2's points: {player2_pts}"+
+          '\n------------------------------')
+    for num in range(int(total_turns-(total_turns/2))):
+        if ((d[num])[:4] == 'Jack' or (d[num])[:3] == 'Que' or (d[num])[:3] == 'Kin') and (d[num])[-3] == 'n':
+            print(f'{d[num]}\t{player2_deck[num]}')
+        else:
+            print(f'{d[num]}\t\t{player2_deck[num]}')
+        
+#================================================================================#
+        
 def encrypting_code2(): #Exercise 3
     #encrypting_code accepts no arguments
     #it will take contents from a file, convert them to
@@ -453,7 +434,7 @@ def encrypting_code2(): #Exercise 3
     code = {}
     num = 160
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
-    other = '''`1234567890-=~!@#$%^&*()_+,./<>?;':"[]{}|'''
+    other = '`1234567890-=~!@#$%^&*()_+,./<>?;\':"[]{}|'
     for i in range(0,3):
         if i == 1:
             alphabet = alphabet.upper()
