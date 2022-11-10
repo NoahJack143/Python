@@ -29,14 +29,17 @@ def blackjack(): #Exercise 9
         '10 of Diamonds' : 10, 'Jack of Diamonds' : 10, 'Queen of Diamonds' : 10,
         'King of Diamonds' : 10}
     
+    #Create variables for the points, an accumulator for the turns passed, and two lists for each player's deck
     player1_pts = 0
     player2_pts = 0
     player1_deck = []
     player2_deck = []
     total_turns = 1
     
-    for turn in range(1,52): #CHANGE THE FIRST NUMBER TO 0 AND CHANGE THE RESPECTIVE NUMBERS LATER
+    #Loop for every single card within the deck
+    for turn in range(1,53):
         
+        #Get a random card and its value
         card = random.choice(list(deck))
         value = deck.pop(card)
         
@@ -83,19 +86,19 @@ def blackjack(): #Exercise 9
         msg = 'Player 2 won the round!'
     elif player2_pts > player1_pts:
         msg = 'Player 1 won the round!'
-        
-    print(f'{msg}'+
-          "\nHere are the players' cards"+
-          f"\nPlayer 1's points: {player1_pts}"+
-          f"\nPlayer 2's points: {player2_pts}"+
-          '\n------------------------------')
-    for num in range(len(player1_deck)):
-        try:
-            print(f'{player1_deck[num]}',end='')
-            print(f'\t\t{player2_deck[num]}')
-        except:
-            print()
+    
+    if len(deck) > 0:
+        print(f'{msg}'+
+              "\nHere are the players' cards"+
+              f"\nPlayer 1's points: {player1_pts}"+
+              f"\nPlayer 2's points: {player2_pts}"+
+              '\n------------------------------')
+        for num in range(len(player1_deck)):
+                print(f'{player1_deck[num]}',end='')
+                print(f'\t\t{player2_deck[num]}')
+                
 def victor(player1_pts, player2_pts, player1_deck, player2_deck, winner, total_turns):
+    d = player1_deck
     if winner == 0: #Draw
         msg = 'The round was a draw!'
     elif winner == 1: #1 won
@@ -108,4 +111,9 @@ def victor(player1_pts, player2_pts, player1_deck, player2_deck, winner, total_t
           f"\nPlayer 2's points: {player2_pts}"+
           '\n------------------------------')
     for num in range(int(total_turns-(total_turns/2))):
-        print(f'{player1_deck[num]}\t\t{player2_deck[num]}')
+        if ((d[num])[:4] == 'Jack' or (d[num])[:3] == 'Que' or (d[num])[:3] == 'Kin') and (d[num])[-3] == 'n':
+            print(f'{d[num]}\t{player2_deck[num]}')
+        else:
+            print(f'{d[num]}\t\t{player2_deck[num]}')
+
+blackjack()
