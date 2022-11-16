@@ -8,10 +8,13 @@ class BankAccount: #Program 10-7
     def __init__(self, bal):
         self.__balance = bal
         
+    def __str__(self): #the default print statement when calling the object
+        return 'The balance is $' + format(self.__balance, ',.2f')
+        
     #the deposit method makes a deposit into the account
         
     def deposit(self, amount):
-        self.__balance += amount
+        self.__balance += int(amount)
         
     #the withdaraw method makes a withdrawl from teh account
         
@@ -25,3 +28,4 @@ class BankAccount: #Program 10-7
             
     def get_balance(self):
         return self.__balance
+    
