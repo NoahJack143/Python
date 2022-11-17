@@ -9,6 +9,9 @@ class CellPhone:
         self.model_num = model_number #Assign the attribute
         self.retail_price = retail_price #Assign the attribute
         
+    def __str__(self, manufact, model_num, retail_price):
+        print(f'{manufact}, {model_num}, costs ${retail_price}.')
+        
     #---Instance methods---#
     
     #Changing the manufacturer

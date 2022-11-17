@@ -14,7 +14,12 @@ def main():
     #Ask the user for initializations
     manufact = input('Enter the phone manufacturer: ')
     model_num = input('Enter the phone model number: ')
-    retail_price = int(input(f'Enter the retail price for your {manufact}, model {model_num}: '))
+    while True:
+        try:
+            retail_price = int(input(f'Enter the retail price for your {manufact}, model {model_num}: '))
+            break
+        except:
+            print('\nPlease enter a proper retail price.\n')
     
     #Intialize the phone
     phone = cellphone.CellPhone(manufact, model_num, retail_price)
