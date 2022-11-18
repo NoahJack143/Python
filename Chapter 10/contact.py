@@ -10,7 +10,7 @@ class Contact:
         self.__email_address=email_address
         
     def __str__(self):
-        return f'Name: {self.__name}\nPhone Number: {self.__phone_num}\nEmail: {self.__email_address}'
+        return f'\nName: {self.__name}\nPhone Number: {self.__phone_num}\nEmail: {self.__email_address}'
         
     #---Methods---#
         
