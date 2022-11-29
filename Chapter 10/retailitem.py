@@ -12,10 +12,12 @@ class RetailItem:
         self.__units = units
         self.__price = price
         
+    def __str__(self):
+        return f'\nDescription: {self.__description}\nUnits: {self.__units}\nRetail Price: {self.__price}'
+        
     #---Methods---#
         
-    def display(self, description, units, price):
-        return f'\n Description: {description}\nUnits: {units}\nRetail Price: {price}\n'
+    #def get_name(self,name):
     
     
         
