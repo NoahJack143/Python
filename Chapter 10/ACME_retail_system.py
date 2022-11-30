@@ -119,7 +119,7 @@ def ICS():
             
             #Check for the user's choice
             if ui == '1':
-                inventory = display_inventory(inventory)
+                inventory = display_inventory()
                 break
             elif ui == '2':
                 inventory = add_items(inventory)
@@ -141,7 +141,12 @@ def ICS():
     return
           
 #Function to show the inventory
-def display_inventory(inventory):
+def display_inventory():
+    
+    #Open the file, move the contents into a list, and clos the file
+    infile = open('inventory.dat', 'rb')
+    inventory = pickle.load(infile)
+    infile.close()
     
     #Try to load the contents from the file into a list, check it's length, and move accordingly
     try:
@@ -149,7 +154,7 @@ def display_inventory(inventory):
             p=p
     except:
         #If there is nothing within the list, print this statement
-        print('\nThere is nothing within the file.')
+        print('\nThere are no items in the inventory.')
         time.sleep(3) #This is here to give the user time to read
     else:
         #Print a message before display everything
@@ -160,7 +165,7 @@ def display_inventory(inventory):
             print(key)
             #print(key.get_name()) <-- this is to check for a description asked by the user
             
-        time.sleep(5) #This is here to give the user time to read
+        time.sleep(1) #This is here to give the user time to read
             
     #return because the purpose of the function has been served
     return inventory
@@ -229,54 +234,124 @@ def exitting_ISC():
 def RS():
     
     #Before anything, create a list that will contain the objects that the user wants to buy
-    shopping_cart = []
+    cart = []
+    
+    #Also create a total price for the user
+    total_price = 0
     
     #Set a boolean variable for the menu
     leave = False
     
-    #Print an opening message for the user when they enter the "store"
-    print('Welcome to the ACME PoS retail system')
-    
-    #Print another message and then list options for the user
-    print('Please choose from the following items:\n'+
-          '1 - View Cart\n2 - Display items for sale'+
-          '3 - Purchase item\n4 - Empty cart and start over'+
-          '5 - Check out\n6 - EXIT to main menu\n')
-    
-    #Loop until the user chooses to quit
+    #Continue until the user no longer wants to
     while True:
         
-        #Ask the user for an option
-        ui = input('Please enter a selection')
+        #Print an opening message for the user when they enter the "store"
+        print('\nWelcome to the ACME PoS retail system\n')
         
-        #Check the user's input
-        if ui == '1':
-            #view_cart()
-            break
-        if ui == '2':
-            #display_items()
-            break
-        if ui == '3':
-            #purchase_item()
-            break
-        if ui == 4:
-            #empty_cart()
-            break
-        if ui == '5':
-            #check_out()
-            break
-        if ui == 6:
-            #leave = True
-            break
+        #Print another message and then list options for the user
+        print('Please choose from the following items:\n'+
+              '1 - View Cart\n2 - Display items for sale\n'+
+              '3 - Purchase item\n4 - Empty cart and start over\n'+
+              '5 - Check out\n6 - EXIT to main menu\n')
         
+        #Loop until the user chooses to quit
+        while True:
+            
+            #Ask the user for an option
+            ui = input('Please enter a selection: ')
+            
+            #Check the user's input
+            if ui == '1':
+                cart = view_cart(cart)
+                break
+            if ui == '2':
+                display_items()
+                break
+            if ui == '3':
+                cart = purchase_item(cart)
+                break
+            if ui == 4:
+                #empty_cart()
+                break
+            if ui == '5':
+                #check_out()
+                break
+            if ui == 6:
+                leave = True
+                break
+            
         #Check to see if the user wants to leave
         if leave:
             break
         
-    def view_cart():
-        
+def view_cart(cart):
+    
+    #Check to see if the cart is empty and move accordingly
+    if len(cart) < 1:
+        print('\nYour cart is empty!')
+    else:
         #Print a message, and then display the cart
-        print('Here are the items within your cart') #MAKE A DICTIONARY FOR THE CASH
-        #REGISTER "INTERNAL" LIST
+        print('Here are the items within your cart')
+        for item in cart:
+            print(ri.RetailItem.get_cart(item))
+    
+    #Return the cart because this function's purpose has been served
+    return cart
 
+def display_items():
+    
+    #Simply call for the function, display_inventory()
+    display_inventory()
+    
+    #Return because this function's purpose has bee served
+    return
+
+def purchase_item(cart):
+    
+    #Call for display_items() to show the inventory
+    display_items()
+
+    #Open the file, move the contents, and close the file
+    infile = open('inventory.dat', 'rb') #Open file
+    inventory = pickle.load(infile) #Create inventory
+    infile.close() #Close file
+    
+    #Loop until the user no longer wants to
+    while True:
+        
+        #Loop until the user selects a real item
+        while True:
+            
+            #Reset the boolean variable
+            existence = False
+            
+            #Ask the user for an item to purchase
+            wanted_item = input('Which item would you like to purchse? ')
+            
+            #Check to see if the wanted item is even in the inventory
+            for item in inventory:
+                if wanted_item == ri.RetailItem.get_description(item):
+                
+                    #If so, add it to the cart
+                    cart.append(item)
+                    existence = True
+                    break
+
+            if not existence:
+                #Tell the user their item doesn't exist in the inventory
+                print('The wanted item is not in stock.\nChoose another.')
+            else:
+                break
+        
+        #Ask the user if they want to purhcse another item
+        cont = input('Would you like to purchse another item? (y/n) ')
+        
+        if cont == 'y':
+            continue
+        else:
+            break
+    
+    #Return the cart
+    return cart
+    
 main_menu()

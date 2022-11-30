@@ -17,7 +17,17 @@ class RetailItem:
         
     #---Methods---#
         
-    #def get_name(self,name):
+    def get_cart(self): #Add something later that will accept arguem
+        return f'\nDescription: {self.__description}\nPrice: {self.__price}'
+    
+    def get_description(self):
+        return self.__description
+    
+    def get_units(self):
+        return self.__units
+    
+    def get_price(self):
+        return self.__price
     
     
-        
+    
