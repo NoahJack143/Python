@@ -1,6 +1,7 @@
 #Imports
 #-----#
 import retailitem as ri
+import CashRegister as cr
 import time
 import pickle
 
@@ -65,7 +66,7 @@ def main_menu():
             
             #If the user choose option 2, open the Retail Store
             elif ui == '2':
-                #RS()
+                RS()
                 break
             
             #If the user chooses option 3, exit the main menu
@@ -73,7 +74,7 @@ def main_menu():
                 m='exit'
                 break
                 
-            #VALIDATION
+            #VALIDATION                
             else:
                 print('\nPlease choose an option from the table.\n')
         
@@ -225,7 +226,57 @@ def exitting_ISC():
 
 #---------------------------Retail Store Functions---------------------------#
 
-
-
+def RS():
+    
+    #Before anything, create a list that will contain the objects that the user wants to buy
+    shopping_cart = []
+    
+    #Set a boolean variable for the menu
+    leave = False
+    
+    #Print an opening message for the user when they enter the "store"
+    print('Welcome to the ACME PoS retail system')
+    
+    #Print another message and then list options for the user
+    print('Please choose from the following items:\n'+
+          '1 - View Cart\n2 - Display items for sale'+
+          '3 - Purchase item\n4 - Empty cart and start over'+
+          '5 - Check out\n6 - EXIT to main menu\n')
+    
+    #Loop until the user chooses to quit
+    while True:
+        
+        #Ask the user for an option
+        ui = input('Please enter a selection')
+        
+        #Check the user's input
+        if ui == '1':
+            #view_cart()
+            break
+        if ui == '2':
+            #display_items()
+            break
+        if ui == '3':
+            #purchase_item()
+            break
+        if ui == 4:
+            #empty_cart()
+            break
+        if ui == '5':
+            #check_out()
+            break
+        if ui == 6:
+            #leave = True
+            break
+        
+        #Check to see if the user wants to leave
+        if leave:
+            break
+        
+    def view_cart():
+        
+        #Print a message, and then display the cart
+        print('Here are the items within your cart') #MAKE A DICTIONARY FOR THE CASH
+        #REGISTER "INTERNAL" LIST
 
 main_menu()
