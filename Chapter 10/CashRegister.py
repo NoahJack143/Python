@@ -20,7 +20,7 @@ class CashRegister:
         
     #---Methods---#
     
-    def purchse_item(description, cart):
+    def purchase_item(description, cart):
         
         #Add the purchased item into the cart
         cart.append(description)

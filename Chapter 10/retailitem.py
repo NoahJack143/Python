@@ -13,12 +13,13 @@ class RetailItem:
         self.__price = price
         
     def __str__(self):
-        return f'\nDescription: {self.__description}\nUnits: {self.__units}\nRetail Price: {self.__price}'
+        return f'\nDescription: {self.__description}\nUnits: {self.__units}\nRetail Price: ${self.__price}'
         
     #---Methods---#
         
-    def get_cart(self): #Add something later that will accept arguem
-        return f'\nDescription: {self.__description}\nPrice: {self.__price}'
+    def get_cart(self, EI): #Add something later that will accept arguem
+        
+        for amount in EI: return f'\n{amount} {self.__description}(s) <---> ${EI[amount]}'
     
     def get_description(self):
         return self.__description
