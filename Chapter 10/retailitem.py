@@ -19,7 +19,7 @@ class RetailItem:
         
     def get_cart(self, cart_info): #Add something later that will accept arguem
         
-        return f'\n{cart_info[self.__description][1]} {self.__description}(s) <---> ${cart_info[self.__description][2]}'
+        return f'\n{cart_info[self.__description][1]} {self.__description}(s) <---> ${format(cart_info[self.__description][2], ",.2f")}'
     
     def get_description(self):
         return self.__description

@@ -5,7 +5,7 @@ import random
 
 #-----#
 
-def password():
+def bot_checker():
     
     #Try to open the files and read them, if an Error occurs, create the files and exit
     try:
@@ -71,3 +71,20 @@ def password():
         else:
             print('\nSorry, you have the wrong answer.')
             return False
+        
+#----------------CLASSES----------------#
+        
+class Passwords:
+    
+    #---Attributes---#
+    
+    def __init__(self, username, passord, email):
+        self.__username = username
+        self.__password = password
+        self.__email = email
+        
+    def __str__(self):
+        return f'\nUsername: {self.__username}\nPassword: {self.__password}\nEmail: {self.__email}'
+    
+    
+    

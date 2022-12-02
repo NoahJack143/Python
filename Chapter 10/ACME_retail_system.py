@@ -44,7 +44,8 @@ def main_menu():
               '--------------------------------\n'+
               'Press 1 to access the inventory control system.\n'+
               'Press 2 to access the retail store.\n'+
-              'Press 3 to exit the main menu.\n'+
+              'Press 3 to access the password menu.\n'+
+              'Press 4 to exit the main menu.\n'+
               '--------------------------------')
         
         #Loop for validation
@@ -60,8 +61,8 @@ def main_menu():
                 print('\nBefore you can get into the Inventory Control System, you must configure this code to get the password.')
                 time.sleep(2) #This is here to give the user time to read
                 
-                #Call for the password
-                cont = pt.password()
+                #Have a bot checker
+                cont = pt.bot_passer()
                 time.sleep(1.5) #This is here to give the user time to read
                 
                 #Check to see if the user can continue or not
@@ -85,8 +86,23 @@ def main_menu():
                 RS()
                 break
             
-            #If the user chooses option 3, exit the main menu
+            #If the user chooses option 3, ask them for the admin password, and then move them to the password editting menu
             elif ui == '3':
+                
+                #Before anything, ask the user the admin password, and then check the password and move accordingly
+                print('Before you can enter the Password Menu, you must enter the admin password.')
+                ui = input('Enter the admin password: ')
+                if ui == '1aJ7':
+                    #If they get the password right, send them to the password menu
+                    PM()
+                    break
+                
+                #If they don't get the password right, tell them and send them back
+                print('Sorry, but the password you entered is wrong.')
+                break
+            
+            #If the user chooses option 4, exit the main menu
+            elif ui == '4':
                 m='exit'
                 break
                 
@@ -230,6 +246,8 @@ def add_items(inventory):
             try:
                 units = int(input(f'Enter the number of units for {description}: '))
                 price = float(input(f'Enter the price per unit for {description}: (0.00) '))
+                if units <= 0 or price <= 0:
+                    p=p
             except:
                 print('\nEither the entry for units or the entry for retail price was not a number.')
                 time.sleep(2)
@@ -560,6 +578,7 @@ def check_out(cart, cart_info):
             
         #Finally, tell the user that they have finally bought the items and return the cart
         print('\n\nThe items within the cart were bought successfully.\nHappy shopping!')
+        time.sleep(3) #This is here to give the user time to read
         infile = open('inventory.dat', 'wb')
         pickle.dump(inventory, infile)
         infile.close()
@@ -568,6 +587,7 @@ def check_out(cart, cart_info):
     else:
         #If the user decides to keep shopping, then just return the cart
         print('The items within the cart were not purchsed.\nHappy shopping!')
+        time.sleep(3) #This is here to give the user time to read
         
         #Without the user knowing, save the new inventory information into the file, inventory.dat
         infile = open('inventory.dat', 'wb')
@@ -575,9 +595,94 @@ def check_out(cart, cart_info):
         infile.close()
         return cart, cart_info
                 
+#If the user chooses option 3, take them to the Password Menu
+def PS():
     
-            
+    #To make sure that the username file exists in the first place
+    infile = open('users.dat', 'wb')
+    infile.close()
+    
+    #Open the file that has all of the users, load the list, and then close the file
+    infile = open('users.dat', 'rb')
+    user_list = pickle.load(infile)
+    infile.close()
+    
+    #Set a boolean variable for the menu
+    leave = False
+    
+    #Continue until the user no longer wants to
+    while True:
         
+        #A beginning statement
+        print('\n\n\nWelcome to the ACME Password Menu.\n')
+        
+        #A statement before the options + the options
+        print('\tMenu Options\n'+
+              '--------------------------------\n'+
+              'Press 1 to show all of the users.\n'+
+              'Press 2 to add a user.\n'+
+              'Press 3 to delete a user.\n'+
+              'Press 4 to exit the main menu.\n'+
+              '--------------------------------')
+        
+        #Loop until the user chooses to quit
+        while True:
+            
+            #Ask the user for an option
+            ui = input('Please enter a selection: ')
+            
+            #Check the user's input
+            if ui == '1':
+                #cart, cart_info = view_cart(cart, cart_info)
+                break
+            elif ui == '2':
+                #display_items()
+                break
+            elif ui == '3':
+                #cart, cart_info = purchase_item(cart, cart_info)
+                break
+            elif ui == '4':
+                leave = True
+                print() #make code purty
+                break
+            else:
+                print('\nPlease choose an option from the table.\n')
+                time.sleep(2) #This is here to give the user time to read
+            
+        #Check to see if the user wants to leave
+        if leave:
+            #Before leaving have a message
+            for i in 'Exiting':
+                print(i,end=''); time.sleep(.02)
+            for i in '...':
+                print(i,end=''); time.sleep(.8)
+            break
+        
+def show_users(user_list):
+    
+    #Add a try block to checking purposes
+    try:
+        
+        #Check to see if the list has anything insdide of it
+        if len(user_list) < 1:
+            p=p
+        
+        #If there are things inside of it, print everything
+        for user in user_list:
+            print(user)
+            
+        time.sleep(2) #This is here to give the user time to read
+        
+        #Return once done
+        return user_list
+    
+    except:
+        #If there is nothign within the list tell the user
+        print('There are no contacts within the list')
+        return user_list
     
     
+    
+    
+#Call the main function
 main_menu()
