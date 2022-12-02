@@ -17,9 +17,9 @@ class RetailItem:
         
     #---Methods---#
         
-    def get_cart(self, EI): #Add something later that will accept arguem
+    def get_cart(self, cart_info): #Add something later that will accept arguem
         
-        for amount in EI: return f'\n{amount} {self.__description}(s) <---> ${EI[amount]}'
+        return f'\n{cart_info[self.__description][1]} {self.__description}(s) <---> ${cart_info[self.__description][2]}'
     
     def get_description(self):
         return self.__description

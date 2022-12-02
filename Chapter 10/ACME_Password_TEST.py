@@ -5,7 +5,7 @@ import random
 
 #-----#
 
-def main():
+def password():
     
     #Try to open the files and read them, if an Error occurs, create the files and exit
     try:
@@ -16,17 +16,21 @@ def main():
         #Create the list of words
         words = pickle.load(infile)
         
-        #Create a list for the three words
-        random_words = []
-        
         #Create a list for the colors of the rainbow
         rainbow_colors = ['red','orange','yellow','green','blue','purple']
+        
+        #Create a code list for teh colors of the rainbow
+        code_list = ['der','egnaro','wolley','neerg','eulb','elprup']
         
         #Loop until there are proper values in the color_values list
         while True:
             
-            #Create values for the colors
+            #Create / reset the values for the colors
             color_values = [0,0,0,0,0,0]
+            
+            #Create / reset the values for the random words
+            random_words = []
+            
             #Pick three random words and append them to the list
             for i in range(0,3):
                 random_words.append(words[random.randint(0,len(words))])
@@ -51,7 +55,19 @@ def main():
             else:
                 break
         
-        #Find out where the maximum value is at in the unsorted value list
-        color = rainbow_colors[color_values[color_values_sorted[0]]]
+        #Find out which coded color to use
+        wanted_answer = code_list[color_values.index(color_values_sorted[0])]
         
-        print(color)
+        #Tell the user the needed information to find the code
+        print(f'\nHere is the piece of information you need to find the password: {string}\n')
+        
+        #Finally, ask the user for a code
+        user_answer = input('What is the answer to this code? (hint: colors of the rainbow) ')
+        
+        #Check the user's input
+        if wanted_answer == user_answer:
+            print('\nYou have the right answer!')
+            return True
+        else:
+            print('\nSorry, you have the wrong answer.')
+            return False

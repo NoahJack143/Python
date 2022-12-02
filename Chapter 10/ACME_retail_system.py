@@ -2,6 +2,7 @@
 #-----#
 import retailitem as ri
 import CashRegister as cr
+import ACME_Password_TEST as pt
 import time
 import pickle
 
@@ -39,10 +40,12 @@ def main_menu():
         print('\n\n\nWelcome to the ACME Main Menu.\n')
         
         #A statement before the options + the options
-        print('Please select an action from the following:\n'+
+        print('\tMenu Options\n'+
+              '--------------------------------\n'+
               'Press 1 to access the inventory control system.\n'+
               'Press 2 to access the retail store.\n'+
-              'Press 3 to exit the main menu.')
+              'Press 3 to exit the main menu.\n'+
+              '--------------------------------')
         
         #Loop for validation
         while True:
@@ -53,16 +56,29 @@ def main_menu():
             #Check for the user's input
             if ui == '1':
                 
-                #Check to see if the file exists. Create it if it doesn't
-                try:
-                    infile = open('inventory.dat', 'rb')
-                    infile.close()
-                except:
-                    print("Inventory file doesn't exist. Creating the file now.")
-                    infile = open('inventory.dat', 'w')
-                    infile.close()
-                ICS()
-                break
+                #Before anything, send the user a code for them to crack before they get into the system
+                print('\nBefore you can get into the Inventory Control System, you must configure this code to get the password.')
+                time.sleep(2) #This is here to give the user time to read
+                
+                #Call for the password
+                cont = pt.password()
+                time.sleep(1.5) #This is here to give the user time to read
+                
+                #Check to see if the user can continue or not
+                if cont:
+                    #Check to see if the file exists. Create it if it doesn't
+                    try:
+                        infile = open('inventory.dat', 'rb')
+                        infile.close()
+                    except:
+                        print("Inventory file doesn't exist. Creating the file now.")
+                        infile = open('inventory.dat', 'w')
+                        infile.close()
+                    ICS()
+                    break
+                else:
+                    #If the user got the password wrong, break out
+                    break
             
             #If the user choose option 2, open the Retail Store
             elif ui == '2':
@@ -77,11 +93,13 @@ def main_menu():
             #VALIDATION                
             else:
                 print('\nPlease choose an option from the table.\n')
+                time.sleep(2) #This is here to give the user time to read
         
         #Check to see if the user chose to exit
         if m == 'exit':
             #Print a closing message
             print('\nGoodbye.')
+            time.sleep(1.5) #This is here to give the user time to read
             break
                 
                 
@@ -102,14 +120,16 @@ def ICS():
     while True:
         
         #A beginning statement
-        print('\nWelcome to the ACME Inventory Control System.\n')
+        print('\n\n\nWelcome to the ACME Inventory Control System.\n')
         
         #A statement before the options + the options
-        print('Please select an action from the following:\n'+
+        print('\tMenu Options\n'+
+              '--------------------------------\n'
               'Press 1 to display the current inventory.\n'+
               'Press 2 to add inventory items to the current inventory.\n'+
               'Press 3 to save the inventory.\n'+
-              'Press 4 to exit.')
+              'Press 4 to exit.\n'
+              '--------------------------------')
         
         #Loop for validation
         while True:
@@ -132,9 +152,11 @@ def ICS():
                 break
             else:
                 print('\nPlease choose an option from the table.\n')
+                time.sleep(2) #This is here to give the user time to read
             
         #Check to see if the user chose option #4
         if inventory == 'exit':
+            print() #make code purty
             break
     
     #Once the user chooses to exit return the to main menu
@@ -170,7 +192,13 @@ def display_inventory():
             print(key)
             #print(key.get_name()) <-- this is to check for a description asked by the user
             
-        time.sleep(1) #This is here to give the user time to read
+        #Find out how long to let the reader read the inventory
+        if len(inventory) > 3:
+            wait = int(len(inventory) / 2)
+        else:
+            wait = len(inventory)
+        
+        time.sleep(wait) #This is here to give the user time to read
             
     #return because the purpose of the function has been served
     return inventory
@@ -189,20 +217,18 @@ def add_items(inventory):
         #Loop to check to see if the description alread exists
         while True:
             
-            #Reset variable:
-            ui = 1 #TESTING
+            #Get information from the user. VALIDATION IS HERE
             description = input('\nEnter an item description: ')
             for item in inventory:
                 if description == ri.RetailItem.get_description(item):
-                    print('\nThat description already exists');ui = input('Would you like to replace that item information? (y/n) ')
-            if ui == 'y' or ui == 1: change_object = True; break
+                    print('\nThat description already exists');ui = input('Would you like to replace that item information? (y/n) ');print() #make code purty
+            if ui == 'y': change_object = True; break
+            elif ui == 1: break
             else: continue
-            if ui == 'y':
-                print()
         #VALIDATION
         while True:
             try:
-                units = int(input(f'\nEnter the number of units for {description}: '))
+                units = int(input(f'Enter the number of units for {description}: '))
                 price = float(input(f'Enter the price per unit for {description}: (0.00) '))
             except:
                 print('\nEither the entry for units or the entry for retail price was not a number.')
@@ -218,13 +244,12 @@ def add_items(inventory):
             for i in range(len(inventory)):
                 if ri.RetailItem.get_description(inventory[i]) == description:
                     inventory[i] = ri.RetailItem(description, units, price)
-                    print(inventory[i])
         else:
             #Append the item info into the list
             inventory.append(item_info)
         
         #Ask the user if they would like to continue
-        cont = input('Would you like to continue? (y/n) ')
+        cont = input('\nWould you like to add another item? (y/n) ')
         
         #Check the user's input and move accordingly
         if cont == 'y':
@@ -241,12 +266,23 @@ def add_items(inventory):
 #Function for saving the changes made to the file
 def save_inventory(inventory):
     
+    print() #make code purty
+    
     #Open the file, dump the info, and tell the user if this was successful
     try:
         infile = open('inventory.dat','wb') #open file
         pickle.dump(inventory, infile)
         infile.close() #close file
-        print('\nThe changes have been successfully saved.')
+        
+        #Before telling the user the results, print a message
+        #Before leaving have a message
+        for i in 'Saving inventory':
+            print(i,end=''); time.sleep(.02)
+        for i in '...':
+            print(i,end=''); time.sleep(.8)
+            
+        #Tell the user the success
+        print('\n\nThe changes have been successfully saved.')
     except:
         print('\nThere was a problem trying to save the data.')
     time.sleep(3) #This is here to give the user time to read
@@ -275,7 +311,7 @@ def RS():
     while True:
         
         #Print an opening message for the user when they enter the "store"
-        print('\nWelcome to the ACME PoS retail system\n')
+        print('\n\n\nWelcome to the ACME PoS retail system\n')
         
         #Print another message and then list options for the user
         print('Please choose from the following items:\n'+
@@ -307,12 +343,19 @@ def RS():
                 break
             elif ui == '6':
                 leave = True
+                print() #make code purty
                 break
             else:
-                print('Please choose an option from the table.')
+                print('\nPlease choose an option from the table.\n')
+                time.sleep(2) #This is here to give the user time to read
             
         #Check to see if the user wants to leave
         if leave:
+            #Before leaving have a message
+            for i in 'Exiting':
+                print(i,end=''); time.sleep(.02)
+            for i in '...':
+                print(i,end=''); time.sleep(.8)
             break
         
 def view_cart(cart, cart_info):
@@ -320,18 +363,21 @@ def view_cart(cart, cart_info):
     #Check to see if the cart is empty and move accordingly
     if len(cart) < 1:
         print('\nYour cart is empty!')
+        time.sleep(2) #This is here to give the user time to read
     else:
-        
-        #For every item in the cart, see how many of each item is in the cart
-        extra_info = {} #Do this by creating a dictionary
-        for item in cart_info:
-            extra_info[(cart_info[item][1])] = cart_info[item][2]
             
         #Print a message, and then display the cart
         print('Here are the items within your cart')
         for item in cart:
-            print(ri.RetailItem.get_cart(item, extra_info))
-        time.sleep(1) #This is here to give the user time to read
+            print(ri.RetailItem.get_cart(item, cart_info))
+            
+        #Find out how long to let the reader read the inventory
+        if len(cart) > 3:
+            wait = int(len(cart) / 2)
+        else:
+            wait = len(cart)
+        
+        time.sleep(wait) #This is here to give the user time to read
     
     #Return because this function's purpose has been served
     return cart, cart_info
@@ -364,7 +410,7 @@ def purchase_item(cart, cart_info):
             existence = False
             
             #Ask the user for an item to purchase
-            wanted_item = input('Which item would you like to purchase? ')
+            wanted_item = input('\nWhich item would you like to purchase? ')
             
             #Check to see if the wanted item is even in the inventory
             for item in inventory:
@@ -372,15 +418,17 @@ def purchase_item(cart, cart_info):
                 
                     #If so, get the description, price, and units of that item
                     WI_description = item
-                    WI_price = int(ri.RetailItem.get_price(item))
-                    WI_units = float(ri.RetailItem.get_units(item))
+                    WI_price = float(ri.RetailItem.get_price(item))
+                    WI_units = int(ri.RetailItem.get_units(item))
                     existence = True
                     break
 
             if not existence:
                 
                 #Tell the user their item doesn't exist in the inventory
-                print('The wanted item is not in stock.\nChoose another.')
+                print('\nThe wanted item is not in stock.\nChoose another.')
+                time.sleep(2) #This is here to give the user time to read
+                print() #make code purty
             else:
                 
                 #If the item does exist, check to see if it's already in the cart
@@ -389,11 +437,13 @@ def purchase_item(cart, cart_info):
                     #If the item is already in the cart, then add to the info
                     cart_info[wanted_item][1] = cart_info[wanted_item][1] + 1
                     cart_info[wanted_item][2] = cart_info[wanted_item][2] + WI_price
+                    
                 elif wanted_item in cart_info and cart_info[wanted_item][1] == WI_units:
                     
                     #If the item's units in the cart_info == to the item's units in the object
-                    if wanted_item[-1] == 's':print(f'You are currently carrying all of the {wanted_item} in stock')
-                    else:print(f'You are currently carrying all of the {wanted_item}s in stock')
+                    if wanted_item[-1] == 's':print(f'\nYou are currently carrying all of the {wanted_item} in stock\n')
+                    else:print(f'\nYou are currently carrying all of the {wanted_item}s in stock\n')
+                    time.sleep(2) #This is here to give the user time to read
                     
                 else:
                     #If the item isn't in the cart, create a key for it
@@ -424,10 +474,18 @@ def empty_cart(cart, cart_info):
     
     except:
         #If there isn't anything in the cart, tell the user
-        print('Your cart is already empty!'); return cart, cart_info
+        print('Your cart is already empty!'); time.sleep(2); return cart, cart_info
     else:
         #If there is, empty the cart and tell the user
         cart = []; cart_info = {}
+        
+        #Before telling the user about the cart, print a message
+        for i in 'Emptying Cart':
+            print(i,end=''); time.sleep(.02)
+        for i in '...':
+            print(i,end=''); time.sleep(.8)
+            
+        #Print the results
         print('Cart successfully emptied.'); return cart, cart_info
     
 def check_out(cart, cart_info):
@@ -454,13 +512,16 @@ def check_out(cart, cart_info):
     except:
         #If the cart is empty, tell the user
         print('Your cart is empty!')
+        time.sleep(2) #This is here to give the user time to read
     
     else:
+        print() #make code purty
+        
         #If the cart isn't empty, show the cart's contents to the user
         cart, cart_info = view_cart(cart, cart_info)
             
     #Show the final price that the user must pay for the items
-    print('The price of all your items is ', format(total_price, '.2f'), sep = '$')
+    print('\nThe price of all your items is ', format(total_price, '.2f'), sep = '$')
     #Ask the user if they would like to buy all the items, if any, in their cart
     confirmation = input('Would you like to purchase the items in your cart? (y/n) ')
     
@@ -478,6 +539,7 @@ def check_out(cart, cart_info):
                 for i in range(len(inventory)):
                     if ri.RetailItem.get_description(inventory[i]) == ri.RetailItem.get_description(item):
                         del inventory[i]
+                        break
             
             else:
                 #If there are items left, find where the item is at in the inventory, then replace it when a new object
@@ -488,8 +550,16 @@ def check_out(cart, cart_info):
         #Next, empty the cart and cart_info
         cart = []; cart_info = {}
         
+        print() #make code purty
+        
+        #Before purchasing the items, print a message
+        for i in 'Scanning items':
+            print(i,end=''); time.sleep(.02)
+        for i in '...':
+            print(i,end=''); time.sleep(.8)
+            
         #Finally, tell the user that they have finally bought the items and return the cart
-        print('The items within the cart were bought successfully.\nHappy shopping!')
+        print('\n\nThe items within the cart were bought successfully.\nHappy shopping!')
         infile = open('inventory.dat', 'wb')
         pickle.dump(inventory, infile)
         infile.close()
