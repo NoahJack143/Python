@@ -71,20 +71,31 @@ def bot_checker():
         else:
             print('\nSorry, you have the wrong answer.')
             return False
+    
+def admin_information(wanted_info):
+    
+    #Check to see what the wanted info is and return the wanted info
+    if wanted_info == 'password':
+        return '1aJ7'
+    else:
+        #If the user hasn't passed the right information, return nothing
+        return
         
 #----------------CLASSES----------------#
         
-class Passwords:
+class Users:
     
     #---Attributes---#
     
-    def __init__(self, username, passord, email):
+    def __init__(self, username, password, email):
         self.__username = username
         self.__password = password
         self.__email = email
         
     def __str__(self):
         return f'\nUsername: {self.__username}\nPassword: {self.__password}\nEmail: {self.__email}'
+    
+    #---Modules---#
     
     
     

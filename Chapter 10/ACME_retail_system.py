@@ -5,7 +5,9 @@ import CashRegister as cr
 import ACME_Password_TEST as pt
 import time
 import pickle
+import random as r
 
+import smtplib, ssl
 #-----#
 
 #Notes
@@ -33,7 +35,7 @@ def main_menu():
             inventory = pickle.load(infile)
             infile.close() #Close the file after unpickling items
         except:
-            print('WARNING: Either the file inventory.dat is empty, or the file does not exist.')
+            print('\n\n\nWARNING: Either the file inventory.dat is empty, or the file does not exist.')
             time.sleep(3) #This is here to give the user time to read
             
         #A beginning statement
@@ -44,7 +46,7 @@ def main_menu():
               '--------------------------------\n'+
               'Press 1 to access the inventory control system.\n'+
               'Press 2 to access the retail store.\n'+
-              'Press 3 to access the password menu.\n'+
+              'Press 3 to access the user control menu.\n'+
               'Press 4 to exit the main menu.\n'+
               '--------------------------------')
         
@@ -57,12 +59,81 @@ def main_menu():
             #Check for the user's input
             if ui == '1':
                 
+                #Before anything, open the file, users.dat, and get the dictionary from there
+                infile = open('users.dat', 'rb')
+                user_list = pickle.load(infile)
+                infile.close()
+                
+                #Set boolean variables
+                passs = False
+                found = False
+                
+                #Ask the user for a username and password.
+                username = input('Username: ')
+                password = input('Password: ')
+                
+                #Check the username first to see if there is a username in the users_list that matches it
+                for user in user_list:
+                    if username == user_list[user][1]:
+                        #Check for the password if the username matches
+                        if password == user_list[user][2]:
+                            #If everything works, print a message
+                            print('You have the right username and password.')
+                            passs = True
+                            #Get the email if the username and password are right
+                            email = user_list[user][3]
+                        else:
+                            #if the password is incorrect
+                            print('The password you entered is incorrect.')
+                        found = True
+                    
+                #Check to see if the user got anything right. Move accordingly
+                if not found:
+                    print('The username you entered does not exist.')
+                elif passs:
+                    #Use 2FA to make sure that the user really is authentic
+                    #-------------------
+                    
+                    
+                    
+                    
+                    
+                    passcode = '' #Create the passcode
+                    
+                    for i in range(0,10):
+                        num = r.randint(0,9)
+                        passcode += str(num) #Add 9 random numbers to the passcode
+                        
+                    port = 465  # For SSL
+                    smtp_server = "smtp.gmail.com"
+                    message = """\
+                            Subject: Hi there
+
+                            This message is sent from Python.""" #Create the message
+                    
+                    smtp_server = "smtp.gmail.com"
+                    port = 587  # For starttls
+                    sender_email = "noah.jack.709@gmail.com"
+
+                    # Create a secure SSL context
+                    context = ssl.create_default_context()
+                    
+                    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+                        server.login(sender_email, '1aJ7Z-b9')
+                        server.sendmail(sender_email, email, message)
+
+                    
+                    
+                    
+                    
+                    
+                    #-------------
                 #Before anything, send the user a code for them to crack before they get into the system
                 print('\nBefore you can get into the Inventory Control System, you must configure this code to get the password.')
                 time.sleep(2) #This is here to give the user time to read
                 
                 #Have a bot checker
-                cont = pt.bot_passer()
+                cont = pt.bot_checker()
                 time.sleep(1.5) #This is here to give the user time to read
                 
                 #Check to see if the user can continue or not
@@ -90,9 +161,9 @@ def main_menu():
             elif ui == '3':
                 
                 #Before anything, ask the user the admin password, and then check the password and move accordingly
-                print('Before you can enter the Password Menu, you must enter the admin password.')
+                print('\nBefore you can enter the Password Menu, you must enter the admin password.')
                 ui = input('Enter the admin password: ')
-                if ui == '1aJ7':
+                if ui == pt.admin_information('password'):
                     #If they get the password right, send them to the password menu
                     PM()
                     break
@@ -596,33 +667,62 @@ def check_out(cart, cart_info):
         return cart, cart_info
                 
 #If the user chooses option 3, take them to the Password Menu
-def PS():
+def PM():
     
-    #To make sure that the username file exists in the first place
-    infile = open('users.dat', 'wb')
-    infile.close()
+    #Set a boolean variable in the very beginning
+    there = False
     
-    #Open the file that has all of the users, load the list, and then close the file
-    infile = open('users.dat', 'rb')
-    user_list = pickle.load(infile)
-    infile.close()
+    #Check to see if the acount exists, and if it does, check for the admin account
+    try:
+        infile = open('users.dat', 'rb')
+        user_list = pickle.load(infile)
+        infile.close()
+        for user in user_list:
+            if user == 'Noah (ADMIN)':
+                there = True
+                break
+        if not there:
+                   
+            #Create the user_list <--- really a dictionary
+            user_list = {}
+            
+            #Create the admin account and move it into the file
+            new_user = pt.Users('Noah (ADMIN)', '1aJ7*', 'noahjack143@gmail.com')
+            user_list['Noah (ADMIN)'] = [new_user, 'Noah (ADMIN)', '1aJ7*', 'noahjack143@gmail.com']
+            infile = open('users.dat', 'wb')
+            pickle.dump(user_list, infile)
+            infile.close()
+    
+    except:
+        #If the file doesn't exist in the first place
+        
+        #Create the user_list <--- really a dictionary
+        user_list = {}
+        
+        #Create the admin account and move it into the file
+        new_user = pt.Users('Noah (ADMIN)', '1aJ7*', 'noahjack143@gmail.com')
+        user_list['Noah (ADMIN)'] = [new_user, 'Noah (ADMIN)', '1aJ7*', 'noahjack143@gmail.com']
+        infile = open('users.dat', 'wb')
+        pickle.dump(user_list, infile)
+        infile.close()
     
     #Set a boolean variable for the menu
     leave = False
-    
+
     #Continue until the user no longer wants to
     while True:
         
         #A beginning statement
-        print('\n\n\nWelcome to the ACME Password Menu.\n')
+        print('\n\n\nWelcome to the ACME User Control Menu.\n')
         
         #A statement before the options + the options
         print('\tMenu Options\n'+
               '--------------------------------\n'+
               'Press 1 to show all of the users.\n'+
               'Press 2 to add a user.\n'+
-              'Press 3 to delete a user.\n'+
-              'Press 4 to exit the main menu.\n'+
+              'Press 3 to save the user list.\n'+
+              'Press 4 to delete a user.\n'+
+              'Press 5 to exit the main menu.\n'+
               '--------------------------------')
         
         #Loop until the user chooses to quit
@@ -633,15 +733,18 @@ def PS():
             
             #Check the user's input
             if ui == '1':
-                #cart, cart_info = view_cart(cart, cart_info)
+                show_users(user_list)
                 break
             elif ui == '2':
-                #display_items()
+                user_list = add_users(user_list)
                 break
             elif ui == '3':
-                #cart, cart_info = purchase_item(cart, cart_info)
+                user_list = save_users(user_list)
                 break
             elif ui == '4':
+                user_list = delete_users(user_list)
+                break
+            elif ui == '5':
                 leave = True
                 print() #make code purty
                 break
@@ -669,20 +772,256 @@ def show_users(user_list):
         
         #If there are things inside of it, print everything
         for user in user_list:
-            print(user)
+            print(user_list[user][0])
             
-        time.sleep(2) #This is here to give the user time to read
+        #Find out how long to let the reader read the user list
+        if len(user_list) > 3:
+            wait = int(len(user_list) / 2)
+        else:
+            wait = len(user_list)
+        
+        time.sleep(wait) #This is here to give the user time to read
         
         #Return once done
         return user_list
     
     except:
         #If there is nothign within the list tell the user
-        print('There are no contacts within the list')
+        print('\nThere are no users within the list of users')
+        time.sleep(2) #This is here to give the user time to read
         return user_list
     
+def add_users(user_list):
     
+    #Loop until the user no longer wants to add users
+    while True:
+        
+        #Create/reset the boolean variable
+        duplicate = False
+        
+        #Ask the user for a username, password, and email
+        #Loop until the user gets a non duplucated username
+        while True:
+            
+            #Loop until the user chooses a username different from the admin username
+            while True:
+                #Input from the user
+                username = input('\nUsername: ')
+                
+                #Check to see if the user is trying to delete the admin account
+                if username == 'Noah (ADMIN)':
+                    print('You can not have the same username as the admin account.')
+                    time.sleep(2) #This is here to give time for the user to read
+                    continue
+                
+                else:
+                    break
+                
+            #Check to see if that username is already in the list
+            for user in user_list:
+                if username == user_list[user][0]:
+                    duplicate = True
+                
+            #Check to see if the username already exists
+            if not duplicate:
+                break
+            else:
+                #Ask the user if they would like to replace that username
+                print(f'\nThe username, {username}, alread exists.')
+                replace = input(f'Would you like to replace the username, {username}? (y/n) ')
+                
+                #Check the response
+                if replace != 'y':
+                    continue
+                else:
+                    #Ask for the admin password
+                    cont = input('\nEnter the admin password to continue: ')
+                    #Reset the boolean variable
+                    replace = False
+                    
+                    #Check to see if the password is right and move accordingly
+                    if cont == pt.admin_information('password'):
+                        print() #make code purty
+                        break
+                    
+                    else:
+                        #If not, tell the user to that the password is wrong
+                        print('The password was wrong. Please choose a different username.')
+                        time.sleep(2) #This is here to give the user time to read
+                        continue
+                    
+        
+        #Loop until the password is strong
+        while True:
+            #Input from the user
+            password = input('Password: ')
+            #Create a bunch of boolean variables
+            uppercase = False; lowercase = False; number = False; symbol = False; space = False
+            #Loop through all the letters in the password and check them
+            for char in password:
+                if char.isupper(): uppercase = True
+                elif char.islower(): lowercase = True
+                elif char.isdigit(): number = True
+                elif not char.isalnum(): symbol = True
+                elif char == ' ': space = True
+            
+            #Check to see for the requirements. Make sure that there isn't a space. Move accordingly
+            if space:
+                print('There can not be a space in your password.')
+                continue
+            elif uppercase and lowercase and number and symbol:
+                break
+            else:
+                print('\nYour password is too weak. Be sure to include an uppercase and a lowercase letter, a number, and a symbol.\n')
+                time.sleep(2) #This is here to give the user time to read
+                continue
+        
+        #Loop until the email is an actual email
+        while True:
+            
+            #Input from the user
+            email = input('Email: ')
+            #Create a bunch of boolean variables
+            space = False; atsign = False; period = False; letter_or_number = False
+            #Loop for every character in the email and check them
+            for char in email:
+                if char.isalnum(): letter_or_number = True
+                elif char == '@': atsign = True
+                elif char == '.': period = True
+                elif char == ' ': space = True
+            
+            #Check the the requirements. Make sure there aren't any spaces. Move accordingly
+            if space:
+                print('There can not be a space in your email.')
+                continue
+            elif atsign and period and letter_or_number:
+                break
+            else:
+                print('\nYour email could not be created. Be sure to have everything that an normal email has.\n')
+                time.sleep(2) #This is here to give the user time to read
+                continue
+        
+        #Ask the user if they would like to add this User to the user_list
+        print(f'\nUsername: {username}\nPassword: {password}\nEmail: {email}')
+        cont = input('\nAre you sure you would like to add this user to the user list? (y/n) ')
+        
+        if cont == 'y':
+            #Create an object for the given information
+            new_user = pt.Users(username, password, email)
+            #Add the new user to the dictionary of users
+            user_list[username] = [new_user, username, password, email]
+            #Print a message
+            print('\nThe user has been created successfully.')
+                
+        else:
+            #Print a message
+            print('\nThe user will not be created.')
+            
+        #Ask the user if they would like to create another user
+        cont = input('\nWould you like to create another user? (y/n) ')
+        
+        #Check the response and move accordingly
+        if cont == 'y':
+            continue
+        else:
+            return user_list
+        
+def save_users(user_list):
     
+    #Have a try block
+    try:
+        
+        #Open the file, put the user_list into the file, then close the file
+        infile = open('users.dat','wb')
+        pickle.dump(user_list, infile)
+        infile.close() ; print() #make code purty
+        
+        #Print a fancy message
+        for i in 'Saving new users':
+            print(i,end=''); time.sleep(.02)
+        for i in '...':
+            print(i,end=''); time.sleep(.8)
+            
+        #Tell the user if this was successful
+        print('\n\nThe new users were saved successfully.')
+        time.sleep(2) #This is here to give the user time to read
+        
+        #Return when done
+        return user_list
+    
+    except:
+        #If some error occured, tell the user
+        print('An error occured when trying to save the new users.')
+        time.sleep(2) #This is here to give the user time to read
+        return user_list
+        
+def delete_users(user_list):
+    
+    #Print a message before displaying the users
+    print('Here is a list of the users:\n')
+    
+    #Display the list of users
+    for user in user_list:
+        print(user_list[user][0])
+        
+    #Find out how long to let the reader read the user list
+    if len(user_list) > 3:
+        wait = int(len(user_list) / 2)
+    else:
+        wait = len(user_list)
+    
+    time.sleep(wait) #This is here to give the user time to read
+       
+    #Loop until the user no longer wants to
+    while True:
+        
+        #Create a boolean variable to start with
+        existence = False
+        
+        #Ask the user for a user to delete
+        wanted_user = input('\nWhat is the username of the user you would like to delete? ')
+        
+        #Check to see if the user is even in the user_list
+        for user in user_list:
+            if wanted_user == user_list[user][1]:
+                existence = True
+                break
+        
+        #If the user is in the user_list, continue with the function
+        if not existence:
+            continue
+        else:
+            
+            #Then ask the user if they would like to really delete it
+            cont = input(f'\nWould you like to delete the user, {wanted_user}? (y/n) ')
+            
+            #Check the responsed and move accordingly
+            if cont == 'y' and wanted_user != 'Noah (ADMIN)':
+                for user in user_list:
+                    if wanted_user == user_list[user][1]:
+                        del user_list[user]
+                        print('User successfully deleted.')
+                        break
+                    i += 1
+            else:
+                #If they change their mind, move along
+                if wanted_user != 'Noah (ADMIN)':print(f'The user, {wanted_user}, will not be deleted.')
+                else:print('You can not delete the admin account, Noah (ADMIN)')
+                continue
+        
+        #Ask the user if they would like to delete another user
+        cont = input('Would you like to delete another user? (y/n) ')
+        
+        #Check the response and move accordingly
+        if cont == 'y':
+            continue
+        else:
+            print('WARNING: Be sure to save the users list before leaving the Password Menu.')
+            time.sleep(3) #This is here to give the user time to read
+            break
+    
+    #Return the user list
+    return user_list
     
 #Call the main function
 main_menu()
