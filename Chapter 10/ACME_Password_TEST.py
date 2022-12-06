@@ -5,7 +5,7 @@ import random
 
 #-----#
 
-def bot_checker():
+def bot_checker(): #THIS WILL LIKELY NOT BE USED
     
     #Try to open the files and read them, if an Error occurs, create the files and exit
     try:
@@ -72,11 +72,68 @@ def bot_checker():
             print('\nSorry, you have the wrong answer.')
             return False
     
+    
+def bot_checker2():
+    
+    #Create a 2-dimentional list
+    boxes = [['[0]','[0]','[0]'],
+             ['[0]','[0]','[0]'],
+             ['[0]','[0]','[0]']
+             ]
+    
+    #Pick a random number between 1 and 9
+    selected_box = random.randint(1,9)
+    
+    #Based on the selected_box, find where that box is within the list
+    if selected_box > 6:
+        selected_box -= 7
+        row = 2
+    elif selected_box > 3:
+        selected_box -= 4
+        row = 1
+    else:
+        selected_box -= 1
+        row = 0
+        
+    #Replace the selected box in the list, boxes, with a new box
+    boxes[row][selected_box] = '[1]'
+    
+    #Show the user the boxes
+    for rows in boxes: print(rows)
+    
+    #VALIDATION
+    while True:
+        try:
+            #Ask the user where the box is at
+            where = int(input('\nWhich box has the number 1 in it? '))
+            break
+        except:
+            print('\nEnter a number representing the wanted box.')
+    
+    #Check the row based on their response
+    if where > 6:
+        where -= 7
+        row = 2
+    elif where > 3:
+        where -= 4
+        row = 1
+    else:
+        where -= 1
+        row = 0
+    
+    #Check to see if their response is correct and respond accordingly
+    if boxes[row][where] == '[1]':
+        print('\nYou have selected the right box.')
+        return True
+    else:
+        print('\nYou have chosen the wrong box.')
+        return False
+    
 def admin_information(wanted_info):
     
     #Check to see what the wanted info is and return the wanted info
     if wanted_info == 'password':
-        return '1aJ7'
+        return '1aJ7*'
     else:
         #If the user hasn't passed the right information, return nothing
         return
@@ -96,6 +153,3 @@ class Users:
         return f'\nUsername: {self.__username}\nPassword: {self.__password}\nEmail: {self.__email}'
     
     #---Modules---#
-    
-    
-    

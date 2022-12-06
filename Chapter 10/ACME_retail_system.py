@@ -7,7 +7,7 @@ import time
 import pickle
 import random as r
 
-import smtplib, ssl
+#import smtplib, ssl #MIGHT BE USED LATER
 #-----#
 
 #Notes
@@ -21,6 +21,9 @@ import smtplib, ssl
 
 #A main function to call other functions within the main function
 def main_menu():
+    #main menu accepts no arguments
+    #This is the main function that will call all of the other
+    #"main" functions (They're really just menus for other functions)
     
     #Create a variable to check if the user wants to continue
     m = 'open'
@@ -35,8 +38,18 @@ def main_menu():
             inventory = pickle.load(infile)
             infile.close() #Close the file after unpickling items
         except:
-            print('\n\n\nWARNING: Either the file inventory.dat is empty, or the file does not exist.')
-            time.sleep(3) #This is here to give the user time to read
+            #Check to the file, users.dat, as well
+            try:
+                infile = open('users.dat', 'rb')
+                user_list = pickle.load(infile)
+                infile.close()
+            except:
+                print('\n\n\nWARNING: Either the file, inventory.dat, is empty, or the file does not exist.'+
+                      '\nWARNING: Either the file, users.dat, is empty, or the file does not exist.')
+                time.sleep(5) #This is here to give the user time to read
+            else:
+                print('\n\n\nWARNING: Either the file, inventory.dat, is empty, or the file does not exist.')
+                time.sleep(5) #This is here to give the user time to read
             
         #A beginning statement
         print('\n\n\nWelcome to the ACME Main Menu.\n')
@@ -60,97 +73,74 @@ def main_menu():
             if ui == '1':
                 
                 #Before anything, open the file, users.dat, and get the dictionary from there
-                infile = open('users.dat', 'rb')
-                user_list = pickle.load(infile)
-                infile.close()
-                
-                #Set boolean variables
-                passs = False
-                found = False
-                
-                #Ask the user for a username and password.
-                username = input('Username: ')
-                password = input('Password: ')
-                
-                #Check the username first to see if there is a username in the users_list that matches it
-                for user in user_list:
-                    if username == user_list[user][1]:
-                        #Check for the password if the username matches
-                        if password == user_list[user][2]:
-                            #If everything works, print a message
-                            print('You have the right username and password.')
-                            passs = True
-                            #Get the email if the username and password are right
-                            email = user_list[user][3]
-                        else:
-                            #if the password is incorrect
-                            print('The password you entered is incorrect.')
-                        found = True
-                    
-                #Check to see if the user got anything right. Move accordingly
-                if not found:
-                    print('The username you entered does not exist.')
-                elif passs:
-                    #Use 2FA to make sure that the user really is authentic
-                    #-------------------
-                    
-                    
-                    
-                    
-                    
-                    passcode = '' #Create the passcode
-                    
-                    for i in range(0,10):
-                        num = r.randint(0,9)
-                        passcode += str(num) #Add 9 random numbers to the passcode
-                        
-                    port = 465  # For SSL
-                    smtp_server = "smtp.gmail.com"
-                    message = """\
-                            Subject: Hi there
-
-                            This message is sent from Python.""" #Create the message
-                    
-                    smtp_server = "smtp.gmail.com"
-                    port = 587  # For starttls
-                    sender_email = "noah.jack.709@gmail.com"
-
-                    # Create a secure SSL context
-                    context = ssl.create_default_context()
-                    
-                    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-                        server.login(sender_email, '1aJ7Z-b9')
-                        server.sendmail(sender_email, email, message)
-
-                    
-                    
-                    
-                    
-                    
-                    #-------------
-                #Before anything, send the user a code for them to crack before they get into the system
-                print('\nBefore you can get into the Inventory Control System, you must configure this code to get the password.')
-                time.sleep(2) #This is here to give the user time to read
-                
-                #Have a bot checker
-                cont = pt.bot_checker()
-                time.sleep(1.5) #This is here to give the user time to read
-                
-                #Check to see if the user can continue or not
-                if cont:
-                    #Check to see if the file exists. Create it if it doesn't
-                    try:
-                        infile = open('inventory.dat', 'rb')
-                        infile.close()
-                    except:
-                        print("Inventory file doesn't exist. Creating the file now.")
-                        infile = open('inventory.dat', 'w')
-                        infile.close()
-                    ICS()
+                try:
+                    infile = open('users.dat', 'rb')
+                    user_list = pickle.load(infile)
+                    infile.close()
+                except:
+                    print('\nThe file, users.dat, does not exist. Please choose option 3 from the menu before accessing the Inventory Control System.')
+                    time.sleep(3) #This is here to give the user time to read
                     break
                 else:
-                    #If the user got the password wrong, break out
-                    break
+                
+                    #Set boolean variables
+                    passs = False
+                    found = False
+                    break_out = False
+                    
+                    #Ask the user for a username and password.
+                    print('\nLogin Credentials\n-------------')
+                    username = input('Username: ')
+                    password = input('Password: ')
+                    
+                    #Check the username first to see if there is a username in the users_list that matches it
+                    for user in user_list:
+                        if username == user_list[user][1]:
+                            #Check for the password if the username matches
+                            if password == user_list[user][2]:
+                                #If everything works, print a message
+                                print('\nYou have the right username and password.')
+                                time.sleep(2) #This is here to give the user time to read
+                                passs = True
+                                #Get the email if the username and password are right
+                                email = user_list[user][3]
+                            else:
+                                #if the password is incorrect
+                                print('\nThe password you entered is incorrect.')
+                                time.sleep(2) #This is here to give the user time to read
+                                break_out = True
+                            found = True
+                    if break_out: break
+                    #Check to see if the user got anything right. Move accordingly
+                    if not found:
+                        print('\nThe username you entered does not exist.')
+                        time.sleep(2) #This is here to give the user time to read
+                        break
+                    elif passs:
+
+                        #If they get the username and password right, have a bot checker to see if the user is a bot.
+                        print('\nBefore entering the Inventory Control System, please answer the question to see if you are a human.\n')
+                        time.sleep(2) #This is here to give the user time to read
+                        
+                        #Have a bot checker
+                        cont = pt.bot_checker2()
+                        time.sleep(1.5) #This is here to give the user time to read
+                        
+                        #Check to see if the user can continue or not
+                        if cont:
+                            #Check to see if the file exists. Create it if it doesn't
+                            try:
+                                infile = open('inventory.dat', 'rb')
+                                infile.close()
+                            except:
+                                print("Inventory file doesn't exist. Creating the file now.")
+                                infile = open('inventory.dat', 'w')
+                                infile.close()
+                            ICS()
+                            break
+                        else:
+                            #If the user got the password wrong, break out
+                            break
             
             #If the user choose option 2, open the Retail Store
             elif ui == '2':
@@ -165,11 +155,14 @@ def main_menu():
                 ui = input('Enter the admin password: ')
                 if ui == pt.admin_information('password'):
                     #If they get the password right, send them to the password menu
-                    PM()
+                    print('\nCorrect!')
+                    time.sleep(1) #This is here to give the user time to read
+                    UCM()
                     break
                 
                 #If they don't get the password right, tell them and send them back
-                print('Sorry, but the password you entered is wrong.')
+                print('\nSorry, but the password you entered is wrong.')
+                time.sleep(2) #This is here to give the user time to read
                 break
             
             #If the user chooses option 4, exit the main menu
@@ -194,6 +187,9 @@ def main_menu():
                 
 #A function for the Inventory Control System
 def ICS():
+    #ISC accepts no arguments
+    #This is the main function/menu for all of the inventory
+    #editting options
     
     #Before anything, load the information from the file into the list. VALIDATION WILL BE HERE
     try:
@@ -226,7 +222,7 @@ def ICS():
             
             #Check for the user's choice
             if ui == '1':
-                inventory = display_inventory()
+                inventory = display_inventory(inventory)
                 break
             elif ui == '2':
                 inventory = add_items(inventory)
@@ -255,21 +251,21 @@ def ICS():
     return
           
 #Function to show the inventory
-def display_inventory():
+def display_inventory(inventory):
+    #display inventory accepts one arugment, a list
+    #if there are items in the inventory, it will
+    #display them
     
-    #Open the file, move the contents into a list, and clos the file
-    infile = open('inventory.dat', 'rb')
-    inventory = pickle.load(infile)
-    infile.close()
-    
-    #Try to load the contents from the file into a list, check it's length, and move accordingly
     try:
+        #If the file loads correcly, check the length of the list
         if len(inventory) < 1:
             p=p
     except:
         #If there is nothing within the list, print this statement
         print('\nThere are no items in the inventory.')
         time.sleep(3) #This is here to give the user time to read
+        #Create the inventory if it doesn't exist
+        inventory = []
     else:
         #Print a message before display everything
         print('\nHere are items within the inventory:')
@@ -292,6 +288,8 @@ def display_inventory():
 
 #Function to add items to the inventory
 def add_items(inventory):
+    #add_items accepts one argument, a list
+    #it will ask the user to add items into the inventory
     
     #Loop until the user no longer wants to
     while True:
@@ -315,12 +313,12 @@ def add_items(inventory):
         #VALIDATION
         while True:
             try:
-                units = int(input(f'Enter the number of units for {description}: '))
+                units = int(input(f'Enter the number of units for {description}: (0) '))
                 price = float(input(f'Enter the price per unit for {description}: (0.00) '))
                 if units <= 0 or price <= 0:
                     p=p
             except:
-                print('\nEither the entry for units or the entry for retail price was not a number.')
+                print('\nEither the entry for units or the entry for retail price was not a number or was not formatted correctly.')
                 time.sleep(2)
             else:
                 break
@@ -345,8 +343,8 @@ def add_items(inventory):
             continue
         else:
             #Tell the user to save the inventory before viewing
-            print('\nWARNING: Be sure you save the inventory before adding more items or viewing the inventory IF you want keep the previously made changes.')
-            time.sleep(3)
+            print('\nWARNING: Be sure you save the inventory before adding more items to the inventory IF you want keep the previously made changes.')
+            time.sleep(5)
             break
     
     #Return because this function's purpose has been served
@@ -354,6 +352,8 @@ def add_items(inventory):
 
 #Function for saving the changes made to the file
 def save_inventory(inventory):
+    #save_invenotry accepts one argument, a list
+    #it will save the changes made in the inventory
     
     print() #make code purty
     
@@ -381,6 +381,8 @@ def save_inventory(inventory):
     
 
 def exitting_ISC():
+    #exitting ISC accepts no arguments
+    #it returns the key word to exit the ISC menu
     
     #Return the key word to leave the inventory
     return 'exit'
@@ -388,6 +390,10 @@ def exitting_ISC():
 #---------------------------Retail Store Functions---------------------------#
 
 def RS():
+    #RS accepts no arguments
+    #it is the main function/menu for the retail store,
+    #and it will call other functions based on the user's
+    #choice
     
     #Before anything, create a list that will contain the objects that the user wants to buy
     cart = []
@@ -448,6 +454,9 @@ def RS():
             break
         
 def view_cart(cart, cart_info):
+    #view_cart accepts two arguments, a list and a dictionary
+    #it will show all of the items within the user's cart, if
+    #there are any
     
     #Check to see if the cart is empty and move accordingly
     if len(cart) < 1:
@@ -456,7 +465,7 @@ def view_cart(cart, cart_info):
     else:
             
         #Print a message, and then display the cart
-        print('Here are the items within your cart')
+        print('\nHere are the items within your cart')
         for item in cart:
             print(ri.RetailItem.get_cart(item, cart_info))
             
@@ -472,98 +481,121 @@ def view_cart(cart, cart_info):
     return cart, cart_info
 
 def display_items():
+    #display_items accepts no arguments
+    #it will simply call the function, display_inventory(inventory)
     
-    #Simply call for the function, display_inventory()
-    display_inventory()
+    #Open the file, inventory.dat and get it's contents
+    try:
+        infile = open('inventory.dat','rb')
+        inventory = pickle.load(infile)
+        infile.close()
+    except:
+        print('\nThe inventory is empty.')
+        time.sleep(3) #This is here to give the user time to erad
+    else:
+        #Simply call for the function, display_inventory(inventory)
+        display_inventory(inventory)
     
-    #Return because this function's purpose has bee served
+    #Return because this function's purpose has been served
     return
 
 def purchase_item(cart, cart_info):
+    #purchase_item accepts two arguments, a list and a dictionary
+    #if there are items in the inventory, it will ask the user
+    #for items they would like to purchase, and adds them to the
+    #cart and add the information of those items into the cart_info
     
     #Call for display_items() to show the inventory
     display_items()
-
-    #Open the file, move the contents, and close the file
-    infile = open('inventory.dat', 'rb') #Open file
-    inventory = pickle.load(infile) #Create inventory
-    infile.close() #Close file
     
-    #Loop until the user no longer wants to purchase items
-    while True:
-        
-        #Loop until the user selects a real item
+    #VALIDATION
+    try:
+        #Open the file, move the contents, and close the file
+        infile = open('inventory.dat', 'rb') #Open file
+        inventory = pickle.load(infile) #Create inventory
+        infile.close() #Close file
+    except:
+        #Return the cart and it's info
+        return cart, cart_info
+    else:
+    
+        #Loop until the user no longer wants to purchase items
         while True:
             
-            #Reset the boolean variable
-            existence = False
-            
-            #Ask the user for an item to purchase
-            wanted_item = input('\nWhich item would you like to purchase? ')
-            
-            #Check to see if the wanted item is even in the inventory
-            for item in inventory:
-                if wanted_item == ri.RetailItem.get_description(item):
+            #Loop until the user selects a real item
+            while True:
                 
-                    #If so, get the description, price, and units of that item
-                    WI_description = item
-                    WI_price = float(ri.RetailItem.get_price(item))
-                    WI_units = int(ri.RetailItem.get_units(item))
-                    existence = True
-                    break
+                #Reset the boolean variable
+                existence = False
+                
+                #Ask the user for an item to purchase
+                wanted_item = input('\nWhich item would you like to purchase? ')
+                
+                #Check to see if the wanted item is even in the inventory
+                for item in inventory:
+                    if wanted_item == ri.RetailItem.get_description(item):
+                    
+                        #If so, get the description, price, and units of that item
+                        WI_description = item
+                        WI_price = float(ri.RetailItem.get_price(item))
+                        WI_units = int(ri.RetailItem.get_units(item))
+                        existence = True
+                        break
 
-            if not existence:
-                
-                #Tell the user their item doesn't exist in the inventory
-                print('\nThe wanted item is not in stock.\nChoose another.')
-                time.sleep(2) #This is here to give the user time to read
-                print() #make code purty
-            else:
-                
-                #If the item does exist, check to see if it's already in the cart
-                if wanted_item in cart_info and cart_info[wanted_item][1] != WI_units:
+                if not existence:
                     
-                    #If the item is already in the cart, then add to the info
-                    cart_info[wanted_item][1] = cart_info[wanted_item][1] + 1
-                    cart_info[wanted_item][2] = cart_info[wanted_item][2] + WI_price
-                    
-                elif wanted_item in cart_info and cart_info[wanted_item][1] == WI_units:
-                    
-                    #If the item's units in the cart_info == to the item's units in the object
-                    if wanted_item[-1] == 's':print(f'\nYou are currently carrying all of the {wanted_item} in stock\n')
-                    else:print(f'\nYou are currently carrying all of the {wanted_item}s in stock\n')
+                    #Tell the user their item doesn't exist in the inventory
+                    print('\nThe wanted item is not in stock.\nChoose another.')
                     time.sleep(2) #This is here to give the user time to read
-                    
+                    print() #make code purty
                 else:
-                    #If the item isn't in the cart, create a key for it
-                    cart_info[wanted_item] = [] #Create a list for the key
-                    cart_info[wanted_item] += [wanted_item, 1, WI_price] #Add things into that list within the dictionary
-                    #Add the item to the normal cart as well
-                    cart.append(WI_description)
-            break
-        
-        #Ask the user if they want to purhcse another item
-        cont = input('Would you like to purchse another item? (y/n) ')
-        
-        if cont == 'y':
-            continue
-        else:
-            break
-    
-    #Return the cart and it's info
-    return cart, cart_info
+                    
+                    #If the item does exist, check to see if it's already in the cart
+                    if wanted_item in cart_info and cart_info[wanted_item][1] != WI_units:
+                        
+                        #If the item is already in the cart, then add to the info
+                        cart_info[wanted_item][1] = cart_info[wanted_item][1] + 1
+                        cart_info[wanted_item][2] = cart_info[wanted_item][2] + WI_price
+                        
+                    elif wanted_item in cart_info and cart_info[wanted_item][1] == WI_units:
+                        
+                        #If the item's units in the cart_info == to the item's units in the object
+                        if wanted_item[-1] == 's':print(f'\nYou are currently carrying all of the {wanted_item} in stock\n')
+                        else:print(f'\nYou are currently carrying all of the {wanted_item}s in stock\n')
+                        time.sleep(2) #This is here to give the user time to read
+                        
+                    else:
+                        #If the item isn't in the cart, create a key for it
+                        cart_info[wanted_item] = [] #Create a list for the key
+                        cart_info[wanted_item] += [wanted_item, 1, WI_price] #Add things into that list within the dictionary
+                        #Add the item to the normal cart as well
+                        cart.append(WI_description)
+                break
+            
+            #Ask the user if they want to purhcse another item
+            cont = input('Would you like to purchse another item? (y/n) ')
+            
+            if cont == 'y':
+                continue
+            else:
+                #Return the cart and it's info
+                return cart, cart_info
     
 def empty_cart(cart, cart_info):
+    #emtpy_cart accepts two argumenets, a list and dictionary
+    #if there are items in the user's cart, it will
+    #make cart = [] and cart_info = {}
     
     #Have a try block to check for items in the cart
     try:
         
         #Check to see if there's anything in the cart in the first place
         if len(cart) < 1: p=p
+        else: print() #make code purty
     
     except:
         #If there isn't anything in the cart, tell the user
-        print('Your cart is already empty!'); time.sleep(2); return cart, cart_info
+        print('\nYour cart is already empty!'); time.sleep(2); return cart, cart_info
     else:
         #If there is, empty the cart and tell the user
         cart = []; cart_info = {}
@@ -578,96 +610,110 @@ def empty_cart(cart, cart_info):
         print('Cart successfully emptied.'); return cart, cart_info
     
 def check_out(cart, cart_info):
+    #check out accepts two arguments, a list and a dictoinary
+    #if there are items in the inventory and items in the cart, it will ask
+    #the user if they would like to check out. If so, it will make cart = []
+    #and cart_info = {}, and it will affect the inventory
     
-    #Open the file, inventory.dat, load the contents, and then close the file
-    infile = open('inventory.dat', 'rb') #Open the file
-    inventory = pickle.load(infile) #Load the contents
-    infile.close()
-    
-    #Create a try block for checking purposes
     try:
-        
-        #Create an accumulator for the total price
-        total_price = 0
-        
-        #Add up everything inside the user's cart
-        for item in cart_info:
-            #Add the price to the accumulator
-            total_price += cart_info[item][2]
-            
-        #Check to see if nothing was added, and then move accordingly
-        if total_price == 0:p=p
-            
+        #Open the file, inventory.dat, load the contents, and then close the file
+        infile = open('inventory.dat', 'rb') #Open the file
+        inventory = pickle.load(infile) #Load the contents
+        infile.close()
     except:
-        #If the cart is empty, tell the user
-        print('Your cart is empty!')
-        time.sleep(2) #This is here to give the user time to read
-    
-    else:
-        print() #make code purty
-        
-        #If the cart isn't empty, show the cart's contents to the user
-        cart, cart_info = view_cart(cart, cart_info)
-            
-    #Show the final price that the user must pay for the items
-    print('\nThe price of all your items is ', format(total_price, '.2f'), sep = '$')
-    #Ask the user if they would like to buy all the items, if any, in their cart
-    confirmation = input('Would you like to purchase the items in your cart? (y/n) ')
-    
-    #Check for the user's response and move accordingly
-    if confirmation == 'y':
-        
-        #For all the items within the cart, remove the amount of units in stock by the amount bought
-        for item in cart:
-            units_left = int(ri.RetailItem.get_units(item)) - cart_info[ri.RetailItem.get_description(item)][1]
-            
-            #Check to see if there are any items left in stock
-            if units_left == 0:
-                
-                #Remove the item from the inventory if there is none left
-                for i in range(len(inventory)):
-                    if ri.RetailItem.get_description(inventory[i]) == ri.RetailItem.get_description(item):
-                        del inventory[i]
-                        break
-            
-            else:
-                #If there are items left, find where the item is at in the inventory, then replace it when a new object
-                for i in range(len(inventory)):
-                    if ri.RetailItem.get_description(inventory[i]) == ri.RetailItem.get_description(item):
-                        inventory[i] = ri.RetailItem(ri.RetailItem.get_description(inventory[i]),units_left,ri.RetailItem.get_price(inventory[i]))
-                        
-        #Next, empty the cart and cart_info
-        cart = []; cart_info = {}
-        
-        print() #make code purty
-        
-        #Before purchasing the items, print a message
-        for i in 'Scanning items':
-            print(i,end=''); time.sleep(.02)
-        for i in '...':
-            print(i,end=''); time.sleep(.8)
-            
-        #Finally, tell the user that they have finally bought the items and return the cart
-        print('\n\nThe items within the cart were bought successfully.\nHappy shopping!')
-        time.sleep(3) #This is here to give the user time to read
-        infile = open('inventory.dat', 'wb')
-        pickle.dump(inventory, infile)
-        infile.close()
+        print("\nThere are no items in the inventory, so you can't check out anything.")
+        time.sleep(2.5) #This is here to give the user time to read
         return cart, cart_info
-            
     else:
-        #If the user decides to keep shopping, then just return the cart
-        print('The items within the cart were not purchsed.\nHappy shopping!')
-        time.sleep(3) #This is here to give the user time to read
-        
-        #Without the user knowing, save the new inventory information into the file, inventory.dat
-        infile = open('inventory.dat', 'wb')
-        pickle.dump(inventory, infile)
-        infile.close()
-        return cart, cart_info
+    
+        #Create a try block for checking purposes
+        try:
+            
+            #Create an accumulator for the total price
+            total_price = 0
+            
+            #Add up everything inside the user's cart
+            for item in cart_info:
+                #Add the price to the accumulator
+                total_price += cart_info[item][2]
                 
-#If the user chooses option 3, take them to the Password Menu
-def PM():
+            #Check to see if nothing was added, and then move accordingly
+            if total_price == 0:p=p
+                
+        except:
+            #If the cart is empty, tell the user
+            print('Your cart is empty!')
+            time.sleep(2) #This is here to give the user time to read
+        
+        else:
+            print() #make code purty
+            
+            #If the cart isn't empty, show the cart's contents to the user
+            cart, cart_info = view_cart(cart, cart_info)
+                
+        #Show the final price that the user must pay for the items
+        print('\nThe price of all your items is ', format(total_price, '.2f'), sep = '$')
+        #Ask the user if they would like to buy all the items, if any, in their cart
+        confirmation = input('Would you like to purchase the items in your cart? (y/n) ')
+        
+        #Check for the user's response and move accordingly
+        if confirmation == 'y':
+            
+            #For all the items within the cart, remove the amount of units in stock by the amount bought
+            for item in cart:
+                units_left = int(ri.RetailItem.get_units(item)) - cart_info[ri.RetailItem.get_description(item)][1]
+                
+                #Check to see if there are any items left in stock
+                if units_left == 0:
+                    
+                    #Remove the item from the inventory if there is none left
+                    for i in range(len(inventory)):
+                        if ri.RetailItem.get_description(inventory[i]) == ri.RetailItem.get_description(item):
+                            del inventory[i]
+                            break
+                
+                else:
+                    #If there are items left, find where the item is at in the inventory, then replace it when a new object
+                    for i in range(len(inventory)):
+                        if ri.RetailItem.get_description(inventory[i]) == ri.RetailItem.get_description(item):
+                            inventory[i] = ri.RetailItem(ri.RetailItem.get_description(inventory[i]),units_left,ri.RetailItem.get_price(inventory[i]))
+                            
+            #Next, empty the cart and cart_info
+            cart = []; cart_info = {}
+            
+            print() #make code purty
+            
+            #Before purchasing the items, print a message
+            for i in 'Scanning items':
+                print(i,end=''); time.sleep(.02)
+            for i in '...':
+                print(i,end=''); time.sleep(.8)
+                
+            #Finally, tell the user that they have finally bought the items and return the cart
+            print('\n\nThe items within the cart were bought successfully.\nHappy shopping!')
+            time.sleep(3) #This is here to give the user time to read
+            infile = open('inventory.dat', 'wb')
+            pickle.dump(inventory, infile)
+            infile.close()
+            return cart, cart_info
+            
+        else:
+            #If the user decides to keep shopping, then just return the cart
+            print('The items within the cart were not purchsed.\nHappy shopping!')
+            time.sleep(3) #This is here to give the user time to read
+            
+            #Without the user knowing, save the new inventory information into the file, inventory.dat
+            infile = open('inventory.dat', 'wb')
+            pickle.dump(inventory, infile)
+            infile.close()
+            return cart, cart_info
+                
+#---------------------------User Control Menu Functions---------------------------#
+        
+def UCM():
+    #UCM accepts no arguments
+    #UCM is the main function/menu that will call other functions
+    #based on the user's choice
     
     #Set a boolean variable in the very beginning
     there = False
@@ -684,7 +730,7 @@ def PM():
         if not there:
                    
             #Create the user_list <--- really a dictionary
-            user_list = {}
+            user_list = {}; print() #make code purty
             
             #Create the admin account and move it into the file
             new_user = pt.Users('Noah (ADMIN)', '1aJ7*', 'noahjack143@gmail.com')
@@ -692,12 +738,16 @@ def PM():
             infile = open('users.dat', 'wb')
             pickle.dump(user_list, infile)
             infile.close()
+            for i in 'The admin user, Noah (ADMIN), was not found. Creating it now':
+                print(i,end=''); time.sleep(.02)
+            for i in '...':
+                print(i,end=''); time.sleep(.8)
     
     except:
         #If the file doesn't exist in the first place
         
         #Create the user_list <--- really a dictionary
-        user_list = {}
+        user_list = {}; print() #make code purty
         
         #Create the admin account and move it into the file
         new_user = pt.Users('Noah (ADMIN)', '1aJ7*', 'noahjack143@gmail.com')
@@ -705,6 +755,15 @@ def PM():
         infile = open('users.dat', 'wb')
         pickle.dump(user_list, infile)
         infile.close()
+        for i in 'The file, users.dat, was not found. Creating it now':
+            print(i,end=''); time.sleep(.02)
+        for i in '...':
+            print(i,end=''); time.sleep(.8)
+        print() #make code purty
+        for i in 'The admin user, Noah (ADMIN), was not found. Creating it now':
+            print(i,end=''); time.sleep(.02)
+        for i in '...':
+            print(i,end=''); time.sleep(.8)
     
     #Set a boolean variable for the menu
     leave = False
@@ -762,6 +821,8 @@ def PM():
             break
         
 def show_users(user_list):
+    #show users accepts one argument, a dictionary
+    #it display the names within the dictionary to the user, if any
     
     #Add a try block to checking purposes
     try:
@@ -792,6 +853,10 @@ def show_users(user_list):
         return user_list
     
 def add_users(user_list):
+    #add users accepts one argument, a dictionary
+    #for every time the user wants to, it will ask the user
+    #for a name, a password, and a email for the user. It
+    #will then add the information to the dictionary
     
     #Loop until the user no longer wants to add users
     while True:
@@ -927,6 +992,9 @@ def add_users(user_list):
             return user_list
         
 def save_users(user_list):
+    #save users accepts on argument, a dictionary
+    #if the file, users.dat, exists, it will save
+    #the dictionary to that file
     
     #Have a try block
     try:
@@ -956,6 +1024,9 @@ def save_users(user_list):
         return user_list
         
 def delete_users(user_list):
+    #delete_users accepts one argument, a dictionary
+    #it will display the users within the user list, and it will
+    #ask the user for users to delete.
     
     #Print a message before displaying the users
     print('Here is a list of the users:\n')
@@ -989,6 +1060,9 @@ def delete_users(user_list):
         
         #If the user is in the user_list, continue with the function
         if not existence:
+            #Tell the user
+            print('\nPlease enter the username of user that exists.')
+            time.sleep(2) #This is here to give the user time to read
             continue
         else:
             
@@ -1000,24 +1074,24 @@ def delete_users(user_list):
                 for user in user_list:
                     if wanted_user == user_list[user][1]:
                         del user_list[user]
-                        print('User successfully deleted.')
+                        print('\nUser successfully deleted.')
+                        time.sleep(2) #This is here to give the user time to read
                         break
-                    i += 1
             else:
                 #If they change their mind, move along
                 if wanted_user != 'Noah (ADMIN)':print(f'The user, {wanted_user}, will not be deleted.')
-                else:print('You can not delete the admin account, Noah (ADMIN)')
-                continue
-        
+                else:print('\nYou can not delete the admin account, Noah (ADMIN)')
+                time.sleep(3) #This is here to give the user time to read
+
         #Ask the user if they would like to delete another user
-        cont = input('Would you like to delete another user? (y/n) ')
+        cont = input('\nWould you like to delete another user? (y/n) ')
         
         #Check the response and move accordingly
         if cont == 'y':
             continue
         else:
-            print('WARNING: Be sure to save the users list before leaving the Password Menu.')
-            time.sleep(3) #This is here to give the user time to read
+            print('\nWARNING: Be sure to save the users list before leaving the Password Menu.')
+            time.sleep(5) #This is here to give the user time to read
             break
     
     #Return the user list

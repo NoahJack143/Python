@@ -27,4 +27,3 @@ class CashRegister:
         
         #Return the cart
         return cart
-        
