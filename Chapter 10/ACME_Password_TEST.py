@@ -153,6 +153,3 @@ class Users:
         return f'\nUsername: {self.__username}\nPassword: {self.__password}\nEmail: {self.__email}'
     
     #---Modules---#
-    
-    
-    
